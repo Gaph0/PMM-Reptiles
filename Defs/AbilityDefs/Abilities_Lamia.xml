@@ -18,7 +18,7 @@
 		<defName>PMM_Ability_TailGrapple</defName>
 		<label>tail grapple</label>
 		<description>Lash out with her tail and drag the victim into her coils. Constricted victims cannot get away while her teasing embrace wears their will down.</description>
-		<iconPath>UI/Abilities/Longjump</iconPath>
+		<iconPath>UI/Abilities/PMM_TailGrapple</iconPath>
 		<cooldownTicksRange>15000</cooldownTicksRange>
 		<hostile>true</hostile>
 		<casterMustBeCapableOfViolence>true</casterMustBeCapableOfViolence>

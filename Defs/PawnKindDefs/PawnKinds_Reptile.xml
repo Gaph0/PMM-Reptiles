@@ -17,6 +17,8 @@
 		<chemicalAddictionChance>0.05</chemicalAddictionChance>
 		<invNutrition>2.55</invNutrition>
 		<invFoodDef>Pemmican</invFoodDef>
+		<initialWillRange>0~4</initialWillRange>
+		<initialResistanceRange>4~17</initialResistanceRange>
 		<apparelTags>
 			<li>Neolithic</li>
 		</apparelTags>

@@ -11,8 +11,9 @@
 	-->
 	<ThingDef Abstract="True" Name="PMM_ReptileEggBase" ParentName="OrganicProductBase">
 		<graphicData>
-			<texPath>Things/Item/Resource/AnimalProductRaw/EggBirdSmall</texPath>
+			<texPath>Things/Item/Resource/PMM_ReptileEgg</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+			<color>(196,188,150)</color>
 		</graphicData>
 		<socialPropernessMatters>true</socialPropernessMatters>
 		<statBases>

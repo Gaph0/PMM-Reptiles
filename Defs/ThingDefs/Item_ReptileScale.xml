@@ -18,10 +18,12 @@
 		</thingCategories>
 		<stackLimit>75</stackLimit>
 		<graphicData>
-			<texPath>Things/Item/Resource/Leather</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Item/Resource/PMM_ReptileScale</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<color>(126,148,84)</color>
 		</graphicData>
 		<statBases>
+			<Mass>0.03</Mass>
 			<MarketValue>3.5</MarketValue>
 			<StuffPower_Armor_Sharp>1.1</StuffPower_Armor_Sharp>
 			<StuffPower_Armor_Blunt>0.3</StuffPower_Armor_Blunt>

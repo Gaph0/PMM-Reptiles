@@ -53,7 +53,7 @@
 		<leaderTitle>dragon lady</leaderTitle>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
 		<startingCountAtWorldCreation>4</startingCountAtWorldCreation>
-		<factionIconPath>World/WorldObjects/Expanding/Town</factionIconPath>
+		<factionIconPath>World/WorldObjects/Expanding/PMM_DragoniaHold</factionIconPath>
 		<factionNameMaker>PMM_NamerFactionDragonia</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementDragonia</settlementNameMaker>
 		<colorSpectrum>
@@ -102,7 +102,7 @@
 		<canStageAttacks>true</canStageAttacks>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
 		<startingCountAtWorldCreation>3</startingCountAtWorldCreation>
-		<factionIconPath>World/WorldObjects/Expanding/VillageSavage</factionIconPath>
+		<factionIconPath>World/WorldObjects/Expanding/PMM_BroodNest</factionIconPath>
 		<factionNameMaker>PMM_NamerFactionBroods</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementBroods</settlementNameMaker>
 		<requiredMemes>
