@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Shared base for both reptile momo factions. Medieval tech (locked ruling),
+		tribal backstories (the closest vanilla pool to medieval mountain-folk),
+		tribal raid loot. The mountain-only settlement placement is NOT expressible
+		in XML: PMM_Reptiles.Patch_RandomSettlementTileFor enforces it in C#.
+		With the core mod's DisableVisibleFactions patch removing all vanilla
+		factions, these two are the only world factions, so the counts stay modest:
+		Dragonia 4 settlements, the Broods 3.
+	-->
+	<FactionDef ParentName="FactionBase" Name="PMM_ReptileFactionBase" Abstract="True">
+		<categoryTag>Reptile</categoryTag>
+		<listOrderPriority>25</listOrderPriority>
+		<settlementGenerationWeight>1</settlementGenerationWeight>
+		<techLevel>Medieval</techLevel>
+		<maxConfigurableAtWorldCreation>10</maxConfigurableAtWorldCreation>
+		<configurationListOrderPriority>25</configurationListOrderPriority>
+		<allowedCultures>
+			<li>Corunan</li>
+		</allowedCultures>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>Tribal</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<raidLootMaker>TribeRaidLootMaker</raidLootMaker>
+		<maxPawnCostPerTotalPointsCurve>
+			<points>
+				<li>(0,35)</li>
+				<li>(70, 50)</li>
+				<li>(700, 100)</li>
+				<li>(1300, 150)</li>
+				<li>(100000, 10000)</li>
+			</points>
+		</maxPawnCostPerTotalPointsCurve>
+	</FactionDef>
+
+	<!--
+		Dragonia, the neutral faction (locked ruling). A mountain realm where dragons
+		and humans coexist: not a natural enemy, not a siege faction, no forced memes —
+		its ideoligions roll freely. Can be befriended, traded with later, and offended.
+	-->
+	<FactionDef ParentName="PMM_ReptileFactionBase">
+		<defName>PMM_DragoniaFaction</defName>
+		<label>Dragonia</label>
+		<description>A great mountain realm where dragons and humans coexist. The dragonians keep to their high valleys and natural fortresses, trading tales of their lady-knights and the great wyrms they answer to. They want no quarrel with outsiders - but their peaks are not defenceless.</description>
+		<pawnSingular>dragonian</pawnSingular>
+		<pawnsPlural>dragonians</pawnsPlural>
+		<leaderTitle>dragon lady</leaderTitle>
+		<requiredCountAtGameStart>1</requiredCountAtGameStart>
+		<startingCountAtWorldCreation>4</startingCountAtWorldCreation>
+		<factionIconPath>World/WorldObjects/Expanding/Town</factionIconPath>
+		<factionNameMaker>PMM_NamerFactionDragonia</factionNameMaker>
+		<settlementNameMaker>PMM_NamerSettlementDragonia</settlementNameMaker>
+		<colorSpectrum>
+			<li>(0.45, 0.65, 0.25)</li>
+			<li>(0.85, 0.75, 0.35)</li>
+		</colorSpectrum>
+		<pawnGroupMakers>
+			<li>
+				<kindDef>Combat</kindDef>
+				<options>
+					<PMM_DragoniaVillager>5</PMM_DragoniaVillager>
+					<PMM_DragoniaWarrior>10</PMM_DragoniaWarrior>
+					<PMM_DragoniaArcher>8</PMM_DragoniaArcher>
+					<PMM_DragoniaKnight>3</PMM_DragoniaKnight>
+				</options>
+			</li>
+			<li>
+				<kindDef>Peaceful</kindDef>
+				<options>
+					<PMM_DragoniaVillager>20</PMM_DragoniaVillager>
+					<PMM_DragoniaWarrior>5</PMM_DragoniaWarrior>
+					<PMM_DragoniaArcher>5</PMM_DragoniaArcher>
+					<PMM_DragoniaKnight>2</PMM_DragoniaKnight>
+				</options>
+			</li>
+		</pawnGroupMakers>
+	</FactionDef>
+
+	<!--
+		The Scalebound Broods, the hostile lewdist faction (locked rulings):
+		permanent enemy, sieges and staged attacks, and EVERY brood ideoligion is
+		forced to include the Monster Extremists meme - and no other required meme -
+		via requiredMemes (the vanilla OutlanderRoughBase/Supremacist pattern; the
+		meme is a Misc-group meme, not a structure meme, so structureMemeWeights
+		would not apply).
+	-->
+	<FactionDef ParentName="PMM_ReptileFactionBase">
+		<defName>PMM_ScaleboundBroodsFaction</defName>
+		<label>Scalebound broods</label>
+		<description>Lewdist sisterhoods of the high peaks, driven by a monstrous creed: the baseline human form is a larval state, unworthy of respect. Their raiders descend from the mountains to claim men and remake women - and their lamia coil-sisters delight in the catching.</description>
+		<pawnSingular>scalebound</pawnSingular>
+		<pawnsPlural>scalebound</pawnsPlural>
+		<leaderTitle>brood matriarch</leaderTitle>
+		<permanentEnemy>true</permanentEnemy>
+		<canSiege>true</canSiege>
+		<canStageAttacks>true</canStageAttacks>
+		<requiredCountAtGameStart>1</requiredCountAtGameStart>
+		<startingCountAtWorldCreation>3</startingCountAtWorldCreation>
+		<factionIconPath>World/WorldObjects/Expanding/VillageSavage</factionIconPath>
+		<factionNameMaker>PMM_NamerFactionBroods</factionNameMaker>
+		<settlementNameMaker>PMM_NamerSettlementBroods</settlementNameMaker>
+		<requiredMemes>
+			<li MayRequire="Ludeon.RimWorld.Ideology">ProjectMomo_Meme_MonsterExtremists</li>
+		</requiredMemes>
+		<colorSpectrum>
+			<li>(0.65, 0.1, 0.2)</li>
+			<li>(0.85, 0.45, 0.6)</li>
+		</colorSpectrum>
+		<pawnGroupMakers>
+			<li>
+				<kindDef>Combat</kindDef>
+				<options>
+					<PMM_BroodRaider>10</PMM_BroodRaider>
+					<PMM_BroodArcher>6</PMM_BroodArcher>
+					<PMM_BroodGrappler>8</PMM_BroodGrappler>
+					<PMM_BroodMatriarch>2</PMM_BroodMatriarch>
+				</options>
+			</li>
+		</pawnGroupMakers>
+	</FactionDef>
+
+</Defs>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<PMM_Reptiles_ShedScales>{PAWN_labelShort} has shed her old scales.</PMM_Reptiles_ShedScales>
+
+	<PMM_Reptiles_GrappleCaught>{VICTIM_labelShort} is caught in {LAMIA_labelShort}'s coils!</PMM_Reptiles_GrappleCaught>
+
+</LanguageData>

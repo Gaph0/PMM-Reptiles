@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Fertilized reptile momo egg, the Alpha Genes AG_HumanEgg pattern: an
+		OrganicProductBase item in the EggsFertilized category, stackLimit 1, ruined
+		outside 0-50 C, and VEF.Genes.CompProperties_HumanHatcher ticks a 15-day
+		gestation then hatches the stored baby (9 days to lay + 15 to hatch = 24 days
+		total, matching Alpha Genes' pacing). Momo eggs are not edible (no ingestible
+		block), so they can never be cooked or eaten by accident.
+	-->
+	<ThingDef Abstract="True" Name="PMM_ReptileEggBase" ParentName="OrganicProductBase">
+		<graphicData>
+			<texPath>Things/Item/Resource/AnimalProductRaw/EggBirdSmall</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<statBases>
+			<Mass>0.5</Mass>
+			<MaxHitPoints>20</MaxHitPoints>
+			<Flammability>0.7</Flammability>
+			<MarketValue>100</MarketValue>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<thingCategories>
+			<li>EggsFertilized</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_TemperatureRuinable">
+				<minSafeTemperature>0</minSafeTemperature>
+				<maxSafeTemperature>50</maxSafeTemperature>
+				<progressPerDegreePerTick>0.00003</progressPerDegreePerTick>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="PMM_ReptileEggBase">
+		<defName>PMM_ReptileEggFertilized</defName>
+		<label>reptile egg (fert.)</label>
+		<description>A fertilized reptile momo egg. If all goes well, it should hatch into a baby girl. Must be kept between 0 and 50 °C.</description>
+		<comps>
+			<li Class="VEF.Genes.CompProperties_HumanHatcher">
+				<hatcherDaystoHatch>15</hatcherDaystoHatch>
+			</li>
+		</comps>
+	</ThingDef>
+
+</Defs>

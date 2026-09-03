@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- Dragonia faction names, e.g. "The Wyrmhold Compact", "Emberpeak Thrones" -->
+	<RulePackDef>
+		<defName>PMM_NamerFactionDragonia</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>r_name->The [dragonWord] [unionWord]</li>
+				<li>r_name->The [unionWord] of [dragonWord]</li>
+				<li>r_name->The [peakWord] [unionWord]</li>
+				<li>r_name->[peakWord] [unionWord]</li>
+
+				<li>dragonWord->Wyrm</li>
+				<li>dragonWord->Dragon</li>
+				<li>dragonWord->Drake</li>
+				<li>dragonWord->Wyvern</li>
+				<li>dragonWord->Great Wyrm</li>
+				<li>dragonWord->Ember Wyrm</li>
+
+				<li>peakWord->Wyrmhold</li>
+				<li>peakWord->Drakehold</li>
+				<li>peakWord->Emberpeak</li>
+				<li>peakWord->Stormpeak</li>
+				<li>peakWord->Highperch</li>
+				<li>peakWord->Scalehome</li>
+
+				<li>unionWord->Thrones</li>
+				<li>unionWord->Holdfast</li>
+				<li>unionWord->Realm</li>
+				<li>unionWord->Compact</li>
+				<li>unionWord->Holds</li>
+				<li>unionWord->Dominion</li>
+			</rulesStrings>
+		</rulePack>
+	</RulePackDef>
+
+	<!-- Dragonia settlement names, e.g. "Wyrmrest", "Ember Crag" -->
+	<RulePackDef>
+		<defName>PMM_NamerSettlementDragonia</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>r_name(p=2)->[settleWord]</li>
+				<li>r_name->[settleWord] [cragWord]</li>
+				<li>r_name->[cragWord] [settleWord]</li>
+
+				<li>settleWord->Wyrmrest</li>
+				<li>settleWord->Drakewatch</li>
+				<li>settleWord->Scaleford</li>
+				<li>settleWord->Emberfell</li>
+				<li>settleWord->Dragonrest</li>
+				<li>settleWord->Hoardshire</li>
+				<li>settleWord->Flamegard</li>
+				<li>settleWord->Wyrmgate</li>
+
+				<li>cragWord->Crag</li>
+				<li>cragWord->Peak</li>
+				<li>cragWord->Hold</li>
+				<li>cragWord->Roost</li>
+				<li>cragWord->Spire</li>
+				<li>cragWord->Vale</li>
+			</rulesStrings>
+		</rulePack>
+	</RulePackDef>
+
+	<!-- Broods faction names, e.g. "The Coil Sisters", "Sisters of the Shed Scale" -->
+	<RulePackDef>
+		<defName>PMM_NamerFactionBroods</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>r_name->The [coilWord] [sisterWord]</li>
+				<li>r_name->The [sisterWord] of the [relicWord]</li>
+				<li>r_name->The [relicWord] [sisterWord]</li>
+
+				<li>coilWord->Coil</li>
+				<li>coilWord->Serpent</li>
+				<li>coilWord->Fang</li>
+				<li>coilWord->Venom</li>
+				<li>coilWord->Scale</li>
+
+				<li>sisterWord->Sisters</li>
+				<li>sisterWord->Broods</li>
+				<li>sisterWord->Brides</li>
+				<li>sisterWord->Daughters</li>
+				<li>sisterWord->Mothers</li>
+
+				<li>relicWord->Shed Scale</li>
+				<li>relicWord->Warm Egg</li>
+				<li>relicWord->First Coil</li>
+				<li>relicWord->Dark Brood</li>
+				<li>relicWord->Sun Stone</li>
+			</rulesStrings>
+		</rulePack>
+	</RulePackDef>
+
+	<!-- Broods settlement names, e.g. "Coilnest", "Brood Hollow" -->
+	<RulePackDef>
+		<defName>PMM_NamerSettlementBroods</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>r_name(p=2)->[nestWord]</li>
+				<li>r_name->[nestWord] [hollowWord]</li>
+				<li>r_name->The [nestWord]</li>
+
+				<li>nestWord->Coilnest</li>
+				<li>nestWord->Fangrest</li>
+				<li>nestWord->Eggcairn</li>
+				<li>nestWord->Snakehollow</li>
+				<li>nestWord->Broodhome</li>
+				<li>nestWord->Venomcleft</li>
+				<li>nestWord->Shedden</li>
+
+				<li>hollowWord->Hollow</li>
+				<li>hollowWord->Nest</li>
+				<li>hollowWord->Den</li>
+				<li>hollowWord->Pit</li>
+				<li>hollowWord->Cradle</li>
+			</rulesStrings>
+		</rulePack>
+	</RulePackDef>
+
+</Defs>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Lamia tail grapple, granted by PMM_Gene_LamiaTail (the Dorome mud-merge
+		pattern): the vanilla ability system runs the gizmo and the 6-hour cooldown
+		from cooldownTicksRange, so there is no custom cooldown state. The comp effect
+		(PMM_Reptiles.CompProperties_AbilityTailGrapple) validates the target (pawn,
+		no mechanoids, body size cap, not already constricted), drags the victim to a
+		cell adjacent to the lamia, and applies PMM_Hediff_Constricted.
+
+		hostile = true, so Scalebound Brood raiders use it on their own (the impid
+		fire-spew precedent: gene-granted hostile abilities are used by hostile pawns
+		with no extra AI work). Icon placeholder reuses Biotech's longjump ability
+		icon (a forced relocation).
+	-->
+	<AbilityDef>
+		<defName>PMM_Ability_TailGrapple</defName>
+		<label>tail grapple</label>
+		<description>Lash out with her tail and drag the victim into her coils. Constricted victims cannot get away while her teasing embrace wears their will down.</description>
+		<iconPath>UI/Abilities/Longjump</iconPath>
+		<cooldownTicksRange>15000</cooldownTicksRange>
+		<hostile>true</hostile>
+		<casterMustBeCapableOfViolence>true</casterMustBeCapableOfViolence>
+		<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+		<disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
+		<verbProperties>
+			<verbClass>Verb_CastAbility</verbClass>
+			<range>5</range>
+			<warmupTime>1.0</warmupTime>
+			<requireLineOfSight>true</requireLineOfSight>
+			<targetParams>
+				<canTargetLocations>false</canTargetLocations>
+				<canTargetPawns>true</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>false</canTargetSelf>
+			</targetParams>
+		</verbProperties>
+		<comps>
+			<li Class="PMM_Reptiles.CompProperties_AbilityTailGrapple"/>
+		</comps>
+	</AbilityDef>
+
+</Defs>

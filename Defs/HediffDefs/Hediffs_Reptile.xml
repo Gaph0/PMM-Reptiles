@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Oviparous (whole-body, attached by the reptilian gene's VEF GeneExtension).
+		VEF's egg-layer comp replaces a human pregnancy with egg-laying, the Alpha
+		Genes AG_HumanEggLaying pattern: progress builds over eggLayIntervalDays,
+		a pregnancy fertilizes it (VEF captures the genetics and removes the birth),
+		and exactly one PMM_ReptileEggFertilized is laid. With no eggUnfertilizedDef
+		set, only fertilized eggs are ever laid. femaleDominant nudges the hatch
+		toward daughters — momo babies are always girls either way (our assembly's
+		hatch compat shim enforces the full core inheritance rules).
+	-->
+	<HediffDef>
+		<defName>PMM_Hediff_EggLaying</defName>
+		<label>oviparous</label>
+		<description>Females with this gene lay eggs instead of giving live birth.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<scenarioCanAdd>false</scenarioCanAdd>
+		<maxSeverity>1.0</maxSeverity>
+		<isBad>false</isBad>
+		<comps>
+			<li Class="VEF.Genes.HediffCompProperties_HumanEggLayer">
+				<eggFertilizedDef>PMM_ReptileEggFertilized</eggFertilizedDef>
+				<eggLayIntervalDays>9</eggLayIntervalDays>
+				<eggLayFemaleOnly>true</eggLayFemaleOnly>
+				<eggProgressUnfertilizedMax>0.5</eggProgressUnfertilizedMax>
+				<femaleDominant>true</femaleDominant>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!--
+		Yearly shedding. Invisible marker hediff (the hediffClass overrides Visible to
+		false — the slime-jelly-oozing pattern) added and removed by the reptilian gene;
+		the comp runs the countdown and drops the scales. 60 days = one RimWorld year.
+	-->
+	<HediffDef>
+		<defName>PMM_Hediff_Shedding</defName>
+		<label>shedding</label>
+		<description>This reptile's scales are slowly loosening for her yearly shed.</description>
+		<hediffClass>PMM_Reptiles.Hediff_Shedding</hediffClass>
+		<isBad>false</isBad>
+		<everCurableByItem>false</everCurableByItem>
+		<initialSeverity>1</initialSeverity>
+		<maxSeverity>1</maxSeverity>
+		<comps>
+			<li Class="PMM_Reptiles.HediffCompProperties_Shedding">
+				<intervalDays>60</intervalDays>
+				<scaleCount>10~20</scaleCount>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!--
+		Constricted in a lamia's coils. Applied by the tail-grapple ability. The Moving
+		offset roots the victim (5% move: effectively held, but NOT downed — she can
+		still fight back); the custom hediff class ticks tease damage from the core
+		mod's tease system and releases the victim when its timer runs out or the
+		constrictor is downed, killed, or no longer adjacent.
+	-->
+	<HediffDef>
+		<defName>PMM_Hediff_Constricted</defName>
+		<label>constricted</label>
+		<description>Wrapped in a lamia's crushing coils — unable to pull free, willpower melting under her teasing embrace.</description>
+		<hediffClass>PMM_Reptiles.Hediff_Constricted</hediffClass>
+		<defaultLabelColor>(1.0, 0.6, 0.8)</defaultLabelColor>
+		<isBad>true</isBad>
+		<initialSeverity>1</initialSeverity>
+		<maxSeverity>1</maxSeverity>
+		<everCurableByItem>false</everCurableByItem>
+		<stages>
+			<li>
+				<label>constricted</label>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.95</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+
+</Defs>

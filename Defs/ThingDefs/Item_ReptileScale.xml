@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Reptile scales: the yearly-shed material. stuffProps category Leathery — the
+		same category wools and leathers share — so every recipe and apparel bill that
+		accepts leather or wool accepts these. Stat flavour per the plan: better sharp
+		armour than plain leather, decent heat insulation, poor cold insulation
+		(cold-blooded scales do not trap warmth). Icon reuses the vanilla leather
+		texture, tinted scale-green by the stuff colour.
+	-->
+	<ThingDef ParentName="ResourceBase">
+		<defName>PMM_ReptileScale</defName>
+		<label>reptile scales</label>
+		<description>Scales shed by a reptile momo. Supple yet hard, they can be worked like fine leather for crafting and tailoring.</description>
+		<thingCategories>
+			<li>Leathers</li>
+		</thingCategories>
+		<stackLimit>75</stackLimit>
+		<graphicData>
+			<texPath>Things/Item/Resource/Leather</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>3.5</MarketValue>
+			<StuffPower_Armor_Sharp>1.1</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.3</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>0.8</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>8</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>14</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps>
+			<categories>
+				<li>Leathery</li>
+			</categories>
+			<stuffAdjective>reptile scale</stuffAdjective>
+			<commonality>0.07</commonality>
+			<color>(126,148,84)</color>
+		</stuffProps>
+	</ThingDef>
+
+</Defs>

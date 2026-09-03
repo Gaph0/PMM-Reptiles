@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Reptilian gene. Pure-XML parts: a modest sharp armour offset and a +10 C minimum
+		comfortable temperature (cold-blooded: the whole comfort band shifts up).
+
+		C# parts: PMM_Reptiles.Gene_Reptile adds/removes the hidden PMM_Hediff_Shedding
+		hediff in PostAdd/PostRemove (the slime-gel oozing pattern); the hediff's comp
+		drops a stack of PMM_ReptileScale once a year.
+
+		VEF part: the GeneExtension modExtension attaches PMM_Hediff_EggLaying to the
+		whole body, whose VEF.Genes.HediffCompProperties_HumanEggLayer replaces live
+		birth with a single fertilized egg (the Alpha Genes AG_EggLaying pattern).
+
+		Endogenes-only, not in the tradeable gene pool (same ruling as the slime gel gene).
+	-->
+	<GeneDef>
+		<defName>PMM_Gene_Reptile</defName>
+		<label>reptilian</label>
+		<labelShortAdj>reptilian</labelShortAdj>
+		<description>Carriers of this gene have the cold-blooded body of a reptile momo: tough scales that blunt cuts and claws, a warmth-loving disposition, and a body that lays a single egg rather than birthing live young. Once a year she sheds her old scales, which can be worked like fine leather.</description>
+		<geneClass>PMM_Reptiles.Gene_Reptile</geneClass>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>2</biostatCpx>
+		<biostatMet>1</biostatMet>
+		<statOffsets>
+			<!-- Modest sharp resistance (locked ruling). -->
+			<ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+			<!-- Cold-blooded: comfortable band shifted 10 degrees warmer. -->
+			<ComfyTemperatureMin>10</ComfyTemperatureMin>
+		</statOffsets>
+		<customEffectDescriptions>
+			<li>Tough scales: modest resistance to sharp damage.</li>
+			<li>Cold-blooded: minimum comfortable temperature raised by 10°C.</li>
+			<li>Lays a single fertilized egg instead of giving live birth.</li>
+			<li>Sheds her scales once a year, leaving a stack of workable reptile scales.</li>
+		</customEffectDescriptions>
+		<modExtensions>
+			<li Class="VEF.Genes.GeneExtension">
+				<hediffToWholeBody>PMM_Hediff_EggLaying</hediffToWholeBody>
+			</li>
+		</modExtensions>
+	</GeneDef>
+
+	<!--
+		Lamia tail gene. Grants the tail-grapple ability through the vanilla
+		gene-granted-ability block (the Dorome mud-merge / Genie wish pattern): the
+		vanilla ability system runs the gizmo and cooldown; the comp effect drags the
+		victim adjacent and applies PMM_Hediff_Constricted. No custom gene class needed.
+	-->
+	<GeneDef>
+		<defName>PMM_Gene_LamiaTail</defName>
+		<label>lamia tail</label>
+		<labelShortAdj>lamia-tailed</labelShortAdj>
+		<description>Carriers of this gene have the long, powerful serpent tail of a lamia. In a fight she can lash out with it, drag an opponent into her coils, and constrict them while she teases their will away.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>1</biostatCpx>
+		<biostatMet>1</biostatMet>
+		<abilities>
+			<li>PMM_Ability_TailGrapple</li>
+		</abilities>
+		<customEffectDescriptions>
+			<li>Can grapple an opponent with her tail: drags them into her coils and constricts them, building tease damage until their will breaks.</li>
+		</customEffectDescriptions>
+	</GeneDef>
+
+</Defs>
