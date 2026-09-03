@@ -7,15 +7,17 @@ using Verse;
 namespace PMM_Reptiles
 {
     /// <summary>
-    /// Reptile factions only settle mountains. Vanilla offers no XML hook for
-    /// per-faction settlement tile filters, so this postfix re-rolls the result
-    /// of TileFinder.RandomSettlementTileFor for our two factions until the tile
-    /// is Mountainous (chaining the caller's own extraValidator, so every other
-    /// vanilla rule still applies). After 30 failed tries it relaxes to
-    /// LargeHills, and after 30 more it accepts the original result — worldgen
-    /// must never soft-lock. Overhead-mountain map areas (caves) come free on
-    /// mountainous tiles, which is why the "mountains and caves" ruling reduces
-    /// to a hilliness check.
+    /// Reptile factions only settle mountains — never hills (locked ruling:
+    /// LargeHills are off-theme). Vanilla offers no XML hook for per-faction
+    /// settlement tile filters, so this postfix re-rolls the result of
+    /// TileFinder.RandomSettlementTileFor for our two factions until the tile is
+    /// Mountainous (chaining the caller's own extraValidator, so every other
+    /// vanilla rule still applies). 300 re-rolls × TileFinder's own 500 candidates
+    /// ≈ 150k samples, which finds a mountain in any world that has them at all.
+    /// TileFinder can never throw on failure — it logs and returns PlanetTile(0) —
+    /// so even a mountainless world degrades gracefully rather than soft-locking.
+    /// Overhead-mountain map areas (caves) come free on mountainous tiles, which
+    /// is why the "mountains and caves" ruling reduces to a hilliness check.
     ///
     /// Both overloads are patched, since which one a caller uses is unspecified.
     /// A reentrancy flag keeps the postfix's own re-roll calls (which pass
@@ -32,26 +34,21 @@ namespace PMM_Reptiles
                 || def == ReptileDefOf.PMM_ScaleboundBroodsFaction;
         }
 
-        private static bool HillinessOk(PlanetTile tile, bool strict)
+        private static bool IsMountain(PlanetTile tile)
         {
             if (tile == PlanetTile.Invalid)
             {
                 return false;
             }
             Tile worldTile = Find.WorldGrid[tile];
-            if (worldTile == null)
-            {
-                return false;
-            }
-            return strict
-                ? worldTile.hilliness == Hilliness.Mountainous
-                : worldTile.hilliness >= Hilliness.LargeHills;
+            return worldTile != null && worldTile.hilliness == Hilliness.Mountainous;
         }
 
         /// <summary>
         /// Re-roll through <paramref name="invoke"/> (the same overload the caller
-        /// used) with a hilliness validator chained onto the caller's validator.
-        /// Returns PlanetTile.Invalid when even the relaxed pass found nothing.
+        /// used) with a mountains-only validator chained onto the caller's
+        /// validator. Returns PlanetTile.Invalid only when no mountain could be
+        /// found at all.
         /// </summary>
         public static PlanetTile Reroll(Func<Predicate<PlanetTile>, PlanetTile> invoke,
             Predicate<PlanetTile> extraValidator)
@@ -59,19 +56,10 @@ namespace PMM_Reptiles
             rerolling = true;
             try
             {
-                for (int i = 0; i < 30; i++)
+                for (int i = 0; i < 300; i++)
                 {
                     PlanetTile candidate = invoke(
-                        t => HillinessOk(t, true) && (extraValidator == null || extraValidator(t)));
-                    if (candidate != PlanetTile.Invalid)
-                    {
-                        return candidate;
-                    }
-                }
-                for (int i = 0; i < 30; i++)
-                {
-                    PlanetTile candidate = invoke(
-                        t => HillinessOk(t, false) && (extraValidator == null || extraValidator(t)));
+                        t => IsMountain(t) && (extraValidator == null || extraValidator(t)));
                     if (candidate != PlanetTile.Invalid)
                     {
                         return candidate;
@@ -92,9 +80,9 @@ namespace PMM_Reptiles
             {
                 return;
             }
-            if (result != PlanetTile.Invalid && HillinessOk(result, false))
+            if (result != PlanetTile.Invalid && IsMountain(result))
             {
-                return; // already in the hills or better
+                return; // already mountainous
             }
             PlanetTile mountain = Reroll(invoke, extraValidator);
             if (mountain != PlanetTile.Invalid)
@@ -105,7 +93,10 @@ namespace PMM_Reptiles
                     Log.Message($"[PMM Reptiles] Moved {faction.def.defName} settlement to {HillinessOf(mountain)} tile {mountain}");
                 }
             }
-            // Nothing found at all: keep the original tile rather than break worldgen.
+            else if (Prefs.DevMode)
+            {
+                Log.Warning($"[PMM Reptiles] No mountain tile found for {faction.def.defName}; keeping vanilla tile {result}");
+            }
         }
 
         private static Hilliness HillinessOf(PlanetTile tile)
