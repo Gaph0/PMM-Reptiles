@@ -57,6 +57,11 @@
 		     settlements. 4 here produced four duplicate Dragonias. One realm only. -->
 		<startingCountAtWorldCreation>1</startingCountAtWorldCreation>
 		<factionIconPath>World/WorldObjects/Expanding/PMM_DragoniaHold</factionIconPath>
+		<!-- settlementTexturePath (NOT factionIconPath) is what Settlement.Material
+		     draws on the world map; leaving it unset throws ArgumentNullException
+		     on every settlement draw. factionIconPath is only the world-creation
+		     UI icon. Vanilla sets both. -->
+		<settlementTexturePath>World/WorldObjects/Expanding/PMM_DragoniaHold</settlementTexturePath>
 		<factionNameMaker>PMM_NamerFactionDragonia</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementDragonia</settlementNameMaker>
 		<colorSpectrum>
@@ -106,6 +111,7 @@
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
 		<startingCountAtWorldCreation>1</startingCountAtWorldCreation>
 		<factionIconPath>World/WorldObjects/Expanding/PMM_BroodNest</factionIconPath>
+		<settlementTexturePath>World/WorldObjects/Expanding/PMM_BroodNest</settlementTexturePath>
 		<factionNameMaker>PMM_NamerFactionBroods</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementBroods</settlementNameMaker>
 		<requiredMemes>
