@@ -100,8 +100,18 @@ namespace PMM_Reptiles
             if (mountain != PlanetTile.Invalid)
             {
                 result = mountain;
+                if (Prefs.DevMode)
+                {
+                    Log.Message($"[PMM Reptiles] Moved {faction.def.defName} settlement to {HillinessOf(mountain)} tile {mountain}");
+                }
             }
             // Nothing found at all: keep the original tile rather than break worldgen.
+        }
+
+        private static Hilliness HillinessOf(PlanetTile tile)
+        {
+            Tile worldTile = Find.WorldGrid[tile];
+            return worldTile?.hilliness ?? Hilliness.Undefined;
         }
     }
 

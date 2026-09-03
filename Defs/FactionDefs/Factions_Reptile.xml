@@ -52,7 +52,10 @@
 		<pawnsPlural>dragonians</pawnsPlural>
 		<leaderTitle>dragon lady</leaderTitle>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
-		<startingCountAtWorldCreation>4</startingCountAtWorldCreation>
+		<!-- startingCountAtWorldCreation is the number of FACTION INSTANCES the
+		     world-creator pre-adds (each gets its own name and settlements) - NOT
+		     settlements. 4 here produced four duplicate Dragonias. One realm only. -->
+		<startingCountAtWorldCreation>1</startingCountAtWorldCreation>
 		<factionIconPath>World/WorldObjects/Expanding/PMM_DragoniaHold</factionIconPath>
 		<factionNameMaker>PMM_NamerFactionDragonia</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementDragonia</settlementNameMaker>
@@ -101,7 +104,7 @@
 		<canSiege>true</canSiege>
 		<canStageAttacks>true</canStageAttacks>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
-		<startingCountAtWorldCreation>3</startingCountAtWorldCreation>
+		<startingCountAtWorldCreation>1</startingCountAtWorldCreation>
 		<factionIconPath>World/WorldObjects/Expanding/PMM_BroodNest</factionIconPath>
 		<factionNameMaker>PMM_NamerFactionBroods</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementBroods</settlementNameMaker>
