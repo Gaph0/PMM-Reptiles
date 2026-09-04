@@ -19,6 +19,15 @@
 		<scenarioCanAdd>false</scenarioCanAdd>
 		<maxSeverity>1.0</maxSeverity>
 		<isBad>false</isBad>
+		<!-- Visible in the Health tab: severity defaults to max (1.0), so the stage
+		     label shows as "egg-bearer". VEF's HediffComp_HumanEggLayer.CompTipStringExtra
+		     supplies the live detail ("Egg progress: x%", "Fertilized", or
+		     "Progress stopped until fertilized") in the tooltip. -->
+		<stages>
+			<li>
+				<label>egg-bearer</label>
+			</li>
+		</stages>
 		<comps>
 			<li Class="VEF.Genes.HediffCompProperties_HumanEggLayer">
 				<eggFertilizedDef>PMM_ReptileEggFertilized</eggFertilizedDef>
