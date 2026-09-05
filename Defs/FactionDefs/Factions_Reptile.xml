@@ -151,6 +151,49 @@
 				</options>
 			</li>
 		</pawnGroupMakers>
+		<!-- Broods loot: dark dragon's blood turns up in their raids and on their
+		     settlements (they harvest it from their own malef dragons). -->
+		<raidLootMaker>PMM_BroodsRaidLootMaker</raidLootMaker>
+		<settlementLootMaker>PMM_BroodsRaidLootMaker</settlementLootMaker>
 	</FactionDef>
+
+	<!--
+		Broods raid/settlement loot: mostly the usual silver and supplies a
+		medieval raider carries, with a chance of a vial of dark dragon's blood
+		(their signature). Count-based so a vial is a discrete find, not a value
+		share; the blood is the draw, the silver is filler.
+	-->
+	<ThingSetMakerDef>
+		<defName>PMM_BroodsRaidLootMaker</defName>
+		<root Class="ThingSetMaker_Sum">
+			<options>
+				<li>
+					<chance>0.5</chance>
+					<thingSetMaker Class="ThingSetMaker_Count">
+						<fixedParams>
+							<filter>
+								<thingDefs>
+									<li>PMM_DarkDragonsBlood</li>
+								</thingDefs>
+							</filter>
+							<countRange>1~2</countRange>
+						</fixedParams>
+					</thingSetMaker>
+				</li>
+				<li>
+					<chance>1.0</chance>
+					<thingSetMaker Class="ThingSetMaker_MarketValue">
+						<fixedParams>
+							<filter>
+								<thingDefs>
+									<li>Silver</li>
+								</thingDefs>
+							</filter>
+						</fixedParams>
+					</thingSetMaker>
+				</li>
+			</options>
+		</root>
+	</ThingSetMakerDef>
 
 </Defs>

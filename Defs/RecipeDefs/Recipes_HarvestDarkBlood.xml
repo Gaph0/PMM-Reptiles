@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Harvest Dark Dragon's Blood: draw a vial of blackened blood from a living
+		Malef Dragon, costing her half her blood. The worker
+		(PMM_Reptiles.Recipe_HarvestDarkBlood) is modelled on vanilla's hemogen
+		extraction — it only operates on a living Malef with enough blood to give,
+		adds a 0.5 BloodLoss hediff, and places the vial. Targeting the torso keeps
+		it a straightforward draw, not a surgery on a specific part.
+	-->
+	<RecipeDef>
+		<defName>PMM_HarvestDarkBlood</defName>
+		<label>harvest dark dragon's blood</label>
+		<description>Draw a vial of dark dragon's blood from a malef dragon. This takes half her blood and leaves her weakened.</description>
+		<workerClass>PMM_Reptiles.Recipe_HarvestDarkBlood</workerClass>
+		<jobString>Harvesting dark dragon's blood.</jobString>
+		<workAmount>1200</workAmount>
+		<requiredMedicine>None</requiredMedicine>
+		<medicationMinCount>0</medicationMinCount>
+		<targetsBodyPart>true</targetsBodyPart>
+		<appliedOnFixedBodyParts>
+			<li>Torso</li>
+		</appliedOnFixedBodyParts>
+		<surgerySuccessChanceFactor>1.0</surgerySuccessChanceFactor>
+		<recipeUsers>
+			<li>Human</li>
+		</recipeUsers>
+		<dontShowIfNoIngredient>true</dontShowIfNoIngredient>
+	</RecipeDef>
+
+</Defs>

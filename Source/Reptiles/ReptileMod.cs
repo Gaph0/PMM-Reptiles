@@ -30,6 +30,7 @@ namespace PMM_Reptiles
         public static HediffDef PMM_Hediff_Petrified;
         public static ThingDef PMM_ReptileScale;
         public static ThingDef PMM_ReptileEggFertilized;
+        public static ThingDef PMM_DarkDragonsBlood;
         public static AbilityDef PMM_Ability_TailGrapple;
         public static AbilityDef PMM_Ability_Petrify;
         public static FactionDef PMM_DragoniaFaction;

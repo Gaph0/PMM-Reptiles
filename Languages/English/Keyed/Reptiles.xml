@@ -10,4 +10,7 @@
 	<PMM_Reptiles_PetrifyThawedText>{PAWN_labelShort} is no longer petrified and wakes from her stony sleep.</PMM_Reptiles_PetrifyThawedText>
 	<PMM_Reptiles_PetrifyThawsIn>Thaws in: {0}</PMM_Reptiles_PetrifyThawsIn>
 
+	<PMM_Reptiles_NotEnoughBlood>{PAWN_labelShort} doesn't have enough blood left to safely harvest.</PMM_Reptiles_NotEnoughBlood>
+	<PMM_Reptiles_HarvestFailedNoBlood>Harvest failed: {PAWN_labelShort} doesn't have enough blood left.</PMM_Reptiles_HarvestFailedNoBlood>
+
 </LanguageData>

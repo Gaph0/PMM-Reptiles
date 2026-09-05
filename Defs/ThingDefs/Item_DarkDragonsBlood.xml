@@ -23,6 +23,10 @@
 		<stackLimit>10</stackLimit>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
+			<!-- Required: DrugPolicy.InitializeIfNeeded sorts all IsDrug defs by CompProperties_Drug.listOrder and NREs without it -->
+			<li Class="CompProperties_Drug">
+				<listOrder>1020</listOrder>
+			</li>
 		</comps>
 		<alwaysHaulable>true</alwaysHaulable>
 		<drawGUIOverlay>true</drawGUIOverlay>
@@ -43,6 +47,7 @@
 			<foodType>Processed</foodType>
 			<preferability>NeverForNutrition</preferability>
 			<drugCategory>Medical</drugCategory>
+			<nurseable>true</nurseable>
 			<ingestEffect>EatVegetarian</ingestEffect>
 			<ingestSound>Meal_Eat</ingestSound>
 			<outcomeDoers>
