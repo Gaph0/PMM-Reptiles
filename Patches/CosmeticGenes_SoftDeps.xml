@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Cosmetic genes from Alpha Genes (sarg.alphagenes) and Cyanobot's Genes
+		(cyanobot.CyanobotsGenes), added as SOFT dependencies via PatchOperationFindMod:
+		each block only runs when its mod is loaded, so the reptile xenotypes work fine
+		without either mod and simply gain extra flavour when they're present. No
+		<modDependencies> entry - these are optional, never required.
+
+		Gene defNames verified against Alpha Genes 1.6 and Cyanobot's Genes 1.6.
+		Each PatchOperationSequence targets the xenotype's <genes> list and appends
+		the cosmetic gene(s).
+	-->
+
+	<!-- ===================== Alpha Genes (sarg.alphagenes) ===================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods><li>Alpha Genes</li></mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+
+				<!-- Dragon: full drakonori body/head/wings (a true dragon's shape). -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Dragon"]/genes</xpath>
+					<value>
+						<li>AG_DrakonoriBody</li>
+						<li>AG_DrakonoriHead</li>
+						<li>AG_DrakonoriWings</li>
+					</value>
+				</li>
+
+				<!-- Malef Dragon: drakonori body/head/wings too (a dark dragon). -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_MalefDragon"]/genes</xpath>
+					<value>
+						<li>AG_DrakonoriBody</li>
+						<li>AG_DrakonoriHead</li>
+						<li>AG_DrakonoriWings</li>
+					</value>
+				</li>
+
+				<!-- Wyvern: drakonori wings (a swift dragon-kin). -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Wyvern"]/genes</xpath>
+					<value>
+						<li>AG_DrakonoriWings</li>
+					</value>
+				</li>
+
+				<!-- (Removed: AG_VenomFangs is a mechanical melee attack, not cosmetic.)
+				     Basilisk keeps its core ProjectMomo_MomoVenom instead. -->
+
+				<!-- Medusa: chameleon (unblinking) gaze. -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Medusa"]/genes</xpath>
+					<value>
+						<li>AG_ChameleonVision</li>
+					</value>
+				</li>
+
+				<!-- (Removed: AG_ClawedHands grants melee claws, not cosmetic.)
+				     Lamia and Bunyip keep the always-on core ProjectMomo_MomoClaws. -->
+
+			</operations>
+		</match>
+	</Operation>
+
+	<!-- ===================== Cyanobot's Genes (cyanobot.CyanobotsGenes) ===================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods><li>Cyanobot's Genes</li></mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+
+				<!-- Every reptile gets slit-pupiled cat eyes (green). NOTE: Cyanobot's
+				     plain Eyes_SlitPupil failed to resolve in-game ("Could not resolve
+				     cross-reference ... Eyes_SlitPupil") even though its 7 CYB_Eyes_* siblings
+				     loaded fine; CYB_Eyes_Cat_Green resolves cleanly and is the same slit-pupil look. -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Basilisk"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Dragon"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Lamia"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Lizardman"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Medusa"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Wurm"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Wyvern"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_MalefDragon"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Dragonewt"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Salamander"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Bunyip"]/genes</xpath>
+					<value><li>CYB_Eyes_Cat_Green</li></value>
+				</li>
+
+				<!-- Serpent-tails: lamia, medusa, bunyip get a leathery tail. -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Lamia"]/genes</xpath>
+					<value><li>CYB_Tail_Leathery</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Medusa"]/genes</xpath>
+					<value><li>CYB_Tail_Leathery</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Bunyip"]/genes</xpath>
+					<value><li>CYB_Tail_Leathery</li></value>
+				</li>
+
+				<!-- (Removed: CYB_Fangs and CYB_Claws are mechanical melee attacks, not
+				     cosmetic.) Claw species keep the always-on core ProjectMomo_MomoClaws;
+				     Basilisk keeps core ProjectMomo_MomoVenom for its bite. -->
+
+				<!-- Head frill: dragon, wyvern, salamander. -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Dragon"]/genes</xpath>
+					<value><li>CYB_HeadFrill</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Wyvern"]/genes</xpath>
+					<value><li>CYB_HeadFrill</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/XenotypeDef[defName="PMM_Salamander"]/genes</xpath>
+					<value><li>CYB_HeadFrill</li></value>
+				</li>
+
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>
