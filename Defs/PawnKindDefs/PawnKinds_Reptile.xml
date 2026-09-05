@@ -40,6 +40,11 @@
 	<PawnKindDef ParentName="PMM_DragoniaBase">
 		<defName>PMM_DragoniaMember</defName>
 		<label>dragonian</label>
+		<!-- factionLeader: after the collapse this is the ONLY kind in the faction's
+		     pawnGroupMakers, and Faction.TryGenerateNewLeader builds its leader-kind
+		     list from groupMaker options flagged factionLeader - without it the leader
+		     is null. The leader is just another member. -->
+		<factionLeader>true</factionLeader>
 		<combatPower>55</combatPower>
 		<itemQuality>Poor</itemQuality>
 		<gearHealthRange>0.5~1.5</gearHealthRange>
@@ -58,6 +63,7 @@
 	<PawnKindDef ParentName="PMM_BroodsBase">
 		<defName>PMM_BroodMember</defName>
 		<label>scalebound</label>
+		<factionLeader>true</factionLeader>
 		<combatPower>55</combatPower>
 		<itemQuality>Poor</itemQuality>
 		<gearHealthRange>0.4~1.4</gearHealthRange>
