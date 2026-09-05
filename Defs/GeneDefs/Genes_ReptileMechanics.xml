@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Placeholder mechanic genes for Phase 2. These define the gene + its label so
+		the xenotype defs resolve; the actual ability/behavior C# lands in the next
+		implementation step (PetrifyPowers.cs, MalefCorruption.cs). Until then they are
+		inert flavour genes.
+	-->
+
+	<!-- Medusa: petrifying gaze. Full behaviour (PMM_Ability_Petrify + freeze hediff) next step. -->
+	<GeneDef>
+		<defName>PMM_Gene_Petrify</defName>
+		<label>petrifying gaze</label>
+		<labelShortAdj>petrifying</labelShortAdj>
+		<description>Carriers of this gene can freeze a victim solid with a look - alive but motionless, hunger and weariness held in perfect stasis, until the spell loosens days later.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>2</biostatCpx>
+		<biostatMet>1</biostatMet>
+		<customEffectDescriptions>
+			<li>Can petrify a victim with her gaze: the target is frozen - downed and unchanging - for two days.</li>
+		</customEffectDescriptions>
+	</GeneDef>
+
+	<!-- Malef Dragon: transform victims. Full behaviour (tease-knockout transform) next step. -->
+	<GeneDef>
+		<defName>PMM_Gene_MalefCorruption</defName>
+		<label>malef corruption</label>
+		<labelShortAdj>corrupting</labelShortAdj>
+		<description>Carriers of this gene remake the women they claim: a baseline victim rises as a dragonewt, and a dragon is blackened into a malef mirror of her seducer.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>2</biostatCpx>
+		<biostatMet>1</biostatMet>
+		<customEffectDescriptions>
+			<li>Women whose will breaks under her teasing are transformed: baselines into dragonewts, dragons into malef dragons.</li>
+		</customEffectDescriptions>
+	</GeneDef>
+
+</Defs>

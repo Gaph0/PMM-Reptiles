@@ -23,6 +23,8 @@ namespace PMM_Reptiles
     {
         public static GeneDef PMM_Gene_Reptile;
         public static GeneDef PMM_Gene_LamiaTail;
+        public static GeneDef PMM_Gene_Petrify;
+        public static GeneDef PMM_Gene_MalefCorruption;
         public static HediffDef PMM_Hediff_Shedding;
         public static HediffDef PMM_Hediff_Constricted;
         public static ThingDef PMM_ReptileScale;
@@ -31,6 +33,19 @@ namespace PMM_Reptiles
         public static FactionDef PMM_DragoniaFaction;
         public static FactionDef PMM_ScaleboundBroodsFaction;
         public static PawnKindDef PMM_BroodGrappler;
+
+        // Per-species scale materials (locked Q5).
+        public static ThingDef PMM_Scale_Basilisk;
+        public static ThingDef PMM_Scale_Dragon;
+        public static ThingDef PMM_Scale_Lamia;
+        public static ThingDef PMM_Scale_Lizardman;
+        public static ThingDef PMM_Scale_Medusa;
+        public static ThingDef PMM_Scale_Wurm;
+        public static ThingDef PMM_Scale_Wyvern;
+        public static ThingDef PMM_Scale_MalefDragon;
+        public static ThingDef PMM_Scale_Dragonewt;
+        public static ThingDef PMM_Scale_Salamander;
+        public static ThingDef PMM_Scale_Bunyip;
 
         static ReptileDefOf()
         {

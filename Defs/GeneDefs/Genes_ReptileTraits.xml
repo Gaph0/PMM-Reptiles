@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Forced-trait genes for the reptile xenotypes, the Biotech KindInstinct pattern:
+		a gene that carries <forcedTraits>, so the personality is germline (wild and
+		colony reptiles share it) rather than a faction-only pawnkind flag. Each is
+		endogenes-only and out of the tradeable pool (canGenerateInGeneSet false).
+		Trait defNames verified against Core Traits_Singular/Traits_Spectrum.
+	-->
+
+	<!-- Dragon: arrogant and greedy, hoard-keeper pride. -->
+	<GeneDef>
+		<defName>PMM_GeneTrait_DragonPride</defName>
+		<label>dragon's pride</label>
+		<labelShortAdj>proud</labelShortAdj>
+		<description>Carriers of this gene are haughty and acquisitive - every one of them a hoard-keeper convinced of her own magnificence.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>0</biostatCpx>
+		<biostatMet>0</biostatMet>
+		<forcedTraits>
+			<li><def>Jealous</def></li>
+			<li><def>Greedy</def></li>
+		</forcedTraits>
+	</GeneDef>
+
+	<!-- Wurm: powerful and very stupid. TooSmart degree -1 = slow thinker. -->
+	<GeneDef>
+		<defName>PMM_GeneTrait_WurmMind</defName>
+		<label>wurm's mind</label>
+		<labelShortAdj>dull</labelShortAdj>
+		<description>Carriers of this gene are slow of thought - all muscle and appetite, with little room left for thinking.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>0</biostatCpx>
+		<biostatMet>0</biostatMet>
+		<forcedTraits>
+			<li><def>TooSmart</def><degree>-1</degree></li>
+		</forcedTraits>
+	</GeneDef>
+
+	<!-- Lizardman: aggressive melee warrior. Bloodlust = loves a fight. -->
+	<GeneDef>
+		<defName>PMM_GeneTrait_LizardmanFury</defName>
+		<label>lizardman's fury</label>
+		<labelShortAdj>fierce</labelShortAdj>
+		<description>Carriers of this gene are born for the melee - quick to anger, happiest with a blade in hand.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>0</biostatCpx>
+		<biostatMet>0</biostatMet>
+		<forcedTraits>
+			<li><def>Bloodlust</def></li>
+		</forcedTraits>
+	</GeneDef>
+
+	<!-- Malef Dragon / Dragonewt: lustful, teasing seducers. -->
+	<GeneDef>
+		<defName>PMM_GeneTrait_Lustful</defName>
+		<label>burning lust</label>
+		<labelShortAdj>lustful</labelShortAdj>
+		<description>Carriers of this gene are consumed by desire, forever hunting the next conquest to tease and claim.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>0</biostatCpx>
+		<biostatMet>0</biostatMet>
+		<forcedTraits>
+			<li><def>Jealous</def></li>
+		</forcedTraits>
+	</GeneDef>
+
+	<!-- Bunyip: very poor talker - abrasive, socially clumsy. -->
+	<GeneDef>
+		<defName>PMM_GeneTrait_BunyipTongue</defName>
+		<label>bunyip's tongue</label>
+		<labelShortAdj>tactless</labelShortAdj>
+		<description>Carriers of this gene are poor, blunt talkers - strong of arm, hopeless with words.</description>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>0</biostatCpx>
+		<biostatMet>0</biostatMet>
+		<forcedTraits>
+			<li><def>Abrasive</def></li>
+		</forcedTraits>
+	</GeneDef>
+
+</Defs>

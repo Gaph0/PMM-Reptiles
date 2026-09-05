@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Wild-momo pawnkinds for the wander-in incidents. Factionless wild creatures
+		(no defaultFactionDef), naked and unarmed like the vanilla WildMan (the slime
+		PMM_SlimeWild pattern), tamed like wild men via the assembly's IsWildMan patch.
+		Each pins exactly one xenotype through xenotypeSet; the wander-in worker rolls
+		the species mix and spawns the matching kind. All adult women.
+	-->
+	<PawnKindDef Name="PMM_ReptileWildBase" Abstract="True">
+		<race>Human</race>
+		<maxGenerationAge>60</maxGenerationAge>
+		<fixedGender>Female</fixedGender>
+		<chemicalAddictionChance>0</chemicalAddictionChance>
+		<apparelIgnorePollution>true</apparelIgnorePollution>
+		<combatPower>50</combatPower>
+		<initialWillRange>0~4</initialWillRange>
+		<initialResistanceRange>4~17</initialResistanceRange>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildBasilisk</defName>
+		<label>basilisk</label>
+		<xenotypeSet><xenotypeChances><PMM_Basilisk>100</PMM_Basilisk></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildLamia</defName>
+		<label>lamia</label>
+		<xenotypeSet><xenotypeChances><PMM_Lamia>100</PMM_Lamia></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildMedusa</defName>
+		<label>medusa</label>
+		<combatPower>70</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_Medusa>100</PMM_Medusa></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildWurm</defName>
+		<label>wurm</label>
+		<combatPower>90</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_Wurm>100</PMM_Wurm></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildDragon</defName>
+		<label>dragon</label>
+		<combatPower>100</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_Dragon>100</PMM_Dragon></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildLizardman</defName>
+		<label>lizardman</label>
+		<combatPower>65</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_Lizardman>100</PMM_Lizardman></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildWyvern</defName>
+		<label>wyvern</label>
+		<combatPower>60</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_Wyvern>100</PMM_Wyvern></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildSalamander</defName>
+		<label>salamander</label>
+		<combatPower>65</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_Salamander>100</PMM_Salamander></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_ReptileWildBase">
+		<defName>PMM_WildBunyip</defName>
+		<label>bunyip</label>
+		<combatPower>70</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_Bunyip>100</PMM_Bunyip></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+</Defs>

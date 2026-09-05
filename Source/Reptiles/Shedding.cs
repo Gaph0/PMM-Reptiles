@@ -112,9 +112,34 @@ namespace PMM_Reptiles
 
         private int IntervalTicks => (int)(Props.intervalDays * GenDate.TicksPerDay);
 
+        /// <summary>
+        /// The scale material this reptile sheds (locked Q5: per-species). Falls back
+        /// to the generic PMM_ReptileScale for any reptile without a species entry
+        /// (e.g. a reptile-gene human with no reptile xenotype).
+        /// </summary>
+        private ThingDef ScaleMaterialFor(Pawn pawn)
+        {
+            string xeno = pawn?.genes?.Xenotype?.defName;
+            switch (xeno)
+            {
+                case "PMM_Basilisk": return ReptileDefOf.PMM_Scale_Basilisk;
+                case "PMM_Dragon": return ReptileDefOf.PMM_Scale_Dragon;
+                case "PMM_Lamia": return ReptileDefOf.PMM_Scale_Lamia;
+                case "PMM_Lizardman": return ReptileDefOf.PMM_Scale_Lizardman;
+                case "PMM_Medusa": return ReptileDefOf.PMM_Scale_Medusa;
+                case "PMM_Wurm": return ReptileDefOf.PMM_Scale_Wurm;
+                case "PMM_Wyvern": return ReptileDefOf.PMM_Scale_Wyvern;
+                case "PMM_MalefDragon": return ReptileDefOf.PMM_Scale_MalefDragon;
+                case "PMM_Dragonewt": return ReptileDefOf.PMM_Scale_Dragonewt;
+                case "PMM_Salamander": return ReptileDefOf.PMM_Scale_Salamander;
+                case "PMM_Bunyip": return ReptileDefOf.PMM_Scale_Bunyip;
+                default: return ReptileDefOf.PMM_ReptileScale;
+            }
+        }
+
         private void DropScales(Pawn pawn)
         {
-            Thing scales = ThingMaker.MakeThing(ReptileDefOf.PMM_ReptileScale);
+            Thing scales = ThingMaker.MakeThing(ScaleMaterialFor(pawn));
             scales.stackCount = Props.scaleCount.RandomInRange;
 
             IntVec3 cell = pawn.Position;

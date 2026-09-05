@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Wild reptile momos wander in. One generic worker (PMM_Reptiles.IncidentWorker_
+		ReptileWandersIn) rolls the species mix and gates on the world tile's habitat;
+		each def below passes its own candidate species through a modExtension, so the
+		habitat rules live in C# (the slime-mod pattern). Wild momos are factionless
+		and tamed like wild men. A low baseChance per habitat keeps them rare; the
+		worker drops species whose habitat doesn't match the tile.
+	-->
+
+	<!-- Cave + mountain dwellers: lamia, basilisk, wurm, wyvern, dragon, medusa, lizardman. -->
+	<IncidentDef>
+		<defName>PMM_ReptileWandersIn</defName>
+		<label>reptile wanders in</label>
+		<category>Misc</category>
+		<targetTags><li>Map_PlayerHome</li></targetTags>
+		<workerClass>PMM_Reptiles.IncidentWorker_ReptileWandersIn</workerClass>
+		<baseChance>0.9</baseChance>
+		<populationEffect>IncreaseMedium</populationEffect>
+		<letterLabel>{0} wanders in</letterLabel>
+		<letterText>A wild {0} has slithered out of the mountains into the area. {PAWN_pronoun}'s called {PAWN_nameDef}.\n\nYou can attempt to tame {PAWN_objective}.</letterText>
+		<letterDef>NeutralEvent</letterDef>
+		<modExtensions>
+			<li Class="PMM_Reptiles.ReptileWildExtension">
+				<candidates>
+					<li>PMM_WildLamia</li>
+					<li>PMM_WildBasilisk</li>
+					<li>PMM_WildWurm</li>
+					<li>PMM_WildWyvern</li>
+					<li>PMM_WildDragon</li>
+					<li>PMM_WildMedusa</li>
+					<li>PMM_WildLizardman</li>
+					<li>PMM_WildSalamander</li>
+				</candidates>
+			</li>
+		</modExtensions>
+	</IncidentDef>
+
+	<!-- Desert wanderers: basilisk. -->
+	<IncidentDef>
+		<defName>PMM_BasiliskWandersIn</defName>
+		<label>basilisk wanders in</label>
+		<category>Misc</category>
+		<targetTags><li>Map_PlayerHome</li></targetTags>
+		<workerClass>PMM_Reptiles.IncidentWorker_ReptileWandersIn</workerClass>
+		<baseChance>0.8</baseChance>
+		<populationEffect>IncreaseMedium</populationEffect>
+		<letterLabel>{0} wanders in</letterLabel>
+		<letterText>A wild {0} has crept out of the wastes into the area. {PAWN_pronoun}'s called {PAWN_nameDef}.\n\nYou can attempt to tame {PAWN_objective}.</letterText>
+		<letterDef>NeutralEvent</letterDef>
+		<modExtensions>
+			<li Class="PMM_Reptiles.ReptileWildExtension">
+				<candidates><li>PMM_WildBasilisk</li></candidates>
+			</li>
+		</modExtensions>
+	</IncidentDef>
+
+	<!-- Wetland wanderers: wurm. -->
+	<IncidentDef>
+		<defName>PMM_WurmWandersIn</defName>
+		<label>wurm wanders in</label>
+		<category>Misc</category>
+		<targetTags><li>Map_PlayerHome</li></targetTags>
+		<workerClass>PMM_Reptiles.IncidentWorker_ReptileWandersIn</workerClass>
+		<baseChance>0.7</baseChance>
+		<populationEffect>IncreaseMedium</populationEffect>
+		<letterLabel>{0} wanders in</letterLabel>
+		<letterText>A wild {0} has lumbered out of the wetlands into the area. {PAWN_pronoun}'s called {PAWN_nameDef}.\n\nYou can attempt to tame {PAWN_objective}.</letterText>
+		<letterDef>NeutralEvent</letterDef>
+		<modExtensions>
+			<li Class="PMM_Reptiles.ReptileWildExtension">
+				<candidates><li>PMM_WildWurm</li></candidates>
+			</li>
+		</modExtensions>
+	</IncidentDef>
+
+	<!-- River/lake wanderers: bunyip. -->
+	<IncidentDef>
+		<defName>PMM_BunyipWandersIn</defName>
+		<label>bunyip wanders in</label>
+		<category>Misc</category>
+		<targetTags><li>Map_PlayerHome</li></targetTags>
+		<workerClass>PMM_Reptiles.IncidentWorker_ReptileWandersIn</workerClass>
+		<baseChance>0.7</baseChance>
+		<populationEffect>IncreaseMedium</populationEffect>
+		<letterLabel>{0} wanders in</letterLabel>
+		<letterText>A wild {0} has hauled herself out of the water into the area. {PAWN_pronoun}'s called {PAWN_nameDef}.\n\nYou can attempt to tame {PAWN_objective}.</letterText>
+		<letterDef>NeutralEvent</letterDef>
+		<modExtensions>
+			<li Class="PMM_Reptiles.ReptileWildExtension">
+				<candidates><li>PMM_WildBunyip</li></candidates>
+			</li>
+		</modExtensions>
+	</IncidentDef>
+
+</Defs>

@@ -3,12 +3,10 @@
 
 	<!--
 		Shared base for reptile faction pawns. Every faction pawn is a woman
-		(momos are always female). No xenotypeSet: xenotypes arrive in a later
-		phase - the assembly's gene-injection shim gives every pawn of these kinds
-		the momo and reptilian genes (plus the lamia tail gene for grapplers) as
-		endogenes right after generation. Villagers wear simple homespun (the
-		Neolithic tag reads as medieval peasant garb); fighting kinds mix in
-		MedievalMilitary mail and plate.
+		(momos are always female). Phase 2: each faction base carries a xenotypeSet
+		rolling the species mix (locked roster) — the phase-1 gene-injection shim is
+		retired. Villagers wear simple homespun (the Neolithic tag reads as medieval
+		peasant garb); fighting kinds mix in MedievalMilitary mail and plate.
 	-->
 	<PawnKindDef Name="PMM_ReptilePawnBase" Abstract="True">
 		<race>Human</race>
@@ -24,12 +22,38 @@
 		</apparelTags>
 	</PawnKindDef>
 
+	<!-- Dragonia roster (locked): Dragon + Lizardman exclusive; plus the shared
+	     Lamia, Basilisk, Medusa, Wurm, Wyvern. Weights sum to ~100. -->
 	<PawnKindDef Name="PMM_DragoniaBase" ParentName="PMM_ReptilePawnBase" Abstract="True">
 		<defaultFactionDef>PMM_DragoniaFaction</defaultFactionDef>
+		<xenotypeSet>
+			<xenotypeChances>
+				<PMM_Lizardman>25</PMM_Lizardman>
+				<PMM_Wyvern>20</PMM_Wyvern>
+				<PMM_Lamia>20</PMM_Lamia>
+				<PMM_Basilisk>15</PMM_Basilisk>
+				<PMM_Wurm>12</PMM_Wurm>
+				<PMM_Dragon>6</PMM_Dragon>
+				<PMM_Medusa>2</PMM_Medusa>
+			</xenotypeChances>
+		</xenotypeSet>
 	</PawnKindDef>
 
+	<!-- Scalebound Broods roster (locked): Malef Dragon, Dragonewt, Salamander
+	     exclusive; plus the shared Lamia, Basilisk, Medusa, Wurm. Weights sum to ~100. -->
 	<PawnKindDef Name="PMM_BroodsBase" ParentName="PMM_ReptilePawnBase" Abstract="True">
 		<defaultFactionDef>PMM_ScaleboundBroodsFaction</defaultFactionDef>
+		<xenotypeSet>
+			<xenotypeChances>
+				<PMM_Lamia>28</PMM_Lamia>
+				<PMM_Basilisk>20</PMM_Basilisk>
+				<PMM_Dragonewt>18</PMM_Dragonewt>
+				<PMM_Salamander>15</PMM_Salamander>
+				<PMM_Wurm>10</PMM_Wurm>
+				<PMM_Medusa>5</PMM_Medusa>
+				<PMM_MalefDragon>4</PMM_MalefDragon>
+			</xenotypeChances>
+		</xenotypeSet>
 	</PawnKindDef>
 
 	<!-- ===================== Dragonia ===================== -->

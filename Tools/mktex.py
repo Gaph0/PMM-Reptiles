@@ -200,6 +200,63 @@ def preview(w=1200, h=600):
                 c.blend(x, y, 226, 196, 110, sun.px[i + 3])
     return c
 
+# Simple species silhouettes on a tinted disc — placeholder xenotype icons.
+def xeno_icon(r, g, b, glyph):
+    c = Canvas(64, 64)
+    # tinted background disc
+    c.disc(32, 32, 30, (r // 3, g // 3, b // 3, 255), 1.5)
+    c.circle_line(32, 32, 28, 3, (r, g, b, 255))
+    col = (235, 235, 235, 255)
+    glyph(c, col)
+    return c
+
+def _serpent(c, col):  # lamia/medusa/bunyip
+    c.circle_line(32, 38, 12, 5, col, 0, 2 * math.pi * 0.85)
+    c.line(42, 34, 46, 18, 4.5, col)
+    c.disc(47, 16, 5, col, 0.7)
+
+def _fang(c, col):  # basilisk
+    c.line(24, 18, 24, 40, 5, col)
+    c.line(40, 18, 40, 40, 5, col)
+    c.line(24, 40, 32, 50, 4, col)
+    c.line(40, 40, 32, 50, 4, col)
+
+def _wing(c, col):  # dragon/wyvern/malef/dragonewt
+    pts = [(16, 40), (30, 18), (48, 16), (40, 30), (52, 34), (36, 40), (24, 46)]
+    for i in range(len(pts) - 1):
+        c.line(pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1], 4, col)
+
+def _blade(c, col):  # lizardman/salamander
+    c.line(22, 46, 42, 16, 4, col)
+    c.line(20, 34, 32, 48, 3.5, col)
+    c.disc(43, 15, 4.5, col, 0.7)
+
+def _gaze(c, col):  # medusa
+    c.ellipse(32, 32, 13, 8, col, 1.0)
+    c.disc(32, 32, 5, (0, 0, 0, 0), 0.5)
+    c.disc(32, 32, 3, col, 0.5)
+
+def _burrow(c, col):  # wurm
+    c.disc(32, 36, 11, col, 1.0)
+    c.ellipse(32, 22, 13, 7, col, 1.0)
+
+def _paw(c, col):  # bunyip fallback (unused)
+    c.disc(32, 32, 12, col, 1.0)
+
+SPECIES = {
+    "PMM_Basilisk": ((110, 150, 90), _fang),
+    "PMM_Dragon": ((168, 80, 50), _wing),
+    "PMM_Lamia": ((150, 140, 90), _serpent),
+    "PMM_Lizardman": ((100, 130, 70), _blade),
+    "PMM_Medusa": ((140, 145, 140), _gaze),
+    "PMM_Wurm": ((120, 100, 70), _burrow),
+    "PMM_Wyvern": ((110, 120, 140), _wing),
+    "PMM_MalefDragon": ((80, 60, 90), _wing),
+    "PMM_Dragonewt": ((160, 110, 80), _wing),
+    "PMM_Salamander": ((190, 90, 40), _blade),
+    "PMM_Bunyip": ((90, 120, 90), _serpent),
+}
+
 def main():
     t = os.path.join(ROOT, "Textures")
     write_png(os.path.join(t, "Things/Item/Resource/PMM_ReptileScale.png"), 64, 64, tex_scales().px)
@@ -210,6 +267,8 @@ def main():
     write_png(os.path.join(t, "World/WorldObjects/Expanding/PMM_DragoniaHold.png"), 64, 64, icon_dragonia().px)
     write_png(os.path.join(t, "World/WorldObjects/Expanding/PMM_BroodNest.png"), 64, 64, icon_broods().px)
     write_png(os.path.join(ROOT, "About/preview.png"), 1200, 600, preview().px)
+    for name, (rgb, glyph) in SPECIES.items():
+        write_png(os.path.join(t, "UI/Icons/Xenotypes", name + ".png"), 64, 64, xeno_icon(*rgb, glyph).px)
     print("textures written")
 
 if __name__ == "__main__":
