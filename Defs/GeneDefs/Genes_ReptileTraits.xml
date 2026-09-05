@@ -42,49 +42,11 @@
 		</forcedTraits>
 	</GeneDef>
 
-	<!-- Lizardman: aggressive melee warrior. Bloodlust = loves a fight. -->
-	<GeneDef>
-		<defName>PMM_GeneTrait_LizardmanFury</defName>
-		<label>lizardman's fury</label>
-		<labelShortAdj>fierce</labelShortAdj>
-		<description>Carriers of this gene are born for the melee - quick to anger, happiest with a blade in hand.</description>
-		<displayCategory>Miscellaneous</displayCategory>
-		<canGenerateInGeneSet>false</canGenerateInGeneSet>
-		<biostatCpx>0</biostatCpx>
-		<biostatMet>0</biostatMet>
-		<forcedTraits>
-			<li><def>Bloodlust</def></li>
-		</forcedTraits>
-	</GeneDef>
-
-	<!-- Malef Dragon / Dragonewt: lustful, teasing seducers. -->
-	<GeneDef>
-		<defName>PMM_GeneTrait_Lustful</defName>
-		<label>burning lust</label>
-		<labelShortAdj>lustful</labelShortAdj>
-		<description>Carriers of this gene are consumed by desire, forever hunting the next conquest to tease and claim.</description>
-		<displayCategory>Miscellaneous</displayCategory>
-		<canGenerateInGeneSet>false</canGenerateInGeneSet>
-		<biostatCpx>0</biostatCpx>
-		<biostatMet>0</biostatMet>
-		<forcedTraits>
-			<li><def>Jealous</def></li>
-		</forcedTraits>
-	</GeneDef>
-
-	<!-- Bunyip: very poor talker - abrasive, socially clumsy. -->
-	<GeneDef>
-		<defName>PMM_GeneTrait_BunyipTongue</defName>
-		<label>bunyip's tongue</label>
-		<labelShortAdj>tactless</labelShortAdj>
-		<description>Carriers of this gene are poor, blunt talkers - strong of arm, hopeless with words.</description>
-		<displayCategory>Miscellaneous</displayCategory>
-		<canGenerateInGeneSet>false</canGenerateInGeneSet>
-		<biostatCpx>0</biostatCpx>
-		<biostatMet>0</biostatMet>
-		<forcedTraits>
-			<li><def>Abrasive</def></li>
-		</forcedTraits>
-	</GeneDef>
+	<!--
+		Scrapped (user ruling 2026-09-05): PMM_GeneTrait_LizardmanFury,
+		PMM_GeneTrait_Lustful, PMM_GeneTrait_BunyipTongue. Lizardmen, salamanders,
+		malef dragons, dragonewts and bunyips no longer carry a forced-personality
+		gene; their flavour lives in the xenotype descriptions.
+	-->
 
 </Defs>
