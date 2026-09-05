@@ -25,6 +25,7 @@
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>ProjectMomo_MomoVenom</li>
+			<li>ProjectMomo_MomoClaws</li>
 			<li>MoveSpeed_Quick</li>
 		</genes>
 	</XenotypeDef>
@@ -42,6 +43,7 @@
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>PMM_Gene_LamiaTail</li>
+			<li>ProjectMomo_MomoClaws</li>
 			<li>MoveSpeed_VeryQuick</li>
 			<li>AptitudeRemarkable_Social</li>
 		</genes>
@@ -118,6 +120,7 @@
 		<genes>
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Reptile</li>
+			<li>ProjectMomo_MomoClaws</li>
 			<li>MeleeDamage_Strong</li>
 			<li>AptitudeStrong_Melee</li>
 			<li>Robust</li>
