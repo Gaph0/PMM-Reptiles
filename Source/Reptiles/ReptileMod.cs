@@ -32,7 +32,6 @@ namespace PMM_Reptiles
         public static AbilityDef PMM_Ability_TailGrapple;
         public static FactionDef PMM_DragoniaFaction;
         public static FactionDef PMM_ScaleboundBroodsFaction;
-        public static PawnKindDef PMM_BroodGrappler;
 
         // Per-species scale materials (locked Q5).
         public static ThingDef PMM_Scale_Basilisk;

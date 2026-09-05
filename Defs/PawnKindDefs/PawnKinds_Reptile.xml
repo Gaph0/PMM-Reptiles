@@ -2,11 +2,12 @@
 <Defs>
 
 	<!--
-		Shared base for reptile faction pawns. Every faction pawn is a woman
-		(momos are always female). Phase 2: each faction base carries a xenotypeSet
-		rolling the species mix (locked roster) — the phase-1 gene-injection shim is
-		retired. Villagers wear simple homespun (the Neolithic tag reads as medieval
-		peasant garb); fighting kinds mix in MedievalMilitary mail and plate.
+		One pawnkind per faction (user ruling 2026-09-05: scrap the multiple per-faction
+		pawn types). A member's species comes entirely from the faction's xenotypeSet
+		roster below; the pawnkind just supplies medieval gear and stats. Villager and
+		warrior alike roll the same xenotype mix — a Dragonia knight and a Dragonia
+		farmer are equally likely to be a dragon, a lizardman, a lamia, and so on.
+		All faction pawns are women (momos are always female).
 	-->
 	<PawnKindDef Name="PMM_ReptilePawnBase" Abstract="True">
 		<race>Human</race>
@@ -17,13 +18,12 @@
 		<invFoodDef>Pemmican</invFoodDef>
 		<initialWillRange>0~4</initialWillRange>
 		<initialResistanceRange>4~17</initialResistanceRange>
-		<apparelTags>
-			<li>Neolithic</li>
-		</apparelTags>
 	</PawnKindDef>
 
-	<!-- Dragonia roster (locked): Dragon + Lizardman exclusive; plus the shared
-	     Lamia, Basilisk, Medusa, Wurm, Wyvern. Weights sum to ~100. -->
+	<!--
+		Dragonia roster (locked): Dragon + Lizardman exclusive; plus the shared
+		Lamia, Basilisk, Medusa, Wurm, Wyvern. Weights sum to 100.
+	-->
 	<PawnKindDef Name="PMM_DragoniaBase" ParentName="PMM_ReptilePawnBase" Abstract="True">
 		<defaultFactionDef>PMM_DragoniaFaction</defaultFactionDef>
 		<xenotypeSet>
@@ -39,8 +39,10 @@
 		</xenotypeSet>
 	</PawnKindDef>
 
-	<!-- Scalebound Broods roster (locked): Malef Dragon, Dragonewt, Salamander
-	     exclusive; plus the shared Lamia, Basilisk, Medusa, Wurm. Weights sum to ~100. -->
+	<!--
+		Scalebound Broods roster (locked): Malef Dragon, Dragonewt, Salamander
+		exclusive; plus the shared Lamia, Basilisk, Medusa, Wurm. Weights sum to 100.
+	-->
 	<PawnKindDef Name="PMM_BroodsBase" ParentName="PMM_ReptilePawnBase" Abstract="True">
 		<defaultFactionDef>PMM_ScaleboundBroodsFaction</defaultFactionDef>
 		<xenotypeSet>
@@ -56,83 +58,29 @@
 		</xenotypeSet>
 	</PawnKindDef>
 
-	<!-- ===================== Dragonia ===================== -->
+	<!-- ===================== The single faction member kinds ===================== -->
 
 	<PawnKindDef ParentName="PMM_DragoniaBase">
-		<defName>PMM_DragoniaVillager</defName>
-		<label>dragonian villager</label>
-		<combatPower>30</combatPower>
-		<itemQuality>Poor</itemQuality>
-		<gearHealthRange>0.5~1.2</gearHealthRange>
-		<apparelMoney>100~250</apparelMoney>
-	</PawnKindDef>
-
-	<PawnKindDef ParentName="PMM_DragoniaBase">
-		<defName>PMM_DragoniaWarrior</defName>
-		<label>dragonian warrior</label>
+		<defName>PMM_DragoniaMember</defName>
+		<label>dragonian</label>
 		<combatPower>55</combatPower>
 		<itemQuality>Poor</itemQuality>
 		<gearHealthRange>0.5~1.5</gearHealthRange>
-		<apparelMoney>400~700</apparelMoney>
+		<apparelMoney>300~600</apparelMoney>
 		<apparelTags>
 			<li>Neolithic</li>
 			<li>MedievalMilitary</li>
 		</apparelTags>
+		<apparelAllowHeadgearChance>0.5</apparelAllowHeadgearChance>
 		<weaponMoney>150~300</weaponMoney>
 		<weaponTags>
 			<li>MedievalMeleeDecent</li>
 		</weaponTags>
-		<requiredWorkTags>
-			<li>Violent</li>
-		</requiredWorkTags>
 	</PawnKindDef>
-
-	<PawnKindDef ParentName="PMM_DragoniaBase">
-		<defName>PMM_DragoniaArcher</defName>
-		<label>dragonian archer</label>
-		<combatPower>50</combatPower>
-		<itemQuality>Poor</itemQuality>
-		<gearHealthRange>0.5~1.5</gearHealthRange>
-		<apparelMoney>250~450</apparelMoney>
-		<weaponMoney>150~250</weaponMoney>
-		<weaponTags>
-			<li>NeolithicRangedDecent</li>
-		</weaponTags>
-		<disallowedTraits>
-			<li>Brawler</li>
-		</disallowedTraits>
-		<requiredWorkTags>
-			<li>Violent</li>
-		</requiredWorkTags>
-	</PawnKindDef>
-
-	<PawnKindDef ParentName="PMM_DragoniaBase">
-		<defName>PMM_DragoniaKnight</defName>
-		<label>dragon knight</label>
-		<combatPower>80</combatPower>
-		<itemQuality>Normal</itemQuality>
-		<gearHealthRange>0.8~2</gearHealthRange>
-		<apparelMoney>800~1400</apparelMoney>
-		<apparelTags>
-			<li>MedievalMilitary</li>
-		</apparelTags>
-		<apparelAllowHeadgearChance>0.8</apparelAllowHeadgearChance>
-		<weaponMoney>400~700</weaponMoney>
-		<weaponTags>
-			<li>MedievalMeleeAdvanced</li>
-		</weaponTags>
-		<requiredWorkTags>
-			<li>Violent</li>
-		</requiredWorkTags>
-		<factionLeader>true</factionLeader>
-		<initialResistanceRange>16~26</initialResistanceRange>
-	</PawnKindDef>
-
-	<!-- ===================== Scalebound Broods ===================== -->
 
 	<PawnKindDef ParentName="PMM_BroodsBase">
-		<defName>PMM_BroodRaider</defName>
-		<label>brood raider</label>
+		<defName>PMM_BroodMember</defName>
+		<label>scalebound</label>
 		<combatPower>55</combatPower>
 		<itemQuality>Poor</itemQuality>
 		<gearHealthRange>0.4~1.4</gearHealthRange>
@@ -141,73 +89,11 @@
 			<li>Neolithic</li>
 			<li>MedievalMilitary</li>
 		</apparelTags>
+		<apparelAllowHeadgearChance>0.5</apparelAllowHeadgearChance>
 		<weaponMoney>120~250</weaponMoney>
 		<weaponTags>
 			<li>MedievalMeleeBasic</li>
 		</weaponTags>
-		<requiredWorkTags>
-			<li>Violent</li>
-		</requiredWorkTags>
-	</PawnKindDef>
-
-	<PawnKindDef ParentName="PMM_BroodsBase">
-		<defName>PMM_BroodArcher</defName>
-		<label>brood archer</label>
-		<combatPower>45</combatPower>
-		<itemQuality>Poor</itemQuality>
-		<gearHealthRange>0.4~1.4</gearHealthRange>
-		<apparelMoney>200~400</apparelMoney>
-		<weaponMoney>100~200</weaponMoney>
-		<weaponTags>
-			<li>NeolithicRangedBasic</li>
-		</weaponTags>
-		<disallowedTraits>
-			<li>Brawler</li>
-		</disallowedTraits>
-		<requiredWorkTags>
-			<li>Violent</li>
-		</requiredWorkTags>
-	</PawnKindDef>
-
-	<!--
-		The coil sister: a lamia grappler. She carries no weapon - her tail and her
-		teasing embrace are the weapons. No weaponTags/weaponMoney means she spawns
-		unarmed (the wild-man pattern), and the gene-injection shim gives her the
-		lamia tail gene, so she drags victims into her coils with the tail-grapple
-		ability.
-	-->
-	<PawnKindDef ParentName="PMM_BroodsBase">
-		<defName>PMM_BroodGrappler</defName>
-		<label>coil sister</label>
-		<combatPower>60</combatPower>
-		<itemQuality>Poor</itemQuality>
-		<gearHealthRange>0.4~1.4</gearHealthRange>
-		<apparelMoney>150~350</apparelMoney>
-		<requiredWorkTags>
-			<li>Violent</li>
-		</requiredWorkTags>
-	</PawnKindDef>
-
-	<PawnKindDef ParentName="PMM_BroodsBase">
-		<defName>PMM_BroodMatriarch</defName>
-		<label>brood matriarch</label>
-		<combatPower>85</combatPower>
-		<itemQuality>Normal</itemQuality>
-		<gearHealthRange>0.8~2</gearHealthRange>
-		<apparelMoney>700~1200</apparelMoney>
-		<apparelTags>
-			<li>MedievalMilitary</li>
-		</apparelTags>
-		<apparelAllowHeadgearChance>0.8</apparelAllowHeadgearChance>
-		<weaponMoney>350~600</weaponMoney>
-		<weaponTags>
-			<li>MedievalMeleeAdvanced</li>
-		</weaponTags>
-		<requiredWorkTags>
-			<li>Violent</li>
-		</requiredWorkTags>
-		<factionLeader>true</factionLeader>
-		<initialResistanceRange>16~26</initialResistanceRange>
 	</PawnKindDef>
 
 </Defs>

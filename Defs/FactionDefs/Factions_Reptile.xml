@@ -72,19 +72,13 @@
 			<li>
 				<kindDef>Combat</kindDef>
 				<options>
-					<PMM_DragoniaVillager>5</PMM_DragoniaVillager>
-					<PMM_DragoniaWarrior>10</PMM_DragoniaWarrior>
-					<PMM_DragoniaArcher>8</PMM_DragoniaArcher>
-					<PMM_DragoniaKnight>3</PMM_DragoniaKnight>
+					<PMM_DragoniaMember>10</PMM_DragoniaMember>
 				</options>
 			</li>
 			<li>
 				<kindDef>Peaceful</kindDef>
 				<options>
-					<PMM_DragoniaVillager>20</PMM_DragoniaVillager>
-					<PMM_DragoniaWarrior>5</PMM_DragoniaWarrior>
-					<PMM_DragoniaArcher>5</PMM_DragoniaArcher>
-					<PMM_DragoniaKnight>2</PMM_DragoniaKnight>
+					<PMM_DragoniaMember>10</PMM_DragoniaMember>
 				</options>
 			</li>
 		</pawnGroupMakers>
@@ -125,10 +119,7 @@
 			<li>
 				<kindDef>Combat</kindDef>
 				<options>
-					<PMM_BroodRaider>10</PMM_BroodRaider>
-					<PMM_BroodArcher>6</PMM_BroodArcher>
-					<PMM_BroodGrappler>8</PMM_BroodGrappler>
-					<PMM_BroodMatriarch>2</PMM_BroodMatriarch>
+					<PMM_BroodMember>10</PMM_BroodMember>
 				</options>
 			</li>
 		</pawnGroupMakers>
