@@ -83,18 +83,28 @@ namespace PMM_Reptiles
                 || world.CoastAngleAt(map.Tile, BiomeDefOf.Lake).HasValue;
         }
 
+        // The slime/elemental pattern: skip the vanilla SeasonAcceptableFor(Human)
+        // check (it gates on the CURRENT seasonal temperature being within a human's
+        // comfy range 16-26C, which hard-blocks reptiles on hot maps — exactly where
+        // desert basilisks and volcanic salamanders live) and the former-faction
+        // requirement (wild reptiles are factionless creatures, not ex-faction wild
+        // people). Keep the sensible environmental gates and log every refusal, so a
+        // silent non-fire is never silent again.
         protected override bool CanFireNowSub(IncidentParms parms)
         {
             if (!(parms.target is Map map))
             {
+                Log.Message($"[PMM_Reptiles] {def.defName} blocked: target is not a map");
                 return false;
             }
             if (map.GameConditionManager.ConditionIsActive(GameConditionDefOf.ToxicFallout))
             {
+                Log.Message($"[PMM_Reptiles] {def.defName} blocked: toxic fallout active");
                 return false;
             }
             if (ModsConfig.BiotechActive && map.GameConditionManager.ConditionIsActive(GameConditionDefOf.NoxiousHaze))
             {
+                Log.Message($"[PMM_Reptiles] {def.defName} blocked: noxious haze active");
                 return false;
             }
 
@@ -102,11 +112,18 @@ namespace PMM_Reptiles
             List<PawnKindDef> viable = ViableKinds(tile, map);
             if (viable.Count == 0)
             {
+                Log.Message($"[PMM_Reptiles] {def.defName} blocked: no candidate species matches this tile " +
+                    $"(biome={tile?.PrimaryBiome?.defName ?? "null"}, hilliness={tile?.hilliness}, caves={HasCaves(map)})");
                 return false; // no candidate species lives on this tile
             }
-            return CellFinder.TryFindRandomEdgeCellWith(
-                c => map.reachability.CanReachColony(c),
-                map, CellFinder.EdgeRoadChance_Ignore, out _);
+            if (!CellFinder.TryFindRandomEdgeCellWith(
+                    c => map.reachability.CanReachColony(c),
+                    map, CellFinder.EdgeRoadChance_Ignore, out _))
+            {
+                Log.Message($"[PMM_Reptiles] {def.defName} blocked: no edge cell can reach the colony");
+                return false;
+            }
+            return true;
         }
 
         private List<PawnKindDef> ViableKinds(RimWorld.Planet.Tile tile, Map map)
@@ -135,6 +152,7 @@ namespace PMM_Reptiles
                     c => map.reachability.CanReachColony(c),
                     map, CellFinder.EdgeRoadChance_Ignore, out IntVec3 cell))
             {
+                Log.Message($"[PMM_Reptiles] {def.defName} execute failed: no edge cell can reach the colony");
                 return false;
             }
 
@@ -142,13 +160,22 @@ namespace PMM_Reptiles
             List<PawnKindDef> viable = ViableKinds(tile, map);
             if (viable.Count == 0)
             {
+                Log.Message($"[PMM_Reptiles] {def.defName} execute failed: candidates lost between CanFireNowSub and spawn");
                 return false;
             }
             PawnKindDef kind = viable.RandomElement();
 
-            TryFindFormerFaction(out Faction formerFaction);
+            // Wild reptiles are factionless: request a FACTIONLESS pawn from the start
+            // (the slime-mod pattern). The earlier version passed a random non-colony
+            // faction as "former faction flavour" the way vanilla's WildMan does, then
+            // stripped it after generation — but the faction is not flavour here. In this
+            // world the only eligible factions are Dragonia and the Scalebound Broods, and
+            // PawnGenerator generates the pawn AS a faction member (gear, ideo, relations,
+            // tech-appropriate setup); SetFaction(null) afterwards then rips her out of a
+            // pawn-group/lord context vanilla assumes is consistent, which is the silent
+            // spawn failure. No faction, nothing to tear down.
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(
-                kind, formerFaction, PawnGenerationContext.NonPlayer, map.Tile,
+                kind, null, PawnGenerationContext.NonPlayer, map.Tile,
                 forceGenerateNewPawn: false, allowDead: false, allowDowned: false,
                 canGeneratePawnRelations: true, mustBeCapableOfViolence: false,
                 colonistRelationChanceFactor: 1f, forceAddFreeWarmLayerIfNeeded: false,
@@ -168,7 +195,10 @@ namespace PMM_Reptiles
                 developmentalStages: DevelopmentalStage.Adult,
                 forceNoGear: false));
 
-            // Wild reptiles are factionless.
+            // Defensive only: with a null faction request she should already be
+            // factionless. Pawn.SetFaction logs a warning (popping the debug log) when
+            // the new faction equals the current one, so only clear if generation
+            // somehow assigned one anyway.
             if (pawn.Faction != null)
             {
                 pawn.SetFaction(null, null);
@@ -176,7 +206,9 @@ namespace PMM_Reptiles
             GenSpawn.Spawn(pawn, cell, map);
 
             // Mark as already "reached outside" so she lingers instead of marching
-            // to the map edge and despawning (the slime-mod pattern).
+            // to the map edge and despawning (the slime-mod pattern; the
+            // Patch_ReptileShouldNotReachOutside postfix below is the belt-and-braces
+            // cover for the re-run every think tick).
             if (pawn.mindState != null)
             {
                 pawn.mindState.WildManEverReachedOutside = true;
@@ -189,13 +221,8 @@ namespace PMM_Reptiles
             TaggedString letterLabel = def.letterLabel.Formatted(kindLabel.Named("0")).CapitalizeFirst();
             PawnRelationUtility.TryAppendRelationsWithColonistsInfo(ref letterText, ref letterLabel, pawn);
             SendStandardLetter(letterLabel, letterText, def.letterDef, parms, pawn);
+            Log.Message($"[PMM_Reptiles] {def.defName} spawned {kind.defName} '{pawn.Name?.ToStringShort}' at {cell} (biome={tile?.PrimaryBiome?.defName}, hilliness={tile?.hilliness}, caves={HasCaves(map)})");
             return true;
-        }
-
-        private static bool TryFindFormerFaction(out Faction formerFaction)
-        {
-            return Find.FactionManager.TryGetRandomNonColonyHumanlikeFaction(
-                out formerFaction, tryMedievalOrBetter: false, allowDefeated: true, TechLevel.Undefined);
         }
     }
 
