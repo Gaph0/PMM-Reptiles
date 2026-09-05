@@ -215,4 +215,27 @@ namespace PMM_Reptiles
             }
         }
     }
+
+    /// <summary>
+    /// Stop wild reptile momos from marching to the map edge and despawning the
+    /// instant they spawn. Vanilla <see cref="WildManUtility.WildManShouldReachOutsideNow"/>
+    /// returns true for any wild man who hasn't "reached outside", which makes the
+    /// pawn walk to the nearest edge and leave. Setting WildManEverReachedOutside at
+    /// spawn only covers the spawn tick — the check re-runs every think tick, and a
+    /// reptile that spawns in an unseen corner is never arrested/tamed before the
+    /// walk begins, so she just walks off. Report wild reptiles as already reached
+    /// outside so the edge-walk never triggers (the slime-mod Patch_SlimeShouldNotReachOutside
+    /// pattern, which the reptile port had missed).
+    /// </summary>
+    [HarmonyLib.HarmonyPatch(typeof(WildManUtility), nameof(WildManUtility.WildManShouldReachOutsideNow))]
+    public static class Patch_ReptileShouldNotReachOutside
+    {
+        public static void Postfix(Pawn p, ref bool __result)
+        {
+            if (__result && p?.kindDef != null && p.kindDef.defName.StartsWith("PMM_Wild"))
+            {
+                __result = false;
+            }
+        }
+    }
 }
