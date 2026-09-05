@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Dark Dragon's Blood: a vial of blackened blood drawn from a malef dragon.
+		When a human baseliner or a normal dragon drinks it, she is remade as a
+		malef dragon (IngestionOutcomeDoer_DarkDragonsBlood in the assembly). This
+		is the only way to create a malef outside the Broods roster; dragonewts,
+		malefs, men, children and non-humans are unaffected. A drug, not a food —
+		consumed deliberately, never for nutrition.
+	-->
+	<ThingDef>
+		<defName>PMM_DarkDragonsBlood</defName>
+		<label>dark dragon's blood</label>
+		<description>A stoppered vial of blood so dark it drinks the light, drawn from a malef dragon. It is warm to the touch, and it whispers.\n\nA human baseliner or a dragon who drinks it is remade as a malef dragon - her scales blackening, her hunger deepening, her will bending to the dark queens' design. It does nothing for dragonewts, malef dragons, men, children, or beasts.</description>
+		<thingClass>ThingWithComps</thingClass>
+		<category>Item</category>
+		<drawerType>MapMeshOnly</drawerType>
+		<resourceReadoutPriority>Middle</resourceReadoutPriority>
+		<useHitPoints>true</useHitPoints>
+		<selectable>true</selectable>
+		<altitudeLayer>Item</altitudeLayer>
+		<stackLimit>10</stackLimit>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<alwaysHaulable>true</alwaysHaulable>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<rotatable>false</rotatable>
+		<pathCost>14</pathCost>
+		<graphicData>
+			<texPath>Things/Item/Resource/PMM_DarkDragonsBlood</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<statBases>
+			<MarketValue>400</MarketValue>
+			<Mass>0.05</Mass>
+			<DeteriorationRate>0</DeteriorationRate>
+			<Nutrition>0</Nutrition>
+		</statBases>
+		<ingestible>
+			<foodType>Processed</foodType>
+			<preferability>NeverForNutrition</preferability>
+			<drugCategory>Medical</drugCategory>
+			<ingestEffect>EatVegetarian</ingestEffect>
+			<ingestSound>Meal_Eat</ingestSound>
+			<outcomeDoers>
+				<li Class="PMM_Reptiles.IngestionOutcomeDoer_DarkDragonsBlood"/>
+			</outcomeDoers>
+		</ingestible>
+		<thingCategories>
+			<li>Drugs</li>
+		</thingCategories>
+		<tradeTags>
+			<li>ExoticMisc</li>
+		</tradeTags>
+	</ThingDef>
+
+</Defs>

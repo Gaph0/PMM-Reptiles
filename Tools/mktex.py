@@ -150,6 +150,37 @@ def tex_petrify(size=64):
         c.line(x0, cy - s * 0.24, x0 + dx * s * 0.30, cy - s * 0.37, wd * 0.8, col)
     return c
 
+def tex_dark_blood(size=64):
+    # a stoppered vial of blackened blood: dark glass body, near-black fill,
+    # a cork, and a faint crimson glint
+    c = Canvas(size, size)
+    cx, s = size / 2, size
+    glass = (40, 30, 46, 235)
+    blood = (58, 12, 22, 255)
+    glint = (150, 40, 54, 210)
+    cork = (122, 92, 58, 255)
+    # glass vial body (rounded rectangle)
+    for y in range(int(s * 0.30), int(s * 0.88)):
+        for x in range(int(s * 0.34), int(s * 0.66)):
+            c.blend(x, y, *glass)
+    # neck
+    for y in range(int(s * 0.22), int(s * 0.32)):
+        for x in range(int(s * 0.42), int(s * 0.58)):
+            c.blend(x, y, *glass)
+    # blood fill (lower two-thirds of the body)
+    for y in range(int(s * 0.52), int(s * 0.86)):
+        for x in range(int(s * 0.36), int(s * 0.64)):
+            c.blend(x, y, *blood)
+    # crimson glint on the blood surface
+    c.ellipse(cx - s * 0.06, s * 0.58, s * 0.05, s * 0.10, glint, 1.0)
+    # cork
+    for y in range(int(s * 0.16), int(s * 0.26)):
+        for x in range(int(s * 0.40), int(s * 0.60)):
+            c.blend(x, y, *cork)
+    # glass highlight
+    c.line(cx - s * 0.12, s * 0.34, cx - s * 0.12, s * 0.80, s * 0.02, (200, 200, 220, 120))
+    return c
+
 def icon_dragonia(size=64):
     # white castle/tower on transparent, vanilla world-icon style
     c = Canvas(size, size)
@@ -285,6 +316,7 @@ def main():
     write_png(os.path.join(t, "Things/Item/Resource/PMM_ReptileEgg.png"), 64, 64, tex_egg().px)
     write_png(os.path.join(t, "UI/Abilities/PMM_TailGrapple.png"), 64, 64, tex_grapple().px)
     write_png(os.path.join(t, "UI/Abilities/PMM_Petrify.png"), 64, 64, tex_petrify().px)
+    write_png(os.path.join(t, "Things/Item/Resource/PMM_DarkDragonsBlood.png"), 64, 64, tex_dark_blood().px)
     write_png(os.path.join(t, "World/WorldObjects/Expanding/PMM_DragoniaHold.png"), 64, 64, icon_dragonia().px)
     write_png(os.path.join(t, "World/WorldObjects/Expanding/PMM_BroodNest.png"), 64, 64, icon_broods().px)
     write_png(os.path.join(ROOT, "About/preview.png"), 1200, 600, preview().px)

@@ -15,11 +15,6 @@ namespace PMM_Reptiles
         {
             var harmony = new Harmony("PMM.Reptiles");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-
-            // A Malef Dragon's voluntary offer remakes her victim by the corruption
-            // rules (baseline → Dragonewt, Dragon → Malef) instead of a copy of the
-            // proposer. Core's JobDriver_TransformProposal calls this override.
-            ProjectMomo.MomoTransformation.VoluntaryTransformTargetOverride = MalefTransformRules.OverrideFor;
         }
     }
 
