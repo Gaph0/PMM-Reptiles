@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Cosmetic genes from Alpha Genes (sarg.alphagenes) and Cyanobot's Genes
+		(cyanobot.CyanobotsGenes), added as SOFT dependencies via PatchOperationFindMod:
+		each block only runs when its mod is loaded, so the reptile xenotypes work fine
+		without either mod and simply gain extra flavour when they're present. No
+		<modDependencies> entry - these are optional, never required.
+
+		Gene defNames verified against Alpha Genes 1.6 and Cyanobot's Genes 1.6.
+		Each PatchOperationSequence targets the xenotype's <genes> list and appends
+		the cosmetic gene(s).
+	-->
+
+	<!-- ===================== Alpha Genes (sarg.alphagenes) ===================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods><li>sarg.alphagenes</li></mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+
+				<!-- Dragon: full drakonori body/head/wings (a true dragon's shape). -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Dragon"]/genes</xpath>
+					<value>
+						<li>AG_DrakonoriBody</li>
+						<li>AG_DrakonoriHead</li>
+						<li>AG_DrakonoriWings</li>
+					</value>
+				</li>
+
+				<!-- Malef Dragon: drakonori body/head/wings too (a dark dragon). -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_MalefDragon"]/genes</xpath>
+					<value>
+						<li>AG_DrakonoriBody</li>
+						<li>AG_DrakonoriHead</li>
+						<li>AG_DrakonoriWings</li>
+					</value>
+				</li>
+
+				<!-- Wyvern: drakonori wings (a swift dragon-kin). -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Wyvern"]/genes</xpath>
+					<value>
+						<li>AG_DrakonoriWings</li>
+					</value>
+				</li>
+
+				<!-- Basilisk: venom fangs. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Basilisk"]/genes</xpath>
+					<value>
+						<li>AG_VenomFangs</li>
+					</value>
+				</li>
+
+				<!-- Medusa: chameleon (unblinking) gaze. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Medusa"]/genes</xpath>
+					<value>
+						<li>AG_ChameleonVision</li>
+					</value>
+				</li>
+
+				<!-- Lamia / Bunyip: clawed hands. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Lamia"]/genes</xpath>
+					<value>
+						<li>AG_ClawedHands</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Bunyip"]/genes</xpath>
+					<value>
+						<li>AG_ClawedHands</li>
+					</value>
+				</li>
+
+			</operations>
+		</match>
+	</Operation>
+
+	<!-- ===================== Cyanobot's Genes (cyanobot.CyanobotsGenes) ===================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods><li>cyanobot.CyanobotsGenes</li></mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+
+				<!-- Every reptile gets slit pupils. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Basilisk"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Dragon"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Lamia"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Lizardman"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Medusa"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Wurm"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Wyvern"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_MalefDragon"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Dragonewt"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Salamander"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Bunyip"]/genes</xpath>
+					<value><li>Eyes_SlitPupil</li></value>
+				</li>
+
+				<!-- Serpent-tails: lamia, medusa, bunyip get a leathery tail. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Lamia"]/genes</xpath>
+					<value><li>CYB_Tail_Leathery</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Medusa"]/genes</xpath>
+					<value><li>CYB_Tail_Leathery</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Bunyip"]/genes</xpath>
+					<value><li>CYB_Tail_Leathery</li></value>
+				</li>
+
+				<!-- Fangs: basilisk, dragon, wurm, salamander. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Basilisk"]/genes</xpath>
+					<value><li>CYB_Fangs</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Dragon"]/genes</xpath>
+					<value><li>CYB_Fangs</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Wurm"]/genes</xpath>
+					<value><li>CYB_Fangs</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Salamander"]/genes</xpath>
+					<value><li>CYB_Fangs</li></value>
+				</li>
+
+				<!-- Claws: lizardman, wurm, wyvern, bunyip. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Lizardman"]/genes</xpath>
+					<value><li>CYB_Claws</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Wurm"]/genes</xpath>
+					<value><li>CYB_Claws</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Wyvern"]/genes</xpath>
+					<value><li>CYB_Claws</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Bunyip"]/genes</xpath>
+					<value><li>CYB_Claws</li></value>
+				</li>
+
+				<!-- Head frill: dragon, wyvern, salamander. -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Dragon"]/genes</xpath>
+					<value><li>CYB_HeadFrill</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Wyvern"]/genes</xpath>
+					<value><li>CYB_HeadFrill</li></value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/XenotypeDef[defName="PMM_Salamander"]/genes</xpath>
+					<value><li>CYB_HeadFrill</li></value>
+				</li>
+
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>
