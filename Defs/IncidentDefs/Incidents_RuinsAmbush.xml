@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Medusa ruins ambush (XENOTYPES.md §4a): a caravan that strays near a ruin
+		world object may find medusas waiting among the stones. The worker
+		(PMM_Reptiles.IncidentWorker_MedusaRuinsAmbush) extends the vanilla ambush
+		flow: the base class generates the ambush map and moves the caravan in;
+		our overrides gate on a nearby AbandonedSettlement/AbandonedCamp/
+		AbandonedLandmark and supply the medusa ambushers. The base letter code
+		formats {0} = caravan name and {1} = faction name.
+	-->
+	<IncidentDef>
+		<defName>PMM_MedusaRuinsAmbush</defName>
+		<label>medusa ambush</label>
+		<category>ThreatSmall</category>
+		<targetTags><li>Caravan</li></targetTags>
+		<workerClass>PMM_Reptiles.IncidentWorker_MedusaRuinsAmbush</workerClass>
+		<baseChance>0.8</baseChance>
+		<minRefireDays>2</minRefireDays>
+		<letterLabel>{0}: medusa ambush</letterLabel>
+		<letterText>Stones that were not stone a moment ago move among the ruins — {0} has walked into a medusa's hunting ground. Scalebound Brood ambushers strike from the rocks!</letterText>
+		<letterDef>ThreatSmall</letterDef>
+	</IncidentDef>
+
+</Defs>
