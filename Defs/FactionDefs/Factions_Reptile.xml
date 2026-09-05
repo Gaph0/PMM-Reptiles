@@ -64,6 +64,21 @@
 		<settlementTexturePath>World/WorldObjects/Expanding/PMM_DragoniaHold</settlementTexturePath>
 		<factionNameMaker>PMM_NamerFactionDragonia</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementDragonia</settlementNameMaker>
+		<!-- Member xenotype roster (locked): Dragon + Lizardman exclusive; plus the
+		     shared Lamia, Basilisk, Medusa, Wurm, Wyvern. FRACTIONS (the outlander
+		     pattern) - Baseliner gets whatever is left over (~0, since they sum to 1).
+		     This is what the member-xenotype tooltip and the faction pawn generator read. -->
+		<xenotypeSet>
+			<xenotypeChances>
+				<PMM_Lizardman>0.25</PMM_Lizardman>
+				<PMM_Wyvern>0.20</PMM_Wyvern>
+				<PMM_Lamia>0.20</PMM_Lamia>
+				<PMM_Basilisk>0.15</PMM_Basilisk>
+				<PMM_Wurm>0.12</PMM_Wurm>
+				<PMM_Dragon>0.06</PMM_Dragon>
+				<PMM_Medusa>0.02</PMM_Medusa>
+			</xenotypeChances>
+		</xenotypeSet>
 		<colorSpectrum>
 			<li>(0.45, 0.65, 0.25)</li>
 			<li>(0.85, 0.75, 0.35)</li>
@@ -111,6 +126,19 @@
 		<requiredMemes>
 			<li MayRequire="Ludeon.RimWorld.Ideology">ProjectMomo_Meme_MonsterExtremists</li>
 		</requiredMemes>
+		<!-- Member xenotype roster (locked): Malef Dragon, Dragonewt, Salamander
+		     exclusive; plus the shared Lamia, Basilisk, Medusa, Wurm. FRACTIONS. -->
+		<xenotypeSet>
+			<xenotypeChances>
+				<PMM_Lamia>0.28</PMM_Lamia>
+				<PMM_Basilisk>0.20</PMM_Basilisk>
+				<PMM_Dragonewt>0.18</PMM_Dragonewt>
+				<PMM_Salamander>0.15</PMM_Salamander>
+				<PMM_Wurm>0.10</PMM_Wurm>
+				<PMM_Medusa>0.05</PMM_Medusa>
+				<PMM_MalefDragon>0.04</PMM_MalefDragon>
+			</xenotypeChances>
+		</xenotypeSet>
 		<colorSpectrum>
 			<li>(0.65, 0.1, 0.2)</li>
 			<li>(0.85, 0.45, 0.6)</li>
