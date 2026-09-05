@@ -112,15 +112,21 @@ Recommend **(a) now, (b) later**. Caveat: abandoned-colony *sites* on the world 
 aren't guaranteed to exist in every world, so gate on `Any` of those objects existing
 and fall back to cave wander-ins when none do.
 
-## 5. Malef Dragon corruption (lewdist-only signature)
+## 5. Malef Dragon creation — Dark Dragon's Blood (redesigned 2026-09-05)
 
-`PMM_Gene_MalefCorruption`: when a Malef Dragon **downs a female human** (via the
-tease/willpower knockout), the victim is transformed — into a **Dragonewt** if she's
-a baseline or non-dragon momo, into a **Malef Dragon** if she's a normal Dragon.
-Implementation reuses the core `MomoTransformation`/`Incubisation` xenotype-swap
-utility, triggered from the tease knockout hook with a gene-check on the attacker.
-Dragonewts themselves do **not** transform victims (they're the result, not the vector).
-No wild spawn: Malefs only appear in Broods raids/settlements.
+**The tease-knockout corruption and the colony transformation offer were both
+scrapped.** A Malef Dragon no longer transforms victims by combat or consent. She
+is made **only by an item**: `PMM_DarkDragonsBlood` (`Defs/ThingDefs/Item_DarkDragonsBlood.xml`),
+a `NeverForNutrition` drug. Its `IngestionOutcomeDoer_DarkDragonsBlood`
+(`Source/Reptiles/DarkDragonsBlood.cs`) transforms the drinker into `PMM_MalefDragon`:
+- **human baseliner** (or any non-dragon, non-exempt woman) → `ApplyXenotype`
+  (core `CanEverTransform` gates out men, children, monsters, the too-young);
+- **normal Dragon** → core `MomoTransformation.ConvertXenotype` (re-stamp —
+  `ApplyXenotype` refuses an already-monster pawn).
+
+Dragonewts, Malefs, men, children and non-humans are unaffected. `PMM_Gene_MalefCorruption`
+is now an inert flavour gene on the xenotype (it no longer drives any mechanic).
+No wild spawn: Malefs appear in Broods raids/settlements, or are made by the item.
 
 ## 6. Files to add/change
 
@@ -128,15 +134,16 @@ No wild spawn: Malefs only appear in Broods raids/settlements.
 Defs/XenotypeDefs/Xenotypes_Reptile.xml        (11 xenotypes)
 Defs/GeneDefs/Genes_ReptileTraits.xml          (forced-trait genes)
 Defs/GeneDefs/Genes_Petrify.xml                (Medusa gene)
-Defs/GeneDefs/Genes_MalefCorruption.xml        (Malef gene)
+Defs/GeneDefs/Genes_MalefCorruption.xml        (Malef gene — now inert flavour, see §5)
 Defs/AbilityDefs/Abilities_Petrify.xml
 Defs/HediffDefs/Hediffs_Petrified.xml
 Defs/IncidentDefs/Incidents_ReptileWild.xml    (wander-ins per species)
 Defs/RulePackDefs/RulePacks_Namers_ReptileSpecies.xml (per-species person names)
 Defs/ThingDefs/Items_ReptileScales_Species.xml (per-species scale materials, generic art)
+Defs/ThingDefs/Item_DarkDragonsBlood.xml       (Malef-creation drug, §5)
 Source/Reptiles/ReptileWandersIn.cs            (worker + habitat gates)
 Source/Reptiles/PetrifyPowers.cs               (ability + freeze hediff + need-freeze patches)
-Source/Reptiles/MalefCorruption.cs             (tease-knockout transform hook)
+Source/Reptiles/DarkDragonsBlood.cs            (ingest-transform doer, §5)
 Source/Reptiles/RuinsAmbush.cs                 (Medusa caravan-ambush incident)
 ```
 **Edits:** pawnkinds swap the phase-1 `GeneInjection` shim for `xenotypeSet` rosters

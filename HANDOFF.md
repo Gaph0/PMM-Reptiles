@@ -94,8 +94,9 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
   11 materials on a shared Leathery base, generic art + colour tints;
   `Shedding.cs ScaleMaterialFor(xenotype)` maps species→material, generic fallback.
 - **Mechanic genes** (`Defs/GeneDefs/Genes_ReptileMechanics.xml`):
-  `PMM_Gene_Petrify`, `PMM_Gene_MalefCorruption` — both LIVE (§8 items 1-2); the
-  petrify gene grants its ability via the standard `<abilities>` block.
+  `PMM_Gene_Petrify` is LIVE (§8 item 1; grants its ability via the standard
+  `<abilities>` block). `PMM_Gene_MalefCorruption` is now an INERT flavour gene —
+  Malef creation moved to an item (§8 item 2).
 
 ## 5. Faction pawn generation — the two big gotchas
 
@@ -141,15 +142,17 @@ claws/fangs as mechanical, not cosmetic.
    with — ONE patch freezes food/rest/joy/mood at once; `Need.pawn`/`IsFrozen`
    are protected in 1.6 → cached `AccessTools.FieldRef`). 2-day timer, thaw
    letter/message, 7-day cooldown. Icon from mktex.py.
-2. ~~**Malef corruption**~~ DONE (2026-09-05): `MalefCorruption.cs` patches core's
-   `TeaseKnockout.Evaluate` (prefix snapshots the WillpowerBreak hediff → only the
-   FRESH knockout with the attacker in scope triggers). Normal Dragon →
-   `PMM_MalefDragon`, baseline → `PMM_Dragonewt` (core `ApplyXenotype`, join roll
-   included), other momo → `PMM_Dragonewt` via **new core
-   `MomoTransformation.ConvertXenotype`** (ApplyXenotype refuses momos —
-   "already a monster"; the swap strips the old xenotype's unshared endogenes,
-   stamps the new set, refreshes the pregnancy snapshot, never touches faction).
-   Dragonewts/Malefs exempt.
+2. ~~**Malef corruption**~~ REDESIGNED (2026-09-05): the tease-knockout
+   corruption AND the later colony offer were both scrapped (user ruling). A Malef
+   is now made ONLY by an item — `PMM_DarkDragonsBlood`
+   (`Defs/ThingDefs/Item_DarkDragonsBlood.xml`, a NeverForNutrition drug) whose
+   `IngestionOutcomeDoer_DarkDragonsBlood` (`Source/Reptiles/DarkDragonsBlood.cs`)
+   transforms the drinker into `PMM_MalefDragon`: baseliner → core `ApplyXenotype`
+   (`CanEverTransform` gates men/children/monsters/too-young), normal Dragon →
+   core `MomoTransformation.ConvertXenotype` (which STAYS in core for this).
+   Dragonewts/Malefs/men/children/non-humans unaffected. The core
+   `VoluntaryTransformTargetOverride` hook was reverted (driver back to plain
+   proposer-xenotype).
 3. ~~**Medusa ruins ambush**~~ DONE (2026-09-05): `RuinsAmbush.cs` —
    `IncidentWorker_MedusaRuinsAmbush : IncidentWorker_Ambush` (NOTE: 1.6 has NO
    `IncidentWorker_CaravanAmbush`; the ambush flow is `IncidentWorker_Ambush` +
@@ -196,8 +199,8 @@ claws/fangs as mechanical, not cosmetic.
 
 ## 10. Where the canonical state lives
 
-`/home/gapho/Desktop/Project Momo Reptiles` git repo (commits through `72a2577`).
-Core also changed: `MomoTransformation.ConvertXenotype` added (commit `9762861`
-in `/home/gapho/Desktop/Project Momo`) — Reptiles now builds against that core.
+`/home/gapho/Desktop/Project Momo Reptiles` git repo (commits through `9bb782b`).
+Core also changed: `MomoTransformation.ConvertXenotype` (added `9762861`, kept) and
+the reverted override hook (`3f838c8`) — Reptiles builds against that core.
 Repo memory: `/memories/repo/pmm-reptiles.md` (phase 1) and
 `/memories/repo/pmm-reptiles-phase2.md` (phase 2) — keep these current.

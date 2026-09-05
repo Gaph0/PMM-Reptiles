@@ -13,8 +13,10 @@
   xenotypes carry only their built-in genes.
 - Medusa petrifying gaze: PMM_Ability_Petrify downs the target and holds every
   need in stasis for 2 days (7-day cooldown; nothing is immune).
-- Malef corruption: a Malef Dragon breaking a woman's will transforms her —
-  baselines and other momos into Dragonewts, normal Dragons into Malef Dragons.
+- Dark Dragon's Blood: an ingestible drug that remakes the drinker as a
+  Malef Dragon — human baseliners and normal Dragons alike (dragonewts, malefs,
+  men, children and beasts unaffected). The only way to create a Malef outside the
+  Broods roster.
 - Medusa ruins ambush: caravans travelling near ruin world objects can be
   ambushed by Broods medusas lying in wait among the stones.
 - release.sh added (GitHub release packaging, slime-mod pattern).
