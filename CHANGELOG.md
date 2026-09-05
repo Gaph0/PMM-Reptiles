@@ -7,3 +7,7 @@
 - Lamia tail gene: tail grapple ability (pull + constrict with tease damage).
 - Two mountain factions: neutral Dragonia and hostile Scalebound Broods
   (always Monster Extremists meme).
+- Ideology is now a soft dependency: without the DLC both factions still spawn,
+  the Broods simply lose their forced Monster Extremists meme.
+- Scrapped the Alpha Genes / Cyanobot's Genes cosmetic-gene soft-dep (patch deleted):
+  xenotypes carry only their built-in genes.

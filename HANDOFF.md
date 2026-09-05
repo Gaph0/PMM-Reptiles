@@ -24,11 +24,16 @@ namespace `PMM_Reptiles`.
   separate tree**; always sync before in-game testing or you're testing stale code.
 - Sibling mods for reference patterns: `../Project Momo` (core), `../Project Momo Slime Faction`, `../Project Momo Elementals`.
 
-## 2. Hard dependencies (About.xml)
+## 2. Dependencies (About.xml)
 
-Harmony, Biotech, Ideology, **Vanilla Expanded Framework** (VEF — its gene/hediff
-comps power egg-laying), `PMM.Core`. Odyssey is **optional** (only gates Salamander
-volcanic spawns). Alpha Genes + Cyanobot's Genes are **soft** deps (§7).
+Hard: Harmony, Biotech, **Vanilla Expanded Framework** (VEF — its gene/hediff
+comps power egg-laying), `PMM.Core`. **Ideology is a SOFT dep** (since 2026-09-05):
+the only use is the Broods' forced `ProjectMomo_Meme_MonsterExtremists` meme, and
+that `<li MayRequire="Ludeon.RimWorld.Ideology">` in `requiredMemes` self-gates, so
+without the DLC both factions still spawn — the Broods just lose their forced meme.
+Removed from `modDependencies` + `loadAfter`. Odyssey is **optional** (only gates
+Salamander volcanic spawns). **No other optional mods** — the Alpha Genes / Cyanobot's
+Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
 
 ## 3. Phase 1 — factions, genes, egg-laying, grapple (DONE + boot-tested)
 
@@ -110,17 +115,19 @@ volcanic spawns). Alpha Genes + Cyanobot's Genes are **soft** deps (§7).
 apparel, medieval melee weapon), `factionLeader=true`. Species comes entirely from the
 FactionDef roster. Wild kinds stay in `PawnKinds_ReptileWild.xml` (they have no
 FactionDef, so they keep their own pawnkind-level `xenotypeSet`).
+— SCRAPPED (2026-09-05)
 
-## 7. Soft-dependency cosmetic genes (`Patches/CosmeticGenes_SoftDeps.xml`)
-
-Alpha Genes (`sarg.alphagenes`) + Cyanobot's Genes (`cyanobot.CyanobotsGenes`) via
-`PatchOperationFindMod` + conditional `PatchOperationAdd` — the standard soft-dep
-pattern (NO `<modDependencies>` entry; gene `<li MayRequire>` is NOT a thing). Adds
-e.g. AG_DrakonoriBody/Head/Wings to dragons, Eyes_SlitPupil to all, CYB fangs/claws/
-tails per species. **Fallback ruling:** every claw species also carries the always-on
-core `ProjectMomo_MomoClaws`, so claws exist even without the optional mods; AG/CYB
-claws are upgrades. **Untested:** possible gene exclusion-tag conflicts between AG/CYB
-claws and `ProjectMomo_MomoClaws`, and some "cosmetic" genes carry melee effects —
+`Patches/CosmeticGenes_SoftDeps.xml` is **deleted**; there is no third-party gene
+integration. Xenotypes carry only their built-in genes (core + species + the always-on
+`ProjectMomo_MomoClaws`). Scrapped after repeated in-game failures: `PatchOperationFindMod`
+matches the mod's **display name**, not packageId (so `sarg.alphagenes` never matched);
+then Cyanobot's `Eyes_SlitPupil` refused to resolve in-game for no diagnosable reason
+while its 7 sibling eye genes loaded fine. The claw/fang genes turned out to be
+**mechanical** (grant melee attacks), not cosmetic, which broke the design intent.
+Rather than keep fighting fragile cross-mod gene refs, the user opted to drop the whole
+integration. If it's ever revived: match FindMod by display name, probe the def for the
+gene after def-load (don't trust `ModsConfig.IsActive` — workshop mods store as
+`packageid_steam`), and treat claws/fangs as mechanical, not cosmeticand some "cosmetic" genes carry melee effects —
 verify per-species spawn in the log.
 
 ## 8. NOT YET DONE (next work, in priority order)

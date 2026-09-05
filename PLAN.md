@@ -36,11 +36,13 @@ Project Momo Reptiles/
 
 - **packageId** `PMM.Reptiles`, **assembly** `PMM_Reptiles.dll`, **namespace** `PMM_Reptiles`.
 - **Dependencies** (About.xml, same block style as Slime Faction): Harmony, Biotech,
-  **Ideology** (faction memes), `PMM.Core`, and **Vanilla Expanded Framework**
+  `PMM.Core`, and **Vanilla Expanded Framework**
   (`OskarPotocki.VanillaFactionsExpanded.Core`, workshop 2023507013 — hard requirement:
-  its gene/hediff/thing comps power the egg-laying, see §3). Odyssey only if we reuse
-  its assets — decide later.
-- `loadAfter`: Harmony, Biotech, Ideology, PMM.Core, VEF.
+  its gene/hediff/thing comps power the egg-laying, see §3). **Ideology is a soft dep**
+  (changed 2026-09-05): the only use is the Broods' forced Monster Extremists meme, and
+  the `MayRequire`-gated `requiredMemes` entry degrades gracefully without the DLC.
+  Odyssey only if we reuse its assets — decide later.
+- `loadAfter`: Harmony, Biotech, PMM.Core, VEF.
 - `build.sh`: same `csc` pattern as the Slime Faction script; references RimWorld managed
   DLLs, Harmony, `VEF.dll`, and `ProjectMomo.dll` (build core first if missing).
 

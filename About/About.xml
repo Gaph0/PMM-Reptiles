@@ -9,11 +9,11 @@
 	<description>
 Adds reptile momos for Project Momo, dwelling in the world's mountain ranges.
 
-Two factions settle the mountains: neutral Dragonia, a medieval realm where dragons and humans coexist, and the hostile Scalebound Broods, lewdist raiders whose ideoligion always follows the Monster Extremists meme.
+Two factions settle the mountains: neutral Dragonia, a medieval realm where dragons and humans coexist, and the hostile Scalebound Broods, lewdist raiders out to claim men and remake women. With the Ideology expansion, every Scalebound ideoligion follows the Monster Extremists meme.
 
 The reptilian gene gives a momo a modest sharp resistance and a cold-blooded warmth-loving body, makes her lay a single fertilized egg instead of birthing live young, and sheds a stack of usable reptile scales once a year. The lamia tail gene grants a tail grapple: drag a victim into her coils and constrict them, draining their willpower with tease damage.
 
-Requires the Biotech and Ideology expansions, Harmony, Vanilla Expanded Framework, and Project Momo.
+Requires the Biotech expansion, Harmony, Vanilla Expanded Framework, and Project Momo. The Ideology expansion is optional: with it the Scalebound Broods always follow the Monster Extremists meme; without it both factions work normally.
 	</description>
 	<modDependencies>
 		<li>
@@ -25,10 +25,6 @@ Requires the Biotech and Ideology expansions, Harmony, Vanilla Expanded Framewor
 		<li>
 			<packageId>Ludeon.RimWorld.Biotech</packageId>
 			<displayName>Biotech</displayName>
-		</li>
-		<li>
-			<packageId>Ludeon.RimWorld.Ideology</packageId>
-			<displayName>Ideology</displayName>
 		</li>
 		<li>
 			<packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
@@ -44,7 +40,6 @@ Requires the Biotech and Ideology expansions, Harmony, Vanilla Expanded Framewor
 	<loadAfter>
 		<li>brrainz.harmony</li>
 		<li>Ludeon.RimWorld.Biotech</li>
-		<li>Ludeon.RimWorld.Ideology</li>
 		<li>OskarPotocki.VanillaFactionsExpanded.Core</li>
 		<li>PMM.Core</li>
 	</loadAfter>
