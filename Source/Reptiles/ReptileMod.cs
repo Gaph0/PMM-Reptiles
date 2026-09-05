@@ -35,6 +35,11 @@ namespace PMM_Reptiles
         public static FactionDef PMM_DragoniaFaction;
         public static FactionDef PMM_ScaleboundBroodsFaction;
 
+        // Xenotypes the Malef corruption switches between (XENOTYPES.md §5).
+        public static XenotypeDef PMM_Dragon;
+        public static XenotypeDef PMM_MalefDragon;
+        public static XenotypeDef PMM_Dragonewt;
+
         // Per-species scale materials (locked Q5).
         public static ThingDef PMM_Scale_Basilisk;
         public static ThingDef PMM_Scale_Dragon;

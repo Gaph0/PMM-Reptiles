@@ -2,10 +2,10 @@
 <Defs>
 
 	<!--
-		Mechanic genes for Phase 2. PMM_Gene_Petrify is live (PetrifyPowers.cs:
-		PMM_Ability_Petrify + PMM_Hediff_Petrified + the Need.IsFrozen stasis patch).
-		PMM_Gene_MalefCorruption remains an inert flavour gene until
-		MalefCorruption.cs lands.
+		Mechanic genes for Phase 2, both live: PMM_Gene_Petrify (PetrifyPowers.cs:
+		PMM_Ability_Petrify + PMM_Hediff_Petrified + the Need.IsFrozen stasis patch)
+		and PMM_Gene_MalefCorruption (MalefCorruption.cs: the tease-knockout
+		transform hook on core's TeaseKnockout.Evaluate).
 	-->
 
 	<!-- Medusa: petrifying gaze. Grants PMM_Ability_Petrify (the Dorome mud-merge
@@ -27,7 +27,8 @@
 		</customEffectDescriptions>
 	</GeneDef>
 
-	<!-- Malef Dragon: transform victims. Full behaviour (tease-knockout transform) next step. -->
+	<!-- Malef Dragon: transform victims. Behaviour lives in MalefCorruption.cs
+	     (fresh tease knockout by a carrier transforms the female victim). -->
 	<GeneDef>
 		<defName>PMM_Gene_MalefCorruption</defName>
 		<label>malef corruption</label>
