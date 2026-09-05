@@ -25,7 +25,9 @@
 		</forcedTraits>
 	</GeneDef>
 
-	<!-- Wurm: powerful and very stupid. TooSmart degree -1 = slow thinker. -->
+	<!-- Wurm: powerful and very stupid. SlowLearner (degree 0) is the vanilla
+	     "stupid" trait - TooSmart has only degree 0 (a smart trait), so the earlier
+	     TooSmart/-1 forced degree logged "found no data at degree -1" spam. -->
 	<GeneDef>
 		<defName>PMM_GeneTrait_WurmMind</defName>
 		<label>wurm's mind</label>
@@ -36,7 +38,7 @@
 		<biostatCpx>0</biostatCpx>
 		<biostatMet>0</biostatMet>
 		<forcedTraits>
-			<li><def>TooSmart</def><degree>-1</degree></li>
+			<li><def>SlowLearner</def></li>
 		</forcedTraits>
 	</GeneDef>
 
