@@ -93,9 +93,9 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
 - **Per-species scales** (`Defs/ThingDefs/Items_ReptileScales_Species.xml`, locked Q5):
   11 materials on a shared Leathery base, generic art + colour tints;
   `Shedding.cs ScaleMaterialFor(xenotype)` maps species→material, generic fallback.
-- **Placeholder mechanic genes** (`Defs/GeneDefs/Genes_ReptileMechanics.xml`):
-  `PMM_Gene_Petrify`, `PMM_Gene_MalefCorruption` — INERT flavour genes so xenotypes
-  resolve; real C# NOT yet written (§8).
+- **Mechanic genes** (`Defs/GeneDefs/Genes_ReptileMechanics.xml`):
+  `PMM_Gene_Petrify`, `PMM_Gene_MalefCorruption` — both LIVE (§8 items 1-2); the
+  petrify gene grants its ability via the standard `<abilities>` block.
 
 ## 5. Faction pawn generation — the two big gotchas
 
@@ -115,42 +115,61 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
 apparel, medieval melee weapon), `factionLeader=true`. Species comes entirely from the
 FactionDef roster. Wild kinds stay in `PawnKinds_ReptileWild.xml` (they have no
 FactionDef, so they keep their own pawnkind-level `xenotypeSet`).
-— SCRAPPED (2026-09-05)
+
+## 7. Soft-dependency cosmetic genes — SCRAPPED (2026-09-05)
 
 `Patches/CosmeticGenes_SoftDeps.xml` is **deleted**; there is no third-party gene
-integration. Xenotypes carry only their built-in genes (core + species + the always-on
-`ProjectMomo_MomoClaws`). Scrapped after repeated in-game failures: `PatchOperationFindMod`
-matches the mod's **display name**, not packageId (so `sarg.alphagenes` never matched);
-then Cyanobot's `Eyes_SlitPupil` refused to resolve in-game for no diagnosable reason
-while its 7 sibling eye genes loaded fine. The claw/fang genes turned out to be
-**mechanical** (grant melee attacks), not cosmetic, which broke the design intent.
-Rather than keep fighting fragile cross-mod gene refs, the user opted to drop the whole
-integration. If it's ever revived: match FindMod by display name, probe the def for the
-gene after def-load (don't trust `ModsConfig.IsActive` — workshop mods store as
-`packageid_steam`), and treat claws/fangs as mechanical, not cosmeticand some "cosmetic" genes carry melee effects —
-verify per-species spawn in the log.
+integration (`Patches/` is empty). Xenotypes carry only their built-in genes (core +
+species + the always-on `ProjectMomo_MomoClaws`). Scrapped after repeated in-game
+failures: `PatchOperationFindMod` matches the mod's **display name**, not packageId
+(so `sarg.alphagenes` never matched); then Cyanobot's `Eyes_SlitPupil` refused to
+resolve in-game for no diagnosable reason while its 7 sibling eye genes loaded fine.
+The claw/fang genes turned out to be **mechanical** (grant melee attacks), not
+cosmetic, which broke the design intent. Rather than keep fighting fragile cross-mod
+gene refs, the user opted to drop the whole integration. If it's ever revived: match
+FindMod by display name, probe the def for the gene after def-load (don't trust
+`ModsConfig.IsActive` — workshop mods store as `packageid_steam`), and treat
+claws/fangs as mechanical, not cosmetic.
 
 ## 8. NOT YET DONE (next work, in priority order)
 
-1. **Petrify** (`PetrifyPowers.cs` + `Defs/AbilityDefs/Abilities_Petrify.xml` +
-   `Defs/HediffDefs/Hediffs_Petrified.xml`): `PMM_Ability_Petrify` (gene-granted,
-   pawn-target ~10 tiles) → hidden `PMM_Hediff_Petrified`: downs target AND freezes
-   Need_Food/Need_Rest/Need_Joy/mood ticking for 2 days (`ShouldRemove` on timer),
-   7-day cooldown. Locked: NOTHING immune, frozen = simply downed (not statue-items).
-   Currently an inert placeholder gene.
-2. **Malef corruption** (`MalefCorruption.cs`): hook core tease knockout — a Malef
-   Dragon downing a female transforms her: baseline/other-momo → `PMM_Dragonewt`,
-   normal Dragon → `PMM_MalefDragon`, via core `MomoTransformation`. Dragonewts do
-   NOT transform. Inert placeholder gene now.
-3. **Medusa ruins ambush** (`RuinsAmbush.cs`): caravan-ambush incident near
-   `AbandonedSettlement`/`AbandonedCamp`/`AbandonedLandmark` world objects
-   (CaravanAmbush precedent); gate on `Any` such object, fall back to cave wander-ins.
-   (Ruin-map pre-population is a later, heavier phase.)
-4. **release.sh** (copy sibling mods' pattern), `About/preview.png` polish.
+1. ~~**Petrify**~~ DONE (2026-09-05): `PetrifyPowers.cs` + `Abilities_Petrify.xml`
+   + `Hediffs_Petrified.xml`. `PMM_Ability_Petrify` (gene-granted, 10 tiles,
+   hostile so raiders use it) → visible `PMM_Hediff_Petrified`: stage caps
+   Consciousness 0.1 + Moving 0 (downs anything, mechs included — locked ruling),
+   and a postfix on **`Need.IsFrozen`** (the check every 1.6 NeedInterval opens
+   with — ONE patch freezes food/rest/joy/mood at once; `Need.pawn`/`IsFrozen`
+   are protected in 1.6 → cached `AccessTools.FieldRef`). 2-day timer, thaw
+   letter/message, 7-day cooldown. Icon from mktex.py.
+2. ~~**Malef corruption**~~ DONE (2026-09-05): `MalefCorruption.cs` patches core's
+   `TeaseKnockout.Evaluate` (prefix snapshots the WillpowerBreak hediff → only the
+   FRESH knockout with the attacker in scope triggers). Normal Dragon →
+   `PMM_MalefDragon`, baseline → `PMM_Dragonewt` (core `ApplyXenotype`, join roll
+   included), other momo → `PMM_Dragonewt` via **new core
+   `MomoTransformation.ConvertXenotype`** (ApplyXenotype refuses momos —
+   "already a monster"; the swap strips the old xenotype's unshared endogenes,
+   stamps the new set, refreshes the pregnancy snapshot, never touches faction).
+   Dragonewts/Malefs exempt.
+3. ~~**Medusa ruins ambush**~~ DONE (2026-09-05): `RuinsAmbush.cs` —
+   `IncidentWorker_MedusaRuinsAmbush : IncidentWorker_Ambush` (NOTE: 1.6 has NO
+   `IncidentWorker_CaravanAmbush`; the ambush flow is `IncidentWorker_Ambush` +
+   subclasses, and the base does map-gen, spawning, and lord-creation from
+   `parms.faction`). Gates on a ruin world object (AbandonedSettlement core /
+   AbandonedCamp, AbandonedLandmark Odyssey — matched by defName) within 5 tiles
+   of the caravan + Broods existing; spawns 1-3 wild-medusa kinds under Broods
+   colours with a `LordJob_AssaultColony`. No ruins → cave wander-ins (fallback).
+   (Ruin-map pre-population is still a later, heavier phase.)
+4. ~~**release.sh**~~ DONE (2026-09-05): slime pattern, but the repo slug comes
+   from the git origin remote (override via `PMM_REPO` env) because this repo
+   had no remote configured yet. `About/preview.png` is the mktex.py placeholder
+   (mountain bands + sun) — polish optional.
 5. **In-game test pass** (see the testing plan in chat): boot (zero red errors),
    worldgen (1 faction each, mountains-only, icons visible, Broods ideo has Monster
    Extremists, leaders generated), egg inheritance (Stage 3, highest risk), grapple,
-   shedding, wild-momo habitat gates.
+   shedding, wild-momo habitat gates. NEW since this list: petrify (cast on a
+   colonist → downed, needs pinned 2 days, thaws standing up; raider medusa uses
+   it), malef corruption (Malef tease-KOs a baseliner → Dragonewt; a Dragon →
+   Malef; a Dragonewt → nothing), ruins ambush (caravan near a ruin).
 
 ## 9. Hard-won lessons (don't relearn these)
 
@@ -177,6 +196,8 @@ verify per-species spawn in the log.
 
 ## 10. Where the canonical state lives
 
-`/home/gapho/Desktop/Project Momo Reptiles` git repo (commits through `148df69`).
+`/home/gapho/Desktop/Project Momo Reptiles` git repo (commits through `72a2577`).
+Core also changed: `MomoTransformation.ConvertXenotype` added (commit `9762861`
+in `/home/gapho/Desktop/Project Momo`) — Reptiles now builds against that core.
 Repo memory: `/memories/repo/pmm-reptiles.md` (phase 1) and
 `/memories/repo/pmm-reptiles-phase2.md` (phase 2) — keep these current.
