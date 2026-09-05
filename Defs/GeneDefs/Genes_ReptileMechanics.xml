@@ -2,13 +2,14 @@
 <Defs>
 
 	<!--
-		Placeholder mechanic genes for Phase 2. These define the gene + its label so
-		the xenotype defs resolve; the actual ability/behavior C# lands in the next
-		implementation step (PetrifyPowers.cs, MalefCorruption.cs). Until then they are
-		inert flavour genes.
+		Mechanic genes for Phase 2. PMM_Gene_Petrify is live (PetrifyPowers.cs:
+		PMM_Ability_Petrify + PMM_Hediff_Petrified + the Need.IsFrozen stasis patch).
+		PMM_Gene_MalefCorruption remains an inert flavour gene until
+		MalefCorruption.cs lands.
 	-->
 
-	<!-- Medusa: petrifying gaze. Full behaviour (PMM_Ability_Petrify + freeze hediff) next step. -->
+	<!-- Medusa: petrifying gaze. Grants PMM_Ability_Petrify (the Dorome mud-merge
+	     pattern: the vanilla ability system runs the gizmo and cooldown). -->
 	<GeneDef>
 		<defName>PMM_Gene_Petrify</defName>
 		<label>petrifying gaze</label>
@@ -18,6 +19,9 @@
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<biostatCpx>2</biostatCpx>
 		<biostatMet>1</biostatMet>
+		<abilities>
+			<li>PMM_Ability_Petrify</li>
+		</abilities>
 		<customEffectDescriptions>
 			<li>Can petrify a victim with her gaze: the target is frozen - downed and unchanging - for two days.</li>
 		</customEffectDescriptions>

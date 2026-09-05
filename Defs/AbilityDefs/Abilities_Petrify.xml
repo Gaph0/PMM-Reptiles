@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Medusa petrifying gaze, granted by PMM_Gene_Petrify (the tail-grapple
+		pattern): the vanilla ability system runs the gizmo and the 7-day cooldown
+		from cooldownTicksRange, so there is no custom cooldown state. The comp
+		effect (PMM_Reptiles.CompProperties_AbilityPetrify) applies
+		PMM_Hediff_Petrified: the victim is downed and every need is held in stasis
+		for 2 days. Locked ruling: nothing is immune, mechanoids included; frozen
+		pawns are simply downed, not statue-items.
+
+		hostile = true, so Scalebound Brood medusas use it on their own (the impid
+		fire-spew precedent).
+	-->
+	<AbilityDef>
+		<defName>PMM_Ability_Petrify</defName>
+		<label>petrifying gaze</label>
+		<description>Fix a victim with the stone-cold gaze of the medusa. The target is frozen where she stands - downed, hunger and weariness held in perfect stasis - for two days.</description>
+		<iconPath>UI/Abilities/PMM_Petrify</iconPath>
+		<cooldownTicksRange>420000</cooldownTicksRange>
+		<hostile>true</hostile>
+		<casterMustBeCapableOfViolence>true</casterMustBeCapableOfViolence>
+		<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+		<disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
+		<verbProperties>
+			<verbClass>Verb_CastAbility</verbClass>
+			<range>10</range>
+			<warmupTime>1.0</warmupTime>
+			<requireLineOfSight>true</requireLineOfSight>
+			<targetParams>
+				<canTargetLocations>false</canTargetLocations>
+				<canTargetPawns>true</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>false</canTargetSelf>
+			</targetParams>
+		</verbProperties>
+		<comps>
+			<li Class="PMM_Reptiles.CompProperties_AbilityPetrify"/>
+		</comps>
+	</AbilityDef>
+
+</Defs>

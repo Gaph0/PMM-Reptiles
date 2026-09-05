@@ -130,6 +130,26 @@ def tex_grapple(size=64):
     c.disc(pts[-1][0], pts[-1][1], wd * 0.62, col, 0.6)
     return c
 
+def tex_petrify(size=64):
+    # white petrifying-gaze glyph on transparent, vanilla ability-icon style:
+    # a flattened eye with a slit pupil and three short radiating rays above
+    c = Canvas(size, size)
+    col = (235, 235, 235, 255)
+    cx, cy, s = size / 2, size * 0.58, size
+    wd = s * 0.06
+    # eye outline (flattened ellipse stroke, full loop)
+    steps = 200
+    for k in range(steps + 1):
+        t = 2 * math.pi * k / steps
+        c.disc(cx + math.cos(t) * s * 0.30, cy + math.sin(t) * s * 0.16, wd / 2, col, 0.7)
+    # slit pupil
+    c.ellipse(cx, cy, s * 0.035, s * 0.10, col, 0.8)
+    # rays fanning out above the eye
+    for dx in (-0.16, 0.0, 0.16):
+        x0 = cx + dx * s
+        c.line(x0, cy - s * 0.24, x0 + dx * s * 0.30, cy - s * 0.37, wd * 0.8, col)
+    return c
+
 def icon_dragonia(size=64):
     # white castle/tower on transparent, vanilla world-icon style
     c = Canvas(size, size)
@@ -264,6 +284,7 @@ def main():
     write_png(os.path.join(t, "Things/Item/Resource/PMM_ReptileScale/PMM_ReptileScale_b.png"), 64, 64, tex_scales().px)
     write_png(os.path.join(t, "Things/Item/Resource/PMM_ReptileEgg.png"), 64, 64, tex_egg().px)
     write_png(os.path.join(t, "UI/Abilities/PMM_TailGrapple.png"), 64, 64, tex_grapple().px)
+    write_png(os.path.join(t, "UI/Abilities/PMM_Petrify.png"), 64, 64, tex_petrify().px)
     write_png(os.path.join(t, "World/WorldObjects/Expanding/PMM_DragoniaHold.png"), 64, 64, icon_dragonia().px)
     write_png(os.path.join(t, "World/WorldObjects/Expanding/PMM_BroodNest.png"), 64, 64, icon_broods().px)
     write_png(os.path.join(ROOT, "About/preview.png"), 1200, 600, preview().px)

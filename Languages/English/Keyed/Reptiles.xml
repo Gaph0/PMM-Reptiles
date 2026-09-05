@@ -5,4 +5,9 @@
 
 	<PMM_Reptiles_GrappleCaught>{VICTIM_labelShort} is caught in {LAMIA_labelShort}'s coils!</PMM_Reptiles_GrappleCaught>
 
+	<PMM_Reptiles_PetrifyCaught>{VICTIM_labelShort} is turned to stone by {MEDUSA_labelShort}'s gaze!</PMM_Reptiles_PetrifyCaught>
+	<PMM_Reptiles_PetrifyThawedLabel>Petrification worn off</PMM_Reptiles_PetrifyThawedLabel>
+	<PMM_Reptiles_PetrifyThawedText>{PAWN_labelShort} is no longer petrified and wakes from her stony sleep.</PMM_Reptiles_PetrifyThawedText>
+	<PMM_Reptiles_PetrifyThawsIn>Thaws in: {0}</PMM_Reptiles_PetrifyThawsIn>
+
 </LanguageData>

@@ -27,9 +27,11 @@ namespace PMM_Reptiles
         public static GeneDef PMM_Gene_MalefCorruption;
         public static HediffDef PMM_Hediff_Shedding;
         public static HediffDef PMM_Hediff_Constricted;
+        public static HediffDef PMM_Hediff_Petrified;
         public static ThingDef PMM_ReptileScale;
         public static ThingDef PMM_ReptileEggFertilized;
         public static AbilityDef PMM_Ability_TailGrapple;
+        public static AbilityDef PMM_Ability_Petrify;
         public static FactionDef PMM_DragoniaFaction;
         public static FactionDef PMM_ScaleboundBroodsFaction;
 

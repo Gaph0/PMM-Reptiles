@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Petrified by a medusa's gaze. Applied by the petrifying-gaze ability.
+		Consciousness capped at 10% downs flesh victims (the anesthesia precedent);
+		Moving capped at 0 drops anything without consciousness (mechanoids — the
+		locked ruling is that NOTHING is immune). While the hediff is present the
+		Need.IsFrozen postfix (PetrifyPowers.cs) holds every need in stasis. The
+		custom hediff class counts down 2 days, announces the thaw, and is removed
+		via ShouldRemove.
+	-->
+	<HediffDef>
+		<defName>PMM_Hediff_Petrified</defName>
+		<label>petrified</label>
+		<description>Turned to living stone by a medusa's gaze — alive, but motionless and unchanging, hunger and weariness held in perfect stasis until the spell loosens.</description>
+		<hediffClass>PMM_Reptiles.Hediff_Petrified</hediffClass>
+		<defaultLabelColor>(0.75, 0.75, 0.78)</defaultLabelColor>
+		<isBad>true</isBad>
+		<initialSeverity>1</initialSeverity>
+		<maxSeverity>1</maxSeverity>
+		<everCurableByItem>false</everCurableByItem>
+		<stages>
+			<li>
+				<label>petrified</label>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<setMax>0</setMax>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+
+</Defs>
