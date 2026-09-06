@@ -4,10 +4,25 @@
 	<!--
 		Per-species scale materials (locked Q5): each reptile xenotype sheds its own
 		scales. All reuse the single generic PMM_ReptileScale texture for now (later art
-		pass); only label, description, colour tint and minor stat flavour differ.
-		Shared base carries the Leathery stuffProps category so every recipe that takes
-		leather/wool accepts them. The shedding hediff maps xenotype → material in C#
-		(next step); until then all reptiles drop the generic PMM_ReptileScale.
+		pass); label, description, colour tint and stats differ per species.
+
+		Stats (2026-09-06, user spreadsheet "leather chart.ods"). Interpretation:
+		- armour sharp/blunt/heat columns are FACTORS on the LeatherBase values
+		  sharp 0.81 and heat 1.5; the BLUNT factor applies to the SHARP base (0.81)
+		  — every blunt factor ≤ its sharp factor, and f0.4 → 0.32 lands just under
+		  thrumbofur (0.36) where premium scales belong (on the 0.24 blunt base
+		  they'd be worse than dog leather, clearly not intended).
+		- insulation columns are ABSOLUTE °C (StuffPower_Insulation is a °C offset;
+		  as factors they'd give absurd 200-480°C values).
+		- max HP and beauty are stuffProps statFACTORS (crafted-item multipliers,
+		  the thrumbofur pattern); value is a factor on LeatherBase's $2.1.
+		Species without a chart row share a listed species' stat line (user ruling):
+		medusa/wurm → lamia, basilisk → lizard, wyvern → dragon,
+		dragonewt → corrupt dragon.
+
+		The abstract base carries only the neutral ResourceBase stats; every concrete
+		material sets its full stat block explicitly so the factors stay readable
+		next to the numbers they produced.
 	-->
 
 	<ThingDef Abstract="True" Name="PMM_ReptileScaleSpeciesBase" ParentName="ResourceBase">
@@ -21,12 +36,6 @@
 		</graphicData>
 		<statBases>
 			<Mass>0.03</Mass>
-			<MarketValue>3.5</MarketValue>
-			<StuffPower_Armor_Sharp>1.1</StuffPower_Armor_Sharp>
-			<StuffPower_Armor_Blunt>0.3</StuffPower_Armor_Blunt>
-			<StuffPower_Armor_Heat>0.8</StuffPower_Armor_Heat>
-			<StuffPower_Insulation_Cold>8</StuffPower_Insulation_Cold>
-			<StuffPower_Insulation_Heat>14</StuffPower_Insulation_Heat>
 		</statBases>
 		<stuffProps>
 			<categories>
@@ -37,81 +46,250 @@
 		</stuffProps>
 	</ThingDef>
 
+	<!-- Lizard scales (f1.3 sharp / f0.14 blunt / f0.2 heat / f1 cold / f0.9 heat-ins / f1.5 value).
+		Also shed by basilisks (user ruling). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Basilisk</defName>
 		<label>basilisk scales</label>
 		<description>Scales shed by a basilisk. Supple and keen-edged, workable like leather.</description>
-		<stuffProps><color>(110,150,90)</color></stuffProps>
+		<statBases>
+			<MarketValue>3.15</MarketValue>
+			<StuffPower_Armor_Sharp>1.05</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.11</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>1.5</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>15</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>18</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(110,150,90)</color>
+			<statFactors>
+				<MaxHitPoints>1.3</MaxHitPoints>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Dragon scales (f2 HP/sharp, f0.4 blunt, f0.8 heat, f1.25 cold, f1.5 heat-ins,
+		f6 beauty, f8 value) — the thrumbo-tier trophy leather. Also shed by wyverns. -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Dragon</defName>
 		<label>dragon scales</label>
 		<description>Scales shed by a dragon. Rich, hard, and faintly warm to the touch.</description>
-		<stuffProps><color>(168,80,50)</color></stuffProps>
+		<statBases>
+			<MarketValue>16.8</MarketValue>
+			<StuffPower_Armor_Sharp>1.62</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.32</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>2.25</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>20</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>25</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(168,80,50)</color>
+			<statFactors>
+				<MaxHitPoints>2.0</MaxHitPoints>
+				<Beauty>6</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Lamia scales (f1 HP, f1 sharp, f0.14 blunt, f0.14 heat, f1 cold, f1.25 heat-ins,
+		f1.7 beauty, f3 value) — plain-leather tier with prettier finished goods.
+		Also shed by medusas and wurms (user ruling). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Lamia</defName>
 		<label>lamia scales</label>
 		<description>Scales shed by a lamia. Smooth, flexible, and finely patterned.</description>
-		<stuffProps><color>(150,140,90)</color></stuffProps>
+		<statBases>
+			<MarketValue>6.3</MarketValue>
+			<StuffPower_Armor_Sharp>0.89</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.11</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>1.5</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>15</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>20</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(150,140,90)</color>
+			<statFactors>
+				<MaxHitPoints>1.0</MaxHitPoints>
+				<Beauty>1.7</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Lizardman scales: same lizard-scales stat line as basilisk (user ruling). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Lizardman</defName>
 		<label>lizardman scales</label>
 		<description>Scales shed by a lizardman. Tough and matte, a warrior's hide.</description>
-		<stuffProps><color>(100,130,70)</color></stuffProps>
+		<statBases>
+			<MarketValue>3.15</MarketValue>
+			<StuffPower_Armor_Sharp>1.05</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.11</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>1.5</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>15</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>18</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(100,130,70)</color>
+			<statFactors>
+				<MaxHitPoints>1.3</MaxHitPoints>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Medusa scales: lamia stat line (user ruling). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Medusa</defName>
 		<label>medusa scales</label>
 		<description>Scales shed by a medusa. Cold, stone-pale, and oddly heavy.</description>
-		<stuffProps><color>(140,145,140)</color></stuffProps>
+		<statBases>
+			<MarketValue>6.3</MarketValue>
+			<StuffPower_Armor_Sharp>0.89</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.11</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>1.5</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>15</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>20</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(140,145,140)</color>
+			<statFactors>
+				<MaxHitPoints>1.0</MaxHitPoints>
+				<Beauty>1.7</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Wurm scales: lamia stat line (user ruling). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Wurm</defName>
 		<label>wurm scales</label>
 		<description>Scales shed by a wurm. Thick, blunt plates from a tunnelling body.</description>
-		<stuffProps><color>(120,100,70)</color></stuffProps>
+		<statBases>
+			<MarketValue>6.3</MarketValue>
+			<StuffPower_Armor_Sharp>0.89</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.11</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>1.5</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>15</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>20</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(120,100,70)</color>
+			<statFactors>
+				<MaxHitPoints>1.0</MaxHitPoints>
+				<Beauty>1.7</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Wyvern scales: dragon stat line (user ruling). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Wyvern</defName>
 		<label>wyvern scales</label>
 		<description>Scales shed by a wyvern. Light and streamlined for the wing.</description>
-		<stuffProps><color>(110,120,140)</color></stuffProps>
+		<statBases>
+			<MarketValue>16.8</MarketValue>
+			<StuffPower_Armor_Sharp>1.62</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.32</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>2.25</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>20</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>25</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(110,120,140)</color>
+			<statFactors>
+				<MaxHitPoints>2.0</MaxHitPoints>
+				<Beauty>6</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Corrupt dragon scales: identical factors to dragon scales (user chart). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_MalefDragon</defName>
 		<label>malef dragon scales</label>
 		<description>Scales shed by a malef dragon. Dark, lustrous, and faintly sinister.</description>
-		<stuffProps><color>(80,60,90)</color></stuffProps>
+		<statBases>
+			<MarketValue>16.8</MarketValue>
+			<StuffPower_Armor_Sharp>1.62</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.32</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>2.25</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>20</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>25</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(80,60,90)</color>
+			<statFactors>
+				<MaxHitPoints>2.0</MaxHitPoints>
+				<Beauty>6</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Dragonewt scales: corrupt dragon stat line (user ruling). -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Dragonewt</defName>
 		<label>dragonewt scales</label>
 		<description>Scales shed by a dragonewt. Fresh-grown, softer than a true dragon's.</description>
-		<stuffProps><color>(160,110,80)</color></stuffProps>
+		<statBases>
+			<MarketValue>16.8</MarketValue>
+			<StuffPower_Armor_Sharp>1.62</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.32</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>2.25</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>20</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>25</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(160,110,80)</color>
+			<statFactors>
+				<MaxHitPoints>2.0</MaxHitPoints>
+				<Beauty>6</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Salamander scales (f1.3 HP/sharp, f0.2 blunt, f2 heat, 12°C cold,
+		30°C heat-ins, f2 beauty, f5 value) — the desert leather: middling
+		protection, top-tier heat insulation. -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Salamander</defName>
 		<label>salamander scales</label>
 		<description>Scales shed by a salamander. Ember-bright and heat-hardened.</description>
-		<stuffProps><color>(190,90,40)</color></stuffProps>
+		<statBases>
+			<MarketValue>10.5</MarketValue>
+			<StuffPower_Armor_Sharp>1.05</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.16</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>3.0</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>12</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>30</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps><color>(190,90,40)</color>
+			<statFactors>
+				<MaxHitPoints>1.3</MaxHitPoints>
+				<Beauty>2</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
+	<!-- Bunyip wool: a WOOL, not a leather (user chart: "Bunyip wool (flammable)").
+		Fabric category + 1.7 flammability (the sheep-wool value); armour factors
+		apply to the leather bases like the others (f1.2 sharp / f0.2 blunt / f2
+		heat), insulation is wool-tier (30°C cold / 18°C heat), f8 beauty, f8 value. -->
 	<ThingDef ParentName="PMM_ReptileScaleSpeciesBase">
 		<defName>PMM_Scale_Bunyip</defName>
-		<label>bunyip scales</label>
-		<description>Scales shed by a bunyip. River-worn and dull green.</description>
-		<stuffProps><color>(90,120,90)</color></stuffProps>
+		<label>bunyip wool</label>
+		<description>Coarse, water-shedding wool shorn from a bunyip's pelt. Warm, tough, and catches flame worryingly easily.</description>
+		<thingCategories>
+			<li>Wools</li>
+		</thingCategories>
+		<statBases>
+			<MarketValue>16.8</MarketValue>
+			<Flammability>1.7</Flammability>
+			<StuffPower_Armor_Sharp>0.97</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.16</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>3.0</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>30</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>18</StuffPower_Insulation_Heat>
+		</statBases>
+		<stuffProps>
+			<categories>
+				<li>Fabric</li>
+			</categories>
+			<color>(90,120,90)</color>
+			<statFactors>
+				<MaxHitPoints>1.2</MaxHitPoints>
+				<Beauty>8</Beauty>
+			</statFactors>
+		</stuffProps>
 	</ThingDef>
 
 </Defs>

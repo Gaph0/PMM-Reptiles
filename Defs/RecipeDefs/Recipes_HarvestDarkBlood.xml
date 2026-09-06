@@ -16,8 +16,6 @@
 		<workerClass>PMM_Reptiles.Recipe_HarvestDarkBlood</workerClass>
 		<jobString>Harvesting dark dragon's blood.</jobString>
 		<workAmount>1200</workAmount>
-		<requiredMedicine>None</requiredMedicine>
-		<medicationMinCount>0</medicationMinCount>
 		<targetsBodyPart>true</targetsBodyPart>
 		<appliedOnFixedBodyParts>
 			<li>Torso</li>
@@ -26,7 +24,6 @@
 		<recipeUsers>
 			<li>Human</li>
 		</recipeUsers>
-		<dontShowIfNoIngredient>true</dontShowIfNoIngredient>
 	</RecipeDef>
 
 </Defs>

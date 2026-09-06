@@ -91,8 +91,16 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
   `World.LakeDirectionAt != Invalid || CoastAngleAt(Ocean|Lake).HasValue`.
   Bunyip is wild-only (no faction). Malef/Dragonewt are NOT wild (faction/ambush only).
 - **Per-species scales** (`Defs/ThingDefs/Items_ReptileScales_Species.xml`, locked Q5):
-  11 materials on a shared Leathery base, generic art + colour tints;
-  `Shedding.cs ScaleMaterialFor(xenotype)` maps species→material, generic fallback.
+  11 materials, generic art + colour tints; `Shedding.cs ScaleMaterialFor(xenotype)`
+  maps species→material, generic fallback (`Item_ReptileScale.xml`, standalone def).
+  Stats (2026-09-06) from the user's `leather chart.ods`: armour sharp/blunt/heat are
+  factors on the LeatherBase values (blunt factors the SHARP base — see the file's
+  header comment), insulation is absolute °C, HP/beauty are stuffProps statFactors,
+  value is ×LeatherBase $2.1. Dragon-line = thrumbo tier ($16.8), lamia-line =
+  plain+ tier, lizard-line = economy, salamander = heat-insulation specialist,
+  **bunyip is a WOOL** (Fabric category, 1.7 flammability), not a leather.
+  Unlisted species share a chart species' stat line (user ruling): medusa/wurm→lamia,
+  basilisk→lizard, wyvern→dragon, dragonewt→corrupt dragon.
 - **Mechanic genes** (`Defs/GeneDefs/Genes_ReptileMechanics.xml`):
   `PMM_Gene_Petrify` is LIVE (§8 item 1; grants its ability via the standard
   `<abilities>` block). `PMM_Gene_MalefCorruption` is now an INERT flavour gene —
