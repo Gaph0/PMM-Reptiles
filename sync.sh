@@ -11,6 +11,9 @@ rsync -a --delete \
   --exclude='/.git' \
   --exclude='/Wiki' \
   --exclude='/Tools' \
+  --exclude='/bin' \
+  --exclude='/obj' \
+  --exclude='/*.csproj' \
   --exclude='Assemblies/*.bak*' \
   --exclude='*.zip' \
   --exclude='/PLAN.md' \
