@@ -20,3 +20,6 @@ Thumbs.db
 # dotnet build output
 bin/
 obj/
+
+# RimWorldForge validation output (generated, not part of the mod)
+reports/

@@ -31,6 +31,7 @@
 
 ## Internal
 
+- 2026-09-20: Added `reports/` to `.gitignore`. It holds generated validation output.
 - 2026-09-20: Changed the README to match the code.
 - 2026-09-20: Removed the custom lamia tail render hediff. The Big & Small naga tracker draws the tail on its own.
 - 2026-09-19: Added gene icons for the reptile genes.
