@@ -16,7 +16,7 @@
 		<defName>PMM_Basilisk</defName>
 		<label>basilisk</label>
 		<combatPowerFactor>1.3</combatPowerFactor>
-		<description>A venomous hunter of caves and deserts. Her strikes pass a slowing venom into her prey, pinning it helpless long before she closes in to finish it - alive, always alive, for what use is a dead mate to a basilisk?</description>
+		<description>A venomous hunter of caves and deserts. Her strikes pass a slowing venom into her prey, pinning it helpless long before she closes in to finish it - alive, always alive, for what use is a dead mate to a basilisk? Her serpent tail carries her swiftly across the sand.</description>
 		<descriptionShort>A cave and desert hunter whose venom-laced strikes slow her prey to a standstill.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_Basilisk</iconPath>
 		<inheritable>true</inheritable>
@@ -24,6 +24,7 @@
 		<genes>
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Reptile</li>
+			<li>PMM_Gene_LamiaTail</li>
 			<li>ProjectMomo_MomoVenom</li>
 			<li>ProjectMomo_MomoClaws</li>
 			<li>MoveSpeed_Quick</li>
@@ -70,14 +71,15 @@
 		<defName>PMM_Wurm</defName>
 		<label>wurm</label>
 		<combatPowerFactor>1.9</combatPowerFactor>
-		<description>A huge, blunt-bodied tunneller of the deep caves and wet places. Immensely strong and almost comically dim, she solves every problem the same way - by hitting it until it stops being a problem. Her claws are famously sharp.</description>
-		<descriptionShort>A colossal, dim-witted tunneller with crushing strength and sharp claws.</descriptionShort>
+		<description>A huge, blunt-bodied tunneller of the deep caves and wet places. Immensely strong and almost comically dim, she solves every problem the same way - by hitting it until it stops being a problem. Her claws are famously sharp, and her thick serpent tail can crush the fight out of anyone she coils around.</description>
+		<descriptionShort>A colossal, dim-witted tunneller with crushing strength, sharp claws, and a heavy serpent tail.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_Wurm</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Reptile</li>
+			<li>PMM_Gene_LamiaTail</li>
 			<li>ProjectMomo_MomoClaws</li>
 			<li>PMM_GeneTrait_WurmMind</li>
 			<li>MeleeDamage_Strong</li>

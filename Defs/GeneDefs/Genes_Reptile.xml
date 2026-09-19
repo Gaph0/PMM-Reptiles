@@ -20,6 +20,7 @@
 		<label>reptilian</label>
 		<labelShortAdj>reptilian</labelShortAdj>
 		<description>Carriers of this gene have the cold-blooded body of a reptile momo: tough scales that blunt cuts and claws, a warmth-loving disposition, and a body that lays a single egg rather than birthing live young. Once a year she sheds her old scales, which can be worked like fine leather.</description>
+		<iconPath>UI/Icons/Genes/PMM_Gene_Reptile</iconPath>
 		<geneClass>PMM_Reptiles.Gene_Reptile</geneClass>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
@@ -45,26 +46,62 @@
 	</GeneDef>
 
 	<!--
-		Lamia tail gene. Grants the tail-grapple ability through the vanilla
-		gene-granted-ability block (the Dorome mud-merge / Genie wish pattern): the
-		vanilla ability system runs the gizmo and cooldown; the comp effect drags the
-		victim adjacent and applies PMM_Hediff_Constricted. No custom gene class needed.
+		Lamia tail gene. Two parts:
+		1. Tail-grapple ability through the vanilla gene-granted-ability block (the
+		   Dorome mud-merge / Genie wish pattern): the comp effect drags the victim
+		   adjacent and applies PMM_Hediff_Constricted. No custom gene class needed.
+		2. The serpent body, via Big & Small. This follows B&S's own snake-tail gene
+		   (LoS_Snake_Tail in BigSmall_Genes): a PawnExtension with thingDefSwap
+		   aimed at BS_Naga. The race fuser then gives the pawn the BS_SnakeHuman
+		   body and applies BS's BS_Naga_Race tracker, which brings the serpent
+		   metabolism package (eats rarely, slithers slower).
+		   exclusionTags (taur, Tail) keep it from stacking with other lower-body
+		   swaps, same as the B&S gene.
+
+		The tail GRAPHIC comes from the BS_Naga_Race tracker and nothing else. The
+		tracker holds the BS_SnekGraphicSet tail node. The fuser keeps the swap
+		target's RaceExtension on the fused def, so that tracker lands on the pawn
+		and draws the tail. The tracker blanks its own tail when the pawn carries a
+		gene tagged "taur", so the Flagger below raises ShowBaseAbdomen and the
+		drawing continues. Whole recipe: thingDefSwap + Flagger + renderCacheOff.
+
+		Do NOT add a render hediff here again. A second renderer draws the same
+		textures twice. PMM_Hediff_LamiaTailRender was deleted on 2026-09-20 once
+		the wing cleanup proved a B&S tracker draws a gene-swapped body on its own.
 	-->
 	<GeneDef>
 		<defName>PMM_Gene_LamiaTail</defName>
 		<label>lamia tail</label>
 		<labelShortAdj>lamia-tailed</labelShortAdj>
 		<description>Carriers of this gene have the long, powerful serpent tail of a lamia. In a fight she can lash out with it, drag an opponent into her coils, and constrict them while she teases their will away.</description>
+		<iconPath>UI/Icons/Genes/PMM_Gene_LamiaTail</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<biostatCpx>1</biostatCpx>
 		<biostatMet>1</biostatMet>
+		<exclusionTags>
+			<li>taur</li>
+			<li>Tail</li>
+		</exclusionTags>
 		<abilities>
 			<li>PMM_Ability_TailGrapple</li>
 		</abilities>
 		<customEffectDescriptions>
+			<li>Her lower body is a powerful serpent tail instead of legs.</li>
 			<li>Can grapple an opponent with her tail: drags them into her coils and constricts them, building tease damage until their will breaks.</li>
 		</customEffectDescriptions>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<!-- The tail is taller than the render atlas, so it would be cropped
+				     without this. The naga tracker sets the same flag on itself. -->
+				<renderCacheOff>true</renderCacheOff>
+				<thingDefSwap>BS_Naga</thingDefSwap>
+			</li>
+			<!-- Same as B&S's snake-tail gene: raise ShowBaseAbdomen so the tracker
+			     stops blanking its own tail art for taur-tagged genes. This flag is
+			     what makes the tail show. There is no PMM render hediff any more. -->
+			<li Class="BigAndSmall.Flagger"><flags><ShowBaseAbdomen/></flags></li>
+		</modExtensions>
 	</GeneDef>
 
 </Defs>

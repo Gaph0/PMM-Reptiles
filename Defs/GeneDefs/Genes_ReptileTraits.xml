@@ -15,6 +15,7 @@
 		<label>dragon's pride</label>
 		<labelShortAdj>proud</labelShortAdj>
 		<description>Carriers of this gene are haughty and acquisitive - every one of them a hoard-keeper convinced of her own magnificence.</description>
+		<iconPath>UI/Icons/Genes/PMM_GeneTrait_DragonPride</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<biostatCpx>0</biostatCpx>
@@ -33,6 +34,7 @@
 		<label>wurm's mind</label>
 		<labelShortAdj>dull</labelShortAdj>
 		<description>Carriers of this gene are slow of thought - all muscle and appetite, with little room left for thinking.</description>
+		<iconPath>UI/Icons/Genes/PMM_GeneTrait_WurmMind</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<biostatCpx>0</biostatCpx>
@@ -40,6 +42,16 @@
 		<forcedTraits>
 			<li><def>SlowLearner</def></li>
 		</forcedTraits>
+		<!-- Big & Small stat: the wurm is huge. +0.5 body size makes her visibly and
+		     mechanically bigger (more health, more hunger) than a baseline momo without
+		     going cartoonish. Plain gene statOffsets - the SM_BodySizeOffset StatDef is
+		     supplied by Big & Small, the offset mechanic is vanilla. -->
+		<statOffsets>
+			<SM_BodySizeOffset>0.5</SM_BodySizeOffset>
+		</statOffsets>
+		<customEffectDescriptions>
+			<li>Huge body: +0.5 body size.</li>
+		</customEffectDescriptions>
 	</GeneDef>
 
 	<!--

@@ -15,6 +15,7 @@
 		<label>petrifying gaze</label>
 		<labelShortAdj>petrifying</labelShortAdj>
 		<description>Carriers of this gene can freeze a victim solid with a look - alive but motionless, hunger and weariness held in perfect stasis, until the spell loosens days later.</description>
+		<iconPath>UI/Icons/Genes/PMM_Gene_Petrify</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<biostatCpx>2</biostatCpx>
@@ -34,6 +35,7 @@
 		<label>malef corruption</label>
 		<labelShortAdj>corrupting</labelShortAdj>
 		<description>Carriers of this gene remake the women they claim: a baseline victim rises as a dragonewt, and a dragon is blackened into a malef mirror of her seducer.</description>
+		<iconPath>UI/Icons/Genes/PMM_Gene_MalefCorruption</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<biostatCpx>2</biostatCpx>
