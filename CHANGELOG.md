@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-09-22: Added basilisks, medusas, lamias and wurms to the Medieval Overhaul cave snake faction. A tenth of the faction are ordinary humans.
+
 - 2026-09-20: Removed the vanilla speed genes from lamias and basilisks. Her tail already slows her, so the two only cancelled each other out.
 - 2026-09-20: Changed the notes about a refused wander-in to appear only in development mode.
 - 2026-09-20: Fixed Dragonia trade caravans failing to arrive. The realm now sends a trader with pack animals and guards.
@@ -41,6 +43,8 @@
 - 2026-09-03: Added egg-laying. A reptile momo lays one fertilized egg instead of giving birth.
 
 ## Internal
+
+- 2026-09-22: Added a snake cave faction patch: one reptile member kind, a 0.225 x 4 xenotypeSet roster and a weight of 70 in the Combat group.
 
 - 2026-09-20: Removed `MoveSpeed_VeryQuick` from the lamia and `MoveSpeed_Quick` from the basilisk. Big and Small's tail tracker applies `MoveSpeed` -0.5 to both, so the genes only cancelled the tail's cost. Wyverns keep `MoveSpeed_Quick` (no tail).
 - 2026-09-20: Changed the wander-in, execute-failure and spawn messages to go through core's `PMMLog`, so they only appear in development mode.
