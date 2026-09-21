@@ -31,15 +31,16 @@ namespace PMM_Reptiles
         public static ThingDef PMM_ReptileScale;
         public static ThingDef PMM_ReptileEggFertilized;
         public static ThingDef PMM_DarkDragonsBlood;
+        public static ThoughtDef PMM_Thought_FreshScales;
         public static AbilityDef PMM_Ability_TailGrapple;
         public static AbilityDef PMM_Ability_Petrify;
         public static FactionDef PMM_DragoniaFaction;
         public static FactionDef PMM_ScaleboundBroodsFaction;
 
         // Xenotypes the Malef corruption switches between (XENOTYPES.md §5).
-        public static XenotypeDef PMM_Dragon;
-        public static XenotypeDef PMM_MalefDragon;
-        public static XenotypeDef PMM_Dragonewt;
+        public static XenotypeDef PMM_Reptile_Dragon;
+        public static XenotypeDef PMM_Reptile_MalefDragon;
+        public static XenotypeDef PMM_Reptile_Dragonewt;
 
         // Per-species scale materials (locked Q5).
         public static ThingDef PMM_Scale_Basilisk;
@@ -53,6 +54,20 @@ namespace PMM_Reptiles
         public static ThingDef PMM_Scale_Dragonewt;
         public static ThingDef PMM_Scale_Salamander;
         public static ThingDef PMM_Scale_Bunyip;
+
+        // The eleven species races (Defs/ThingDefs/Races_ReptileMomo.xml, 2026-09-20).
+        // Each xenotype names its race through BigAndSmall.XenotypeExtension.setRace.
+        public static ThingDef PMM_Race_Basilisk;
+        public static ThingDef PMM_Race_Lamia;
+        public static ThingDef PMM_Race_Medusa;
+        public static ThingDef PMM_Race_Wurm;
+        public static ThingDef PMM_Race_Bunyip;
+        public static ThingDef PMM_Race_Dragon;
+        public static ThingDef PMM_Race_Wyvern;
+        public static ThingDef PMM_Race_MalefDragon;
+        public static ThingDef PMM_Race_Lizardman;
+        public static ThingDef PMM_Race_Dragonewt;
+        public static ThingDef PMM_Race_Salamander;
 
         static ReptileDefOf()
         {

@@ -42,7 +42,7 @@
 	<!--
 		Dragonia, the neutral faction (locked ruling). A mountain realm where dragons
 		and humans coexist: not a natural enemy, not a siege faction, no forced memes —
-		its ideoligions roll freely. Can be befriended, traded with later, and offended.
+		its ideoligions roll freely. Can be befriended, traded with, and offended.
 	-->
 	<FactionDef ParentName="PMM_ReptileFactionBase">
 		<defName>PMM_DragoniaFaction</defName>
@@ -70,13 +70,13 @@
 		     This is what the member-xenotype tooltip and the faction pawn generator read. -->
 		<xenotypeSet>
 			<xenotypeChances>
-				<PMM_Lizardman>0.25</PMM_Lizardman>
-				<PMM_Wyvern>0.20</PMM_Wyvern>
-				<PMM_Lamia>0.20</PMM_Lamia>
-				<PMM_Basilisk>0.15</PMM_Basilisk>
-				<PMM_Wurm>0.12</PMM_Wurm>
-				<PMM_Dragon>0.06</PMM_Dragon>
-				<PMM_Medusa>0.02</PMM_Medusa>
+				<PMM_Reptile_Lizardman>0.25</PMM_Reptile_Lizardman>
+				<PMM_Reptile_Wyvern>0.20</PMM_Reptile_Wyvern>
+				<PMM_Reptile_Lamia>0.20</PMM_Reptile_Lamia>
+				<PMM_Reptile_Basilisk>0.15</PMM_Reptile_Basilisk>
+				<PMM_Reptile_Wurm>0.12</PMM_Reptile_Wurm>
+				<PMM_Reptile_Dragon>0.06</PMM_Reptile_Dragon>
+				<PMM_Reptile_Medusa>0.02</PMM_Reptile_Medusa>
 			</xenotypeChances>
 		</xenotypeSet>
 		<colorSpectrum>
@@ -87,16 +87,54 @@
 			<li>
 				<kindDef>Combat</kindDef>
 				<options>
-					<PMM_DragoniaMember>10</PMM_DragoniaMember>
+					<PMM_Reptile_DragoniaMember>10</PMM_Reptile_DragoniaMember>
 				</options>
 			</li>
 			<li>
 				<kindDef>Peaceful</kindDef>
 				<options>
-					<PMM_DragoniaMember>10</PMM_DragoniaMember>
+					<PMM_Reptile_DragoniaMember>10</PMM_Reptile_DragoniaMember>
 				</options>
 			</li>
+			<!--
+				Trader caravans (added 2026-09-20). Listing a caravanTraderKind is not enough:
+				without a Trader group maker the faction cannot build the caravan at all, and
+				the game logs "has no usable PawnGroupMakers for ... groupKind=Trader".
+				The trader is its own pawnkind (the vanilla Town_Trader pattern: the trader
+				flag, and not a fighter); the member kind forms the caravan guard. Weights
+				are relative, like vanilla's; the pack animals are the vanilla tribal set.
+			-->
+			<li>
+				<kindDef>Trader</kindDef>
+				<traders>
+					<PMM_Reptile_DragoniaTrader>1</PMM_Reptile_DragoniaTrader>
+				</traders>
+				<carriers>
+					<Muffalo>6</Muffalo>
+					<Dromedary>5</Dromedary>
+					<Alpaca>2.5</Alpaca>
+					<Elephant>2</Elephant>
+				</carriers>
+				<guards>
+					<PMM_Reptile_DragoniaMember>10</PMM_Reptile_DragoniaMember>
+				</guards>
+			</li>
 		</pawnGroupMakers>
+		<!-- Trader caravans (added 2026-09-20). Only the neutral realm trades: the
+		     Broods are permanent enemies and never send anyone. The kind itself is
+		     Defs/TraderKindDefs/TraderKinds_Dragonia.xml. -->
+		<caravanTraderKinds>
+			<li>PMM_DragoniaTrader</li>
+		</caravanTraderKinds>
+		<!-- Visiting traders (2026-09-20). Vanilla's visitor-group incident
+		     (IncidentWorker_VisitorGroup) turns one random adult visitor into a small
+		     trader 75% of the time - but only for a faction that lists visitor trader
+		     kinds, so without this list dragonian visitors never trade and only
+		     dragonian caravans do. The kind is the smaller visitor variant in
+		     Defs/TraderKindDefs/TraderKinds_Dragonia.xml. -->
+		<visitorTraderKinds>
+			<li>PMM_DragoniaVisitor</li>
+		</visitorTraderKinds>
 	</FactionDef>
 
 	<!--
@@ -130,13 +168,13 @@
 		     exclusive; plus the shared Lamia, Basilisk, Medusa, Wurm. FRACTIONS. -->
 		<xenotypeSet>
 			<xenotypeChances>
-				<PMM_Lamia>0.28</PMM_Lamia>
-				<PMM_Basilisk>0.20</PMM_Basilisk>
-				<PMM_Dragonewt>0.18</PMM_Dragonewt>
-				<PMM_Salamander>0.15</PMM_Salamander>
-				<PMM_Wurm>0.10</PMM_Wurm>
-				<PMM_Medusa>0.05</PMM_Medusa>
-				<PMM_MalefDragon>0.04</PMM_MalefDragon>
+				<PMM_Reptile_Lamia>0.28</PMM_Reptile_Lamia>
+				<PMM_Reptile_Basilisk>0.20</PMM_Reptile_Basilisk>
+				<PMM_Reptile_Dragonewt>0.18</PMM_Reptile_Dragonewt>
+				<PMM_Reptile_Salamander>0.15</PMM_Reptile_Salamander>
+				<PMM_Reptile_Wurm>0.10</PMM_Reptile_Wurm>
+				<PMM_Reptile_Medusa>0.05</PMM_Reptile_Medusa>
+				<PMM_Reptile_MalefDragon>0.04</PMM_Reptile_MalefDragon>
 			</xenotypeChances>
 		</xenotypeSet>
 		<colorSpectrum>
@@ -147,7 +185,7 @@
 			<li>
 				<kindDef>Combat</kindDef>
 				<options>
-					<PMM_BroodMember>10</PMM_BroodMember>
+					<PMM_Reptile_BroodMember>10</PMM_Reptile_BroodMember>
 				</options>
 			</li>
 		</pawnGroupMakers>

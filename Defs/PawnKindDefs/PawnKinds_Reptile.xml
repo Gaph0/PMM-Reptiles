@@ -38,7 +38,7 @@
 	<!-- ===================== The single faction member kinds ===================== -->
 
 	<PawnKindDef ParentName="PMM_DragoniaBase">
-		<defName>PMM_DragoniaMember</defName>
+		<defName>PMM_Reptile_DragoniaMember</defName>
 		<label>dragonian</label>
 		<!-- factionLeader: after the collapse this is the ONLY kind in the faction's
 		     pawnGroupMakers, and Faction.TryGenerateNewLeader builds its leader-kind
@@ -61,7 +61,7 @@
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_BroodsBase">
-		<defName>PMM_BroodMember</defName>
+		<defName>PMM_Reptile_BroodMember</defName>
 		<label>scalebound</label>
 		<factionLeader>true</factionLeader>
 		<combatPower>55</combatPower>
@@ -76,6 +76,32 @@
 		<weaponMoney>120~250</weaponMoney>
 		<weaponTags>
 			<li>MedievalMeleeBasic</li>
+		</weaponTags>
+	</PawnKindDef>
+	<!--
+		The caravan trader (2026-09-20). Vanilla gives its caravan trader a pawnkind of
+		its own (Town_Trader, Tribal_Trader): the trader flag is what the Trader pawn group
+		kind looks for, and a trader is not a fighter. Gear and tags match the member kind,
+		so a Dragonia caravan looks like the realm it comes from. The faction's Trader group
+		maker (Factions_Reptile.xml) is what uses this kind.
+	-->
+	<PawnKindDef ParentName="PMM_DragoniaBase">
+		<defName>PMM_Reptile_DragoniaTrader</defName>
+		<label>dragonian trader</label>
+		<trader>true</trader>
+		<isFighter>false</isFighter>
+		<combatPower>45</combatPower>
+		<itemQuality>Poor</itemQuality>
+		<gearHealthRange>0.5~1.5</gearHealthRange>
+		<apparelMoney>300~600</apparelMoney>
+		<apparelTags>
+			<li>Neolithic</li>
+			<li>MedievalMilitary</li>
+		</apparelTags>
+		<apparelAllowHeadgearChance>0.5</apparelAllowHeadgearChance>
+		<weaponMoney>150~300</weaponMoney>
+		<weaponTags>
+			<li>MedievalMeleeDecent</li>
 		</weaponTags>
 	</PawnKindDef>
 

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Dragonian traders (2026-09-20). Two kinds, wired to Dragonia only:
+		the Scalebound Broods are permanent enemies and never send anyone.
+
+		Shape follows vanilla Caravan_Neolithic_BulkGoods - a medieval-tech
+		faction's bulk trader: resources and food, drugs, melee weapons, clothing,
+		pack animals, then the vanilla buying generators. The stock is themed on
+		the realm: her own people's shed scales are the signature textile, jade
+		because her holds sit in mountains, plus herbal medicine, pemmican and
+		silver. Every gate is maxTechLevelGenerate Medieval (the faction's tech
+		level), so nothing modern turns up in a mountain market.
+
+		Deliberately NOT sold:
+		- reptile eggs. The only egg the mod ships is PMM_ReptileEggFertilized, a
+		  baby momo; vanilla traders exclude fertilized eggs from their food stock
+		  for the same reason, and selling one would hand the player a free girl.
+		- PMM_DarkDragonsBlood. That blood comes from malef dragons, who exist only
+		  among the hostile Broods, so it stays raid loot and a harvest recipe.
+
+		Dragon scales are the priciest line here (the thrumbo-tier scale material),
+		so they arrive in the smallest counts.
+	-->
+	<TraderKindDef>
+		<defName>PMM_DragoniaTrader</defName>
+		<label>dragonian trader</label>
+		<stockGenerators>
+
+			<!-- Money -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>Silver</thingDef>
+				<countRange>600~1100</countRange>
+			</li>
+
+			<!-- Food and medicine -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>Pemmican</thingDef>
+				<countRange>150~300</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>MedicineHerbal</thingDef>
+				<countRange>5~45</countRange>
+			</li>
+			<li Class="StockGenerator_Category">
+				<categoryDef>FoodRaw</categoryDef>
+				<thingDefCountRange>3~3</thingDefCountRange>
+				<totalPriceRange>300~500</totalPriceRange>
+				<excludedCategories>
+					<li>EggsFertilized</li>
+				</excludedCategories>
+			</li>
+
+			<!-- Mountain wealth -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>Jade</thingDef>
+				<countRange>80~350</countRange>
+			</li>
+
+			<!-- Shed scales, one line per species the realm fields. Dragon and medusa
+			     scales are the rare, valuable ones. -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Lizardman</thingDef>
+				<countRange>40~120</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Lamia</thingDef>
+				<countRange>30~90</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Basilisk</thingDef>
+				<countRange>30~90</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Wyvern</thingDef>
+				<countRange>15~45</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Wurm</thingDef>
+				<countRange>15~45</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Dragon</thingDef>
+				<countRange>5~20</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Medusa</thingDef>
+				<countRange>5~15</countRange>
+			</li>
+
+			<!-- Drugs, medieval ceiling -->
+			<li Class="StockGenerator_Category">
+				<categoryDef>Drugs</categoryDef>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+
+			<!-- Weapons: melee only, this is a medieval realm -->
+			<li Class="StockGenerator_Category">
+				<categoryDef>WeaponsMelee</categoryDef>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+				<thingDefCountRange>3~3</thingDefCountRange>
+				<countRange>1~1</countRange>
+			</li>
+
+			<!-- Clothing -->
+			<li Class="StockGenerator_MarketValue">
+				<tradeTag>BasicClothing</tradeTag>
+				<countRange>6~6</countRange>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+			<li Class="StockGenerator_MarketValue">
+				<tradeTag>Clothing</tradeTag>
+				<countRange>3~3</countRange>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+
+			<!-- Pack and farm animals, sold as a mating pair where vanilla does -->
+			<li Class="StockGenerator_Animals">
+				<maxWildness>0.70</maxWildness>
+				<tradeTagsSell>
+					<li>AnimalFarm</li>
+				</tradeTagsSell>
+				<kindCountRange>2~2</kindCountRange>
+				<countRange>3~4</countRange>
+				<createMatingPair>
+					<li>AnimalFarm</li>
+				</createMatingPair>
+			</li>
+
+			<!-- Buying: the realm wants silver's worth of goods, art above all -
+			     dragons are hoard-keepers. -->
+			<li Class="StockGenerator_BuyExpensiveSimple" />
+			<li Class="StockGenerator_BuyTradeTag">
+				<tag>Art</tag>
+			</li>
+			<li Class="StockGenerator_BuyTradeTag">
+				<tag>ResourcesRaw</tag>
+			</li>
+
+		</stockGenerators>
+	</TraderKindDef>
+
+	<!--
+		Dragonian visiting trader (2026-09-20). Vanilla keeps visitor traders separate
+		from caravan traders (Visitor_Neolithic_Standard vs Caravan_Neolithic_*): a
+		visitor trader carries her whole stock in her own inventory and walks in with a
+		visitor group, while a caravan trader is loaded onto pack animals. So this is a
+		smaller version of the caravan kind - the same themed goods at lower counts, and
+		no animals. The faction's <visitorTraderKinds> wires it up, and
+		IncidentWorker_VisitorGroup.TryConvertOnePawnToSmallTrader gives it to one
+		random adult of a visiting group.
+	-->
+	<TraderKindDef>
+		<defName>PMM_DragoniaVisitor</defName>
+		<label>dragonian trader</label>
+		<stockGenerators>
+
+			<!-- Money -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>Silver</thingDef>
+				<countRange>250~600</countRange>
+			</li>
+
+			<!-- Food and medicine -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>Pemmican</thingDef>
+				<countRange>60~150</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>MedicineHerbal</thingDef>
+				<countRange>5~20</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>Jade</thingDef>
+				<countRange>30~150</countRange>
+			</li>
+
+			<!-- Scales: the signature line, four of the seven species so one woman can
+			     carry them all. -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Lizardman</thingDef>
+				<countRange>15~50</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Lamia</thingDef>
+				<countRange>10~40</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Wyvern</thingDef>
+				<countRange>5~20</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Scale_Dragon</thingDef>
+				<countRange>1~8</countRange>
+			</li>
+
+			<!-- Drugs, medieval ceiling (same gate as the caravan kind) -->
+			<li Class="StockGenerator_Category">
+				<categoryDef>Drugs</categoryDef>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+
+			<!-- Weapons: melee only, this is a medieval realm -->
+			<li Class="StockGenerator_Category">
+				<categoryDef>WeaponsMelee</categoryDef>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+				<thingDefCountRange>1~2</thingDefCountRange>
+				<countRange>1~1</countRange>
+			</li>
+
+			<!-- Clothing -->
+			<li Class="StockGenerator_MarketValue">
+				<tradeTag>BasicClothing</tradeTag>
+				<countRange>3~3</countRange>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+			<li Class="StockGenerator_MarketValue">
+				<tradeTag>Clothing</tradeTag>
+				<countRange>1~1</countRange>
+				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+
+			<!-- Buying: art above all, as in the caravan kind -->
+			<li Class="StockGenerator_BuyExpensiveSimple" />
+			<li Class="StockGenerator_BuyTradeTag">
+				<tag>Art</tag>
+			</li>
+
+		</stockGenerators>
+	</TraderKindDef>
+
+</Defs>
