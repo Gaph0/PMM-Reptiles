@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The eleven reptile momo races (Big & Small pattern, 2026-09-20).
+
+		Until now a reptile pawn was a vanilla Human pawn wearing a reptile xenotype:
+		her body came from a gene body swap, and her corpse was an ordinary
+		Corpse_Human shared with every human in the game. Each species now owns a race
+		def, which is what lets her join the family's shared "momo corpses" line
+		(ProjectMomo.MomoCorpses in the core mod), gives her own hide when she is
+		butchered, and puts her body on the race instead of inside a gene.
+
+		Each species is a ThingDef on ParentName="Human". It carries her body, her hide
+		(leatherDef -> that species' own scale material, the same one she sheds while
+		she lives) and a BigAndSmall.RaceExtension naming her tracker.
+
+		Which tracker, and why (user ruling 2026-09-20, "one row"):
+		- The three plain species (lizardman, dragonewt, salamander) use a tracker of
+		  our own, PMM_RaceTracker_<Species>, on ParentName="BS_DefaultRaceTracker" with
+		  CompProperties_Race.canSwapAwayFrom. Their Health tab row names the species.
+		- The five tailed and the three winged species use Big & Small's own tracker as
+		  their ONLY tracker, set straight in raceHediff: BS_Naga_Race for a serpent
+		  body, BS_HumanoidWithWings_Race for a winged one. That single def draws the
+		  tail or the wings, brings the body's own stats (the serpent metabolism
+		  package) and the VEF floating comp, and carries its own can-swap-away comp -
+		  so the pawn shows ONE Health row instead of two. The accepted trade: that row
+		  is B&S's label ("snake-person", "winged humanoid") rather than the species
+		  name, which the Bio tab's xenotype still gives.
+		- Giving them their own species-labelled row as well is what produced two rows;
+		  merging the two into one custom tracker was tried on 2026-09-20 and CANNOT
+		  work: a node is registered for XML inheritance only when it carries a <Name>
+		  attribute (XmlInheritance.TryRegister reads "Name", never "defName"), and B&S
+		  declares both trackers with <defName> alone. That attempt filled Player.log
+		  with "Could not find parent node named BS_Naga_Race" and left the trackers
+		  loading with no art, no stats and no comps.
+
+		Bodies. The tailed species use BS_SnakeHuman, the winged ones
+		BS_HumanoidWithWings_Body - exactly the bodies their genes used to swap to.
+		That swap can no longer work: Big & Small only discards the Human def when it
+		fuses bodies, so a gene thingDefSwap never fires on a pawn who has a race def
+		of her own. The body sits here instead, so the tail or the wings are there
+		from birth rather than a moment after generation. The tail and flight genes
+		stay exactly as they are: their job is now the ability they grant and the
+		ShowBase* flags that keep the B&S tracker drawing its art.
+
+		Deliberately NOT here: size, temperature range, armour and melee tools. Those
+		already come from the species genes (PMM_Gene_Reptile and friends), and a
+		second copy on the race would stack with them.
+
+		The race is assigned by xenotype: every XenotypeDef in
+		XenotypeDefs/Xenotypes_Reptile.xml declares setRace (one of these defs) and
+		forceRace true, and Big & Small applies it while the pawn's genes are
+		generated. forceRace is required, not decoration: it is what makes the race
+		beat the gene body swaps in the same swap pass.
+
+		The pawn kinds still say <race>Human</race> on purpose, because one faction kind
+		and one wild kind cover all eleven species. The xenotype is what picks the race.
+	-->
+
+	<!-- ===================== Tailed: serpent lower body ===================== -->
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Basilisk</defName>
+		<label>basilisk</label>
+		<description>A venomous hunter of caves and deserts, with a serpent's tail in place of legs.</description>
+		<statBases>
+			<!-- 30 scales a corpse, the same count the insect momos give in chitin.
+			     Her live shedding is separate (PMM_Gene_Reptile). -->
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Basilisk</leatherDef>
+			<body>BS_SnakeHuman</body>
+			<makesFootprints>false</makesFootprints>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<!-- B&S's serpent tracker: the tail, the serpent metabolism, one row. -->
+				<raceHediff>BS_Naga_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Lamia</defName>
+		<label>lamia</label>
+		<description>A serpent-tailed momo of the high caves and mountains, slow on the ground but silver-tongued.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Lamia</leatherDef>
+			<body>BS_SnakeHuman</body>
+			<makesFootprints>false</makesFootprints>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>BS_Naga_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Medusa</defName>
+		<label>medusa</label>
+		<description>A rare lamia-kin of cold stones and forgotten ruins, whose gaze freezes a victim in place.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Medusa</leatherDef>
+			<body>BS_SnakeHuman</body>
+			<makesFootprints>false</makesFootprints>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>BS_Naga_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Wurm</defName>
+		<label>wurm</label>
+		<description>A huge, blunt-bodied tunneller of the deep caves, all crushing tail and sharp claws.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Wurm</leatherDef>
+			<body>BS_SnakeHuman</body>
+			<makesFootprints>false</makesFootprints>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>BS_Naga_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Bunyip</defName>
+		<label>bunyip</label>
+		<description>A strong, sharp-clawed lamia-kin who hunts the rivers and still lakes.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Bunyip</leatherDef>
+			<body>BS_SnakeHuman</body>
+			<makesFootprints>false</makesFootprints>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>BS_Naga_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- ===================== Winged: real BS_Wing body parts ===================== -->
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Dragon</defName>
+		<label>dragon</label>
+		<description>A great winged hoard-keeper of the mountain keeps, wreathed in fire she cannot feel.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Dragon</leatherDef>
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<!-- B&S's winged tracker: the wings, one row. -->
+				<raceHediff>BS_HumanoidWithWings_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Wyvern</defName>
+		<label>wyvern</label>
+		<description>A lean, swift dragon-kin, weaker than a dragon and far quicker on the wing.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Wyvern</leatherDef>
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>BS_HumanoidWithWings_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_MalefDragon</defName>
+		<label>malef dragon</label>
+		<description>A dark, corrupted dragon: her teasing touch remakes the women she claims.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_MalefDragon</leatherDef>
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>BS_HumanoidWithWings_Race</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- ===================== Plain: the vanilla human body ===================== -->
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Lizardman</defName>
+		<label>lizardman</label>
+		<description>A scaled cave warrior, quick to anger and quicker with a blade.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Lizardman</leatherDef>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Lizardman</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Lizardman</defName>
+		<label>lizardman</label>
+		<description>A lizardman momo: a scaled cave swordmaster.</description>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Dragonewt</defName>
+		<label>dragonewt</label>
+		<description>A lesser dragon-kin: scaled, teasing, and newly made by a malef dragon's touch.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Dragonewt</leatherDef>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Dragonewt</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Dragonewt</defName>
+		<label>dragonewt</label>
+		<description>A dragonewt momo: a scaled dragon-kin of the Scalebound Broods.</description>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Salamander</defName>
+		<label>salamander</label>
+		<description>A fire-kissed lizardman-kin, wholly at home in heat that would kill another woman.</description>
+		<statBases>
+			<LeatherAmount>30</LeatherAmount>
+		</statBases>
+		<race>
+			<leatherDef>PMM_Scale_Salamander</leatherDef>
+		</race>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Salamander</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Salamander</defName>
+		<label>salamander</label>
+		<description>A salamander momo: a volcanic lizardman-kin born in fire and lava.</description>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+</Defs>

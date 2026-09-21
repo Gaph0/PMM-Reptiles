@@ -4,7 +4,7 @@
 	<!--
 		Wild-momo pawnkinds for the wander-in incidents. Factionless wild creatures
 		(no defaultFactionDef), naked and unarmed like the vanilla WildMan (the slime
-		PMM_SlimeWild pattern), tamed like wild men via the assembly's IsWildMan patch.
+		PMM_Slime_Wild pattern), tamed like wild men via the assembly's IsWildMan patch.
 		Each pins exactly one xenotype through xenotypeSet; the wander-in worker rolls
 		the species mix and spawns the matching kind. All adult women.
 	-->
@@ -20,64 +20,64 @@
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildBasilisk</defName>
+		<defName>PMM_Reptile_WildBasilisk</defName>
 		<label>basilisk</label>
-		<xenotypeSet><xenotypeChances><PMM_Basilisk>100</PMM_Basilisk></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Basilisk>100</PMM_Reptile_Basilisk></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildLamia</defName>
+		<defName>PMM_Reptile_WildLamia</defName>
 		<label>lamia</label>
-		<xenotypeSet><xenotypeChances><PMM_Lamia>100</PMM_Lamia></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Lamia>100</PMM_Reptile_Lamia></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildMedusa</defName>
+		<defName>PMM_Reptile_WildMedusa</defName>
 		<label>medusa</label>
 		<combatPower>70</combatPower>
-		<xenotypeSet><xenotypeChances><PMM_Medusa>100</PMM_Medusa></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Medusa>100</PMM_Reptile_Medusa></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildWurm</defName>
+		<defName>PMM_Reptile_WildWurm</defName>
 		<label>wurm</label>
 		<combatPower>90</combatPower>
-		<xenotypeSet><xenotypeChances><PMM_Wurm>100</PMM_Wurm></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Wurm>100</PMM_Reptile_Wurm></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildDragon</defName>
+		<defName>PMM_Reptile_WildDragon</defName>
 		<label>dragon</label>
 		<combatPower>100</combatPower>
-		<xenotypeSet><xenotypeChances><PMM_Dragon>100</PMM_Dragon></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Dragon>100</PMM_Reptile_Dragon></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildLizardman</defName>
+		<defName>PMM_Reptile_WildLizardman</defName>
 		<label>lizardman</label>
 		<combatPower>65</combatPower>
-		<xenotypeSet><xenotypeChances><PMM_Lizardman>100</PMM_Lizardman></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Lizardman>100</PMM_Reptile_Lizardman></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildWyvern</defName>
+		<defName>PMM_Reptile_WildWyvern</defName>
 		<label>wyvern</label>
 		<combatPower>60</combatPower>
-		<xenotypeSet><xenotypeChances><PMM_Wyvern>100</PMM_Wyvern></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Wyvern>100</PMM_Reptile_Wyvern></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildSalamander</defName>
+		<defName>PMM_Reptile_WildSalamander</defName>
 		<label>salamander</label>
 		<combatPower>65</combatPower>
-		<xenotypeSet><xenotypeChances><PMM_Salamander>100</PMM_Salamander></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Salamander>100</PMM_Reptile_Salamander></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_ReptileWildBase">
-		<defName>PMM_WildBunyip</defName>
+		<defName>PMM_Reptile_WildBunyip</defName>
 		<label>bunyip</label>
 		<combatPower>70</combatPower>
-		<xenotypeSet><xenotypeChances><PMM_Bunyip>100</PMM_Bunyip></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_Reptile_Bunyip>100</PMM_Reptile_Bunyip></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 </Defs>

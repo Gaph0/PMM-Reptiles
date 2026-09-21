@@ -15,7 +15,7 @@
 		the reptile port had missed).
 
 		Every wild reptile kind must be listed or it will walk straight off the map:
-		PMM_WildBasilisk / Dragon / Lamia / Lizardman / Medusa / Wurm / Wyvern /
+		PMM_Reptile_WildBasilisk / Dragon / Lamia / Lizardman / Medusa / Wurm / Wyvern /
 		Salamander / Bunyip. (Malef Dragon and Dragonewt are not wild — faction-only.)
 	-->
 	<ThinkTreeDef>
@@ -25,7 +25,7 @@
 			<subNodes>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildBasilisk</pawnKind>
+					<pawnKind>PMM_Reptile_WildBasilisk</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -35,7 +35,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildDragon</pawnKind>
+					<pawnKind>PMM_Reptile_WildDragon</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -45,7 +45,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildLamia</pawnKind>
+					<pawnKind>PMM_Reptile_WildLamia</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -55,7 +55,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildLizardman</pawnKind>
+					<pawnKind>PMM_Reptile_WildLizardman</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -65,7 +65,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildMedusa</pawnKind>
+					<pawnKind>PMM_Reptile_WildMedusa</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -75,7 +75,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildWurm</pawnKind>
+					<pawnKind>PMM_Reptile_WildWurm</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -85,7 +85,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildWyvern</pawnKind>
+					<pawnKind>PMM_Reptile_WildWyvern</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -95,7 +95,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildSalamander</pawnKind>
+					<pawnKind>PMM_Reptile_WildSalamander</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -105,7 +105,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildBunyip</pawnKind>
+					<pawnKind>PMM_Reptile_WildBunyip</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Subtree">
 							<treeDef>MainWildManBehaviorCore</treeDef>
@@ -127,7 +127,7 @@
 			<subNodes>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildBasilisk</pawnKind>
+					<pawnKind>PMM_Reptile_WildBasilisk</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -142,7 +142,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildDragon</pawnKind>
+					<pawnKind>PMM_Reptile_WildDragon</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -157,7 +157,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildLamia</pawnKind>
+					<pawnKind>PMM_Reptile_WildLamia</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -172,7 +172,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildLizardman</pawnKind>
+					<pawnKind>PMM_Reptile_WildLizardman</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -187,7 +187,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildMedusa</pawnKind>
+					<pawnKind>PMM_Reptile_WildMedusa</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -202,7 +202,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildWurm</pawnKind>
+					<pawnKind>PMM_Reptile_WildWurm</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -217,7 +217,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildWyvern</pawnKind>
+					<pawnKind>PMM_Reptile_WildWyvern</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -232,7 +232,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildSalamander</pawnKind>
+					<pawnKind>PMM_Reptile_WildSalamander</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
@@ -247,7 +247,7 @@
 				</li>
 
 				<li Class="ThinkNode_ConditionalPawnKind">
-					<pawnKind>PMM_WildBunyip</pawnKind>
+					<pawnKind>PMM_Reptile_WildBunyip</pawnKind>
 					<subNodes>
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
