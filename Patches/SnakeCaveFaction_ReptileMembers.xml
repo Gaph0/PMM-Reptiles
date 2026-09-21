@@ -96,6 +96,76 @@
           </value>
         </li>
 
+        <!--
+          The ruin's boss. MO's big snake ruin builds its garrison from KCSG
+          symbols rather than from the faction's pawn groups, so pointing one of
+          the layout's symbols at a reptile kind is the only way to put a reptile
+          in that map.
+
+          Two of the ruin's three brigand symbols are shared with the rest of the
+          mod's ruins - DankPyon_BrigandThug also stands 19 times in the small
+          brigand ruin and DankPyon_BrigandRaider 37 times in the medium one - so
+          repointing either would turn those camps into reptile camps too.
+          DankPyon_BrigandLeader is used by this one layout alone, at one spot.
+
+          The matriarch pins PMM_Reptile_Lamia at 100, the same idiom the wild
+          lamia kinds use. The pin is merged into the faction roster rather than
+          replacing it (PawnGenerator.XenotypesAvailableFor adds both sets), so she
+          comes out about 99% lamia and the other three species share the rest.
+
+          Gear, gear quality and combat power mirror MO's brigand leader, the pawn
+          she replaces - apart from his splinted boots, which a lamia has no feet
+          for. She carries no factionLeader flag: the flag feeds faction leader
+          generation and pawn group leaders, and this pawn is neither.
+        -->
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs</xpath>
+          <value>
+            <PawnKindDef ParentName="PMM_ReptilePawnBase">
+              <defName>PMM_Reptile_CaveSnakeMatriarch</defName>
+              <label>cave matriarch</label>
+              <defaultFactionDef>DankPyon_SnakeCave_Faction</defaultFactionDef>
+              <combatPower>110</combatPower>
+              <itemQuality>Poor</itemQuality>
+              <gearHealthRange>0.8~1.8</gearHealthRange>
+              <apparelMoney>700~1600</apparelMoney>
+              <apparelTags>
+                <li>DankPyon_BrigandLeader</li>
+              </apparelTags>
+              <apparelAllowHeadgearChance>0.5</apparelAllowHeadgearChance>
+              <weaponMoney>300~500</weaponMoney>
+              <weaponTags>
+                <li>DankPyon_NobleSword</li>
+                <li>DankPyon_Warhammer</li>
+                <li>DankPyon_ArmingSword</li>
+                <li>DankPyon_TwoHandedHammer</li>
+                <li>DankPyon_Greatsword</li>
+                <li>DankPyon_NamedGreataxe</li>
+              </weaponTags>
+              <xenotypeSet>
+                <xenotypeChances>
+                  <PMM_Reptile_Lamia>100</PMM_Reptile_Lamia>
+                </xenotypeChances>
+              </xenotypeSet>
+            </PawnKindDef>
+          </value>
+        </li>
+
+        <!--
+          Conditional around the replace: if Medieval Overhaul ever renames or drops
+          this symbol the patch stays quiet instead of logging an error on load.
+        -->
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/KCSG.SymbolDef[defName="DankPyon_BrigandLeader"]/pawnKindDef</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>Defs/KCSG.SymbolDef[defName="DankPyon_BrigandLeader"]/pawnKindDef</xpath>
+            <value>
+              <pawnKindDef>PMM_Reptile_CaveSnakeMatriarch</pawnKindDef>
+            </value>
+          </match>
+        </li>
+
       </operations>
     </match>
   </Operation>

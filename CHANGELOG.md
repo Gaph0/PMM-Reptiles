@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-09-22: Added a cave matriarch to the Medieval Overhaul snake ruin. The ruin's strongest defender is now a lamia.
 - 2026-09-22: Added basilisks, medusas, lamias and wurms to the Medieval Overhaul cave snake faction. A tenth of the faction are ordinary humans.
 
 - 2026-09-20: Removed the vanilla speed genes from lamias and basilisks. Her tail already slows her, so the two only cancelled each other out.
@@ -44,6 +45,7 @@
 
 ## Internal
 
+- 2026-09-22: Added `PMM_Reptile_CaveSnakeMatriarch` and pointed MO's `DankPyon_BrigandLeader` KCSG symbol at her.
 - 2026-09-22: Added a snake cave faction patch: one reptile member kind, a 0.225 x 4 xenotypeSet roster and a weight of 70 in the Combat group.
 
 - 2026-09-20: Removed `MoveSpeed_VeryQuick` from the lamia and `MoveSpeed_Quick` from the basilisk. Big and Small's tail tracker applies `MoveSpeed` -0.5 to both, so the genes only cancelled the tail's cost. Wyverns keep `MoveSpeed_Quick` (no tail).
