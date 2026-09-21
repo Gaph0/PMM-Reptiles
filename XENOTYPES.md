@@ -4,7 +4,10 @@ Eleven reptile momo xenotypes, wild-momo wander-in spawns, and the wiring that
 replaces the phase-1 gene-injection shim. Builds on the factions/genes/egg-laying
 already in `PLAN.md` (locked rulings) and the patterns proven in the slime mod
 (`PMM_SlimeFaction`) and core (`ProjectMomo`).
-
+Since 2026-09-20 every xenotype also names its own species race (`setRace` +
+`forceRace` in `Defs/XenotypeDefs/Xenotypes_Reptile.xml`), so a reptile pawn is her
+species rather than a Human pawn wearing a costume. The races, their bodies, hides
+and corpses are listed in `RACES-PLAN.md`.
 ## 0. Reusable building blocks (already exist — reference, don't rebuild)
 
 | Asset | Where | Used for |
@@ -32,7 +35,7 @@ not the factionless spawner), all-female.
 |---|---|---|---|---|
 | **Basilisk** | `ProjectMomo_MomoVenom` | — | caves, deserts | both |
 | **Dragon** | `ProjectMomo_MomoClaws`, `PMM_Gene_Flight`, `ProjectMomo_MomoFiery` (fire-breath is flavour only — no ability) | **Arrogant, Greedy** (new trait-gene) | caves, mountains | Dragonia |
-| **Lamia** | `PMM_Gene_LamiaTail`, move/social speed genes | — (persuasive, fast via genes) | caves, mountains | both |
+| **Lamia** | `PMM_Gene_LamiaTail`, social aptitude gene | — (persuasive) | caves, mountains | both |
 | **Lizardman** | melee genes (`MeleeDamage_Strong`, `Robust`, `WoundHealing_SuperFast`) | **Aggressive** | caves | Dragonia |
 | **Medusa** | `PMM_Gene_LamiaTail`, new `PMM_Gene_Petrify` (petrify gizmo) | — | caves + *ruins world-objects* (§4) | both |
 | **Wurm** | `ProjectMomo_MomoClaws`, `Robust`, `MeleeDamage_Strong`, high met | **TooSmart−** (stupid) | wetlands, mountains, caves | both |
@@ -41,6 +44,10 @@ not the factionless spawner), all-female.
 | **Dragonewt** | tease-amp genes (`ProjectMomo_MomoClaws`, social) | **Lustful** | — (not wild) | Broods |
 | **Salamander** | `ProjectMomo_MomoFiery` | — | caves, **volcanic (Odyssey-only)** | Broods |
 | **Bunyip** | `PMM_Gene_LamiaTail`, `ProjectMomo_MomoClaws`, `Robust`, `MeleeDamage_Strong` | **Ugly/poor talker** (social penalty) | rivers & lakes | **none** (wild only) |
+
+Tailed species carry **no** vanilla speed gene (removed 2026-09-20): Big and Small's tail
+tracker already applies `MoveSpeed` -0.5, so `MoveSpeed_Quick`/`MoveSpeed_VeryQuick` only
+cancelled out the cost of the tail. Wyverns keep theirs - they fly, and have no tail to pay for.
 
 New genes to create (all in `Defs/GeneDefs/`):
 - `PMM_Gene_Petrify` — Medusa petrification gizmo (§3).
@@ -118,7 +125,7 @@ and fall back to cave wander-ins when none do.
 scrapped.** A Malef Dragon no longer transforms victims by combat or consent. She
 is made **only by an item**: `PMM_DarkDragonsBlood` (`Defs/ThingDefs/Item_DarkDragonsBlood.xml`),
 a `NeverForNutrition` drug. Its `IngestionOutcomeDoer_DarkDragonsBlood`
-(`Source/Reptiles/DarkDragonsBlood.cs`) transforms the drinker into `PMM_MalefDragon`:
+(`Source/Reptiles/DarkDragonsBlood.cs`) transforms the drinker into `PMM_Reptile_MalefDragon`:
 - **human baseliner** (or any non-dragon, non-exempt woman) → `ApplyXenotype`
   (core `CanEverTransform` gates out men, children, monsters, the too-young);
 - **normal Dragon** → core `MomoTransformation.ConvertXenotype` (re-stamp —

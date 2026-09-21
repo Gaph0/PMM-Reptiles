@@ -2,6 +2,17 @@
 
 ## Player-facing
 
+- 2026-09-20: Removed the vanilla speed genes from lamias and basilisks. Her tail already slows her, so the two only cancelled each other out.
+- 2026-09-20: Changed the notes about a refused wander-in to appear only in development mode.
+- 2026-09-20: Fixed Dragonia trade caravans failing to arrive. The realm now sends a trader with pack animals and guards.
+- 2026-09-20: Added dragonian visiting traders. Some of the visitors Dragonia sends now come to trade.
+- 2026-09-20: Added trader caravans to Dragonia. They bring scales, jade, medieval goods and pack animals, and buy art.
+- 2026-09-20: Changed the medusa ambush to happen in a proper ruin, with broken walls, stone figures and buried loot.
+- 2026-09-20: Added a small mood boost to a reptile momo after she sheds her scales.
+- 2026-09-20: Changed a tailed or winged reptile momo to show one Health tab row instead of two.
+- 2026-09-20: Added a "momo corpses" line in the butcher menu, holding all eleven reptile momos.
+- 2026-09-20: Changed butchering a reptile momo to give her own scales instead of human leather.
+- 2026-09-20: Added a species row to the Health tab for every reptile momo.
 - 2026-09-19: Added Big and Small - Framework as a required mod.
 - 2026-09-19: Added a serpent tail to wyrms and basilisks as well. A wyrm's tail crushes anyone she coils around.
 - 2026-09-19: Rebalanced the wurm: +0.5 body size, so she is visibly bigger and eats more.
@@ -31,6 +42,19 @@
 
 ## Internal
 
+- 2026-09-20: Removed `MoveSpeed_VeryQuick` from the lamia and `MoveSpeed_Quick` from the basilisk. Big and Small's tail tracker applies `MoveSpeed` -0.5 to both, so the genes only cancelled the tail's cost. Wyverns keep `MoveSpeed_Quick` (no tail).
+- 2026-09-20: Changed the wander-in, execute-failure and spawn messages to go through core's `PMMLog`, so they only appear in development mode.
+- 2026-09-20: Added the `PMM_DragoniaVisitor` trader kind and the faction's `visitorTraderKinds`, so a visitor group from Dragonia can include a trader.
+- 2026-09-20: Changed the lamia guest's lord job to vanilla's own visit duration (no `durationTicks`), matching `IncidentWorker_VisitorGroup`.
+- 2026-09-20: Added the Dragonia trader pawnkind and the faction's Trader pawn group maker. Listing only `caravanTraderKinds` left the faction unable to build a trader caravan, which failed with "has no usable PawnGroupMakers for ... groupKind=Trader".
+- 2026-09-20: Removed the lamia guest's local mana handling. Core now fills a visiting momo's mana on spawn and floors her drain.
+- 2026-09-20: Added a Dragonia trader kind and wired it to the faction's caravan traders.
+- 2026-09-20: Added the lamia guest incident, which uses a long vanilla colony-visit lord job.
+- 2026-09-20: Added a map hook that dresses the medusa ambush map as a ruin.
+- 2026-09-20: Added a fresh-scales thought that the shedding hediff grants.
+- 2026-09-20: Changed the tailed and winged races to use Big and Small's body tracker as their only tracker.
+- 2026-09-20: Added a race def and a race tracker for each of the eleven reptile species, on the Big and Small pattern.
+- 2026-09-20: Changed the reptile pawnkind and xenotype names to sort together in the dev spawner.
 - 2026-09-20: Added `reports/` to `.gitignore`. It holds generated validation output.
 - 2026-09-20: Changed the README to match the code.
 - 2026-09-20: Removed the custom lamia tail render hediff. The Big & Small naga tracker draws the tail on its own.

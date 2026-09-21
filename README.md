@@ -8,6 +8,15 @@ Eleven xenotypes ship today: basilisk, lamia, medusa, wurm, dragon, lizardman,
 wyvern, malef dragon, dragonewt, salamander and bunyip. Five of them — lamia, medusa,
 wurm, basilisk and bunyip — move on a serpent tail instead of legs.
 
+Every species has her own race and her own hide. A butchered reptile gives that
+species' scales, the same scales she sheds while she lives, and every reptile corpse
+sits under one "momo corpses" line in the butcher menu.
+
+Dragonia trades. Its traders come to you with scales, jade, medieval goods and pack
+animals, and buy art, and some of the visitors it sends come to trade as well. A caravan
+camped near a ruin may be ambushed by medusas among broken walls and stone figures of
+their victims.
+
 Dark Dragon's Blood is a drug. Drinking it remakes the drinker as a malef dragon. A
 normal dragon changes too. Dragonewts, malefs, men, children and beasts do not.
 

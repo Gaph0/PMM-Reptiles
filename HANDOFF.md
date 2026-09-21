@@ -120,7 +120,7 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
 ## 6. Faction pawnkinds (collapsed, user ruling)
 
 `Defs/PawnKindDefs/PawnKinds_Reptile.xml`: ONE member kind per faction
-(`PMM_DragoniaMember`, `PMM_BroodMember`), medieval gear (Neolithic+MedievalMilitary
+(`PMM_Reptile_DragoniaMember`, `PMM_Reptile_BroodMember`), medieval gear (Neolithic+MedievalMilitary
 apparel, medieval melee weapon), `factionLeader=true`. Species comes entirely from the
 FactionDef roster. Wild kinds stay in `PawnKinds_ReptileWild.xml` (they have no
 FactionDef, so they keep their own pawnkind-level `xenotypeSet`).
@@ -155,7 +155,7 @@ claws/fangs as mechanical, not cosmetic.
    is now made ONLY by an item — `PMM_DarkDragonsBlood`
    (`Defs/ThingDefs/Item_DarkDragonsBlood.xml`, a NeverForNutrition drug) whose
    `IngestionOutcomeDoer_DarkDragonsBlood` (`Source/Reptiles/DarkDragonsBlood.cs`)
-   transforms the drinker into `PMM_MalefDragon`: baseliner → core `ApplyXenotype`
+   transforms the drinker into `PMM_Reptile_MalefDragon`: baseliner → core `ApplyXenotype`
    (`CanEverTransform` gates men/children/monsters/too-young), normal Dragon →
    core `MomoTransformation.ConvertXenotype` (which STAYS in core for this).
    Dragonewts/Malefs/men/children/non-humans unaffected. The core
@@ -169,7 +169,8 @@ claws/fangs as mechanical, not cosmetic.
    AbandonedCamp, AbandonedLandmark Odyssey — matched by defName) within 5 tiles
    of the caravan + Broods existing; spawns 1-3 wild-medusa kinds under Broods
    colours with a `LordJob_AssaultColony`. No ruins → cave wander-ins (fallback).
-   (Ruin-map pre-population is still a later, heavier phase.)
+   (Ruin-map pre-population shipped 2026-09-20 - `Source/Reptiles/MedusaRuinFill.cs`,
+   see item 7.)
 4. ~~**release.sh**~~ DONE (2026-09-05): slime pattern, but the repo slug comes
    from the git origin remote (override via `PMM_REPO` env) because this repo
    had no remote configured yet. `About/preview.png` is the mktex.py placeholder
@@ -181,6 +182,42 @@ claws/fangs as mechanical, not cosmetic.
    colonist → downed, needs pinned 2 days, thaws standing up; raider medusa uses
    it), malef corruption (Malef tease-KOs a baseliner → Dragonewt; a Dragon →
    Malef; a Dragonewt → nothing), ruins ambush (caravan near a ruin).
+
+6. **Own race defs for the 11 species — DONE 2026-09-20, not yet field-tested.**
+   Every species has a race def (`Defs/ThingDefs/Races_ReptileMomo.xml`), each
+   xenotype names hers with `setRace` + `forceRace`, and all 11 corpses are on the
+   family's shared "momo corpses" line. Reasoning, decisions and the test list live
+   in `RACES-PLAN.md`.
+
+7. **Trade, guests, the ruin fill and the scales moodlet — BUILT 2026-09-20, not yet
+   field-tested.** The four items that were sitting in `PLAN.md` §9:
+   - DRAGONIA TRADE: `Defs/TraderKindDefs/TraderKinds_Dragonia.xml` plus
+     `caravanTraderKinds` on the faction (neutral realm only - the Broods are enemies).
+   - RUIN FILL: `Source/Reptiles/MedusaRuinFill.cs` dresses our ambush map with broken
+     stone walls, sculptures as the medusa's petrified victims, fallen rock and buried
+     loot. It hangs off a postfix on `CaravanIncidentUtility.SetupCaravanAttackMap` -
+     the only hook that hands us the finished map - and acts only when our own flag is
+     set (from `GeneratePawns`) AND the tile really is near a ruin.
+   - LAMIA GUEST - BUILT AND REMOVED 2026-09-20 (user ruling).
+     `Defs/IncidentDefs/Incidents_LamiaGuest.xml` and `Source/Reptiles/LamiaGuest.cs` are
+     deleted. Vanilla's own visitor-group incident covers Dragonia's guests instead: it can
+     pick the realm because the faction has a `Peaceful` pawn group maker, and some of those
+     visitors trade because of `<visitorTraderKinds>` below. What the custom incident added,
+     and is now gone: a guaranteed lamia (vanilla rolls the faction's xenotype mix), her own
+     letter, and the parting gift of shed scales. Core's guest mana work stays and applies to
+     every vanilla visitor (`VisitingGuestManaPatch` fills the bar on spawn; `Need_Mana`
+     floors a guest's drain at `GuestManaFloor`).
+   - VISITING TRADERS: `<visitorTraderKinds>` on Dragonia plus the smaller
+     `PMM_DragoniaVisitor` trader kind. Vanilla's visitor-group incident turns one adult
+     visitor into a small trader 75% of the time, but only for a faction that lists
+     visitor trader kinds - dragonians trade at your colony because of this list.
+   - FRESH SCALES: `Defs/ThoughtDefs/Thoughts_Reptile.xml`, granted from `Shedding.cs`
+     when she drops her scales (+3 mood, two days).
+   Test: a caravan arrives with scales/jade and buys art; a caravan ambushed near a ruin
+   finds walls, figures and loot on the map; a vanilla visitor group from Dragonia arrives
+   (one of them may trade) and leaves again after a few hours (`DebugSettings.
+   instantVisitorsGift` in dev mode makes visitors leave at once); shedding shows the
+   moodlet.
 
 ## 9. Hard-won lessons (don't relearn these)
 
@@ -212,3 +249,5 @@ Core also changed: `MomoTransformation.ConvertXenotype` (added `9762861`, kept) 
 the reverted override hook (`3f838c8`) — Reptiles builds against that core.
 Repo memory: `/memories/repo/pmm-reptiles.md` (phase 1) and
 `/memories/repo/pmm-reptiles-phase2.md` (phase 2) — keep these current.
+
+Own race defs for the 11 species: done 2026-09-20, see `RACES-PLAN.md`.

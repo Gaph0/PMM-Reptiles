@@ -18,8 +18,8 @@ Project Momo Reptiles/
   Defs/
     FactionDefs/Factions_Reptile.xml
     PawnKindDefs/PawnKinds_Reptile.xml
-    PawnGroupMakerDefs/PawnGroups_Reptile.xml
-    TraderKindDefs/TraderKinds_Dragonia.xml      (neutral faction; can be a later sub-step)
+    ThingDefs/Races_ReptileMomo.xml                 (the 11 species races, 2026-09-20)
+    TraderKindDefs/TraderKinds_Dragonia.xml         (shipped 2026-09-20)
     GeneDefs/Genes_Reptile.xml
     AbilityDefs/Abilities_Lamia.xml
     HediffDefs/Hediffs_Reptile.xml               (egg-laying, shedding + constricted hediffs)
@@ -200,8 +200,11 @@ follow that example exactly:
   per faction. **Faction exclusivity (user ruling 2026-09-03)**: Lizardmen + normal
   Dragons → Dragonia only; Malef Dragons, Dragonewts, Salamanders → Scalebound Broods
   only; everything else shared.
-- Per-species scale materials; scale apparel; Dragonia trader caravans.
-- Incidents/visitors (lamia guest, basilisk/medusa events), quests.
+- Per-species scale materials; scale apparel; ~~Dragonia trader caravans~~ (shipped
+  2026-09-20: `Defs/TraderKindDefs/TraderKinds_Dragonia.xml` + `caravanTraderKinds`).
+- Incidents/visitors (basilisk/medusa events), quests. Dragonia guest visits are covered by
+  vanilla's own visitor-group incident, whose visitors can trade via `visitorTraderKinds`;
+  the custom lamia-guest incident was built and then removed on 2026-09-20 in favour of it.
 
 ## 10. Open questions — all resolved 2026-09-03
 1. Names: **Dragonia** (neutral), **Scalebound Broods** (lewdist). ✔
