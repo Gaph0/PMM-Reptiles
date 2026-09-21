@@ -122,17 +122,17 @@ namespace PMM_Reptiles
             string xeno = pawn?.genes?.Xenotype?.defName;
             switch (xeno)
             {
-                case "PMM_Basilisk": return ReptileDefOf.PMM_Scale_Basilisk;
-                case "PMM_Dragon": return ReptileDefOf.PMM_Scale_Dragon;
-                case "PMM_Lamia": return ReptileDefOf.PMM_Scale_Lamia;
-                case "PMM_Lizardman": return ReptileDefOf.PMM_Scale_Lizardman;
-                case "PMM_Medusa": return ReptileDefOf.PMM_Scale_Medusa;
-                case "PMM_Wurm": return ReptileDefOf.PMM_Scale_Wurm;
-                case "PMM_Wyvern": return ReptileDefOf.PMM_Scale_Wyvern;
-                case "PMM_MalefDragon": return ReptileDefOf.PMM_Scale_MalefDragon;
-                case "PMM_Dragonewt": return ReptileDefOf.PMM_Scale_Dragonewt;
-                case "PMM_Salamander": return ReptileDefOf.PMM_Scale_Salamander;
-                case "PMM_Bunyip": return ReptileDefOf.PMM_Scale_Bunyip;
+                case "PMM_Reptile_Basilisk": return ReptileDefOf.PMM_Scale_Basilisk;
+                case "PMM_Reptile_Dragon": return ReptileDefOf.PMM_Scale_Dragon;
+                case "PMM_Reptile_Lamia": return ReptileDefOf.PMM_Scale_Lamia;
+                case "PMM_Reptile_Lizardman": return ReptileDefOf.PMM_Scale_Lizardman;
+                case "PMM_Reptile_Medusa": return ReptileDefOf.PMM_Scale_Medusa;
+                case "PMM_Reptile_Wurm": return ReptileDefOf.PMM_Scale_Wurm;
+                case "PMM_Reptile_Wyvern": return ReptileDefOf.PMM_Scale_Wyvern;
+                case "PMM_Reptile_MalefDragon": return ReptileDefOf.PMM_Scale_MalefDragon;
+                case "PMM_Reptile_Dragonewt": return ReptileDefOf.PMM_Scale_Dragonewt;
+                case "PMM_Reptile_Salamander": return ReptileDefOf.PMM_Scale_Salamander;
+                case "PMM_Reptile_Bunyip": return ReptileDefOf.PMM_Scale_Bunyip;
                 default: return ReptileDefOf.PMM_ReptileScale;
             }
         }
@@ -149,6 +149,14 @@ namespace PMM_Reptiles
                 cell = pawn.Position; // nowhere better: drop them under her anyway
             }
             GenPlace.TryPlaceThing(scales, cell, pawn.Map, ThingPlaceMode.Near);
+
+            // Fresh scales: the new hide feels wonderful for a couple of days. The
+            // reptile's own small reward for a shed (PLAN.md §1's optional moodlet).
+            ThoughtDef freshScales = ReptileDefOf.PMM_Thought_FreshScales;
+            if (freshScales != null && pawn.needs?.mood?.thoughts?.memories != null)
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(freshScales);
+            }
 
             Messages.Message("PMM_Reptiles_ShedScales".Translate(pawn.Named("PAWN")),
                 new LookTargets(scales), MessageTypeDefOf.PositiveEvent);
