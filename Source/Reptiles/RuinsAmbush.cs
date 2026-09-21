@@ -24,8 +24,8 @@ namespace PMM_Reptiles
     ///
     /// Ruins are matched by defName so Core (AbandonedSettlement) and Odyssey
     /// (AbandonedCamp, AbandonedLandmark) ruins both count; a missing DLC's
-    /// names simply never resolve. (Ruin-map pre-population — medusas LIVING in
-    /// the ruin — is the later, heavier phase.)
+    /// names simply never resolve. The ruin's map is dressed by MedusaRuinFill
+    /// (broken walls, stone figures of her victims, buried loot) - see that file.
     /// </summary>
     public class IncidentWorker_MedusaRuinsAmbush : IncidentWorker_Ambush
     {
@@ -57,9 +57,13 @@ namespace PMM_Reptiles
 
         protected override List<Pawn> GeneratePawns(IncidentParms parms)
         {
+            // The ambush map is generated one step after this, inside
+            // CaravanIncidentUtility.SetupCaravanAttackMap. This flag tells the postfix
+            // there (MedusaRuinFill) that the map about to be built is ours to dress.
+            MedusaRuinFill.Pending = true;
             Faction broods = Broods;
             parms.faction = broods; // the base class builds the lord from parms.faction
-            PawnKindDef kind = DefDatabase<PawnKindDef>.GetNamed("PMM_WildMedusa");
+            PawnKindDef kind = DefDatabase<PawnKindDef>.GetNamed("PMM_Reptile_WildMedusa");
             int count = Rand.RangeInclusive(MinMedusas, MaxMedusas);
             var pawns = new List<Pawn>(count);
             for (int i = 0; i < count; i++)
@@ -84,7 +88,11 @@ namespace PMM_Reptiles
 
         private static Faction Broods => Find.FactionManager.FirstFactionOfDef(ReptileDefOf.PMM_ScaleboundBroodsFaction);
 
-        private static WorldObject RuinNear(PlanetTile tile)
+        /// <summary>
+        /// The ruin this tile is next to, if any. Also used by MedusaRuinFill's map
+        /// postfix, which re-checks the real map tile before it decorates anything.
+        /// </summary>
+        public static WorldObject RuinNear(PlanetTile tile)
         {
             WorldGrid grid = Find.WorldGrid;
             foreach (WorldObject obj in Find.WorldObjects.AllWorldObjects)

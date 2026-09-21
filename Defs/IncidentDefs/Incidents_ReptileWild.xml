@@ -25,14 +25,14 @@
 		<modExtensions>
 			<li Class="PMM_Reptiles.ReptileWildExtension">
 				<candidates>
-					<li>PMM_WildLamia</li>
-					<li>PMM_WildBasilisk</li>
-					<li>PMM_WildWurm</li>
-					<li>PMM_WildWyvern</li>
-					<li>PMM_WildDragon</li>
-					<li>PMM_WildMedusa</li>
-					<li>PMM_WildLizardman</li>
-					<li>PMM_WildSalamander</li>
+					<li>PMM_Reptile_WildLamia</li>
+					<li>PMM_Reptile_WildBasilisk</li>
+					<li>PMM_Reptile_WildWurm</li>
+					<li>PMM_Reptile_WildWyvern</li>
+					<li>PMM_Reptile_WildDragon</li>
+					<li>PMM_Reptile_WildMedusa</li>
+					<li>PMM_Reptile_WildLizardman</li>
+					<li>PMM_Reptile_WildSalamander</li>
 				</candidates>
 			</li>
 		</modExtensions>
@@ -52,7 +52,7 @@
 		<letterDef>NeutralEvent</letterDef>
 		<modExtensions>
 			<li Class="PMM_Reptiles.ReptileWildExtension">
-				<candidates><li>PMM_WildBasilisk</li></candidates>
+				<candidates><li>PMM_Reptile_WildBasilisk</li></candidates>
 			</li>
 		</modExtensions>
 	</IncidentDef>
@@ -71,7 +71,7 @@
 		<letterDef>NeutralEvent</letterDef>
 		<modExtensions>
 			<li Class="PMM_Reptiles.ReptileWildExtension">
-				<candidates><li>PMM_WildWurm</li></candidates>
+				<candidates><li>PMM_Reptile_WildWurm</li></candidates>
 			</li>
 		</modExtensions>
 	</IncidentDef>
@@ -90,7 +90,7 @@
 		<letterDef>NeutralEvent</letterDef>
 		<modExtensions>
 			<li Class="PMM_Reptiles.ReptileWildExtension">
-				<candidates><li>PMM_WildBunyip</li></candidates>
+				<candidates><li>PMM_Reptile_WildBunyip</li></candidates>
 			</li>
 		</modExtensions>
 	</IncidentDef>
