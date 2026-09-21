@@ -29,16 +29,16 @@ namespace PMM_Reptiles
             XenotypeDef current = pawn.genes.Xenotype;
 
             // Exempt: already the result (Malef) or the lesser dragon-kin (Dragonewt).
-            if (current == ReptileDefOf.PMM_MalefDragon || current == ReptileDefOf.PMM_Dragonewt)
+            if (current == ReptileDefOf.PMM_Reptile_MalefDragon || current == ReptileDefOf.PMM_Reptile_Dragonewt)
             {
                 return;
             }
 
-            if (current == ReptileDefOf.PMM_Dragon)
+            if (current == ReptileDefOf.PMM_Reptile_Dragon)
             {
                 // A normal Dragon is blackened into her malef mirror (re-stamp —
                 // ApplyXenotype refuses an already-monster pawn).
-                MomoTransformation.ConvertXenotype(pawn, ReptileDefOf.PMM_MalefDragon, source: null);
+                MomoTransformation.ConvertXenotype(pawn, ReptileDefOf.PMM_Reptile_MalefDragon, source: null);
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace PMM_Reptiles
             // the too-young.
             if (MomoTransformation.CanEverTransform(pawn))
             {
-                MomoTransformation.ApplyXenotype(pawn, ReptileDefOf.PMM_MalefDragon, source: null);
+                MomoTransformation.ApplyXenotype(pawn, ReptileDefOf.PMM_Reptile_MalefDragon, source: null);
             }
         }
 

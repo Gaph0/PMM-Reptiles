@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using ProjectMomo;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
@@ -37,15 +38,15 @@ namespace PMM_Reptiles
         {
             switch (kind.defName)
             {
-                case "PMM_WildBasilisk": return HasCaves(map) || IsDesert(tile);
-                case "PMM_WildLamia": return HasCaves(map) || IsMountain(tile);
-                case "PMM_WildMedusa": return HasCaves(map);
-                case "PMM_WildWurm": return IsWetland(tile) || IsMountain(tile) || HasCaves(map);
-                case "PMM_WildDragon": return HasCaves(map) || IsMountain(tile);
-                case "PMM_WildLizardman": return HasCaves(map);
-                case "PMM_WildWyvern": return HasCaves(map) || IsMountain(tile);
-                case "PMM_WildSalamander": return HasCaves(map) || IsVolcanic(tile);
-                case "PMM_WildBunyip": return IsRiverOrLake(map);
+                case "PMM_Reptile_WildBasilisk": return HasCaves(map) || IsDesert(tile);
+                case "PMM_Reptile_WildLamia": return HasCaves(map) || IsMountain(tile);
+                case "PMM_Reptile_WildMedusa": return HasCaves(map);
+                case "PMM_Reptile_WildWurm": return IsWetland(tile) || IsMountain(tile) || HasCaves(map);
+                case "PMM_Reptile_WildDragon": return HasCaves(map) || IsMountain(tile);
+                case "PMM_Reptile_WildLizardman": return HasCaves(map);
+                case "PMM_Reptile_WildWyvern": return HasCaves(map) || IsMountain(tile);
+                case "PMM_Reptile_WildSalamander": return HasCaves(map) || IsVolcanic(tile);
+                case "PMM_Reptile_WildBunyip": return IsRiverOrLake(map);
                 default: return false;
             }
         }
@@ -94,17 +95,17 @@ namespace PMM_Reptiles
         {
             if (!(parms.target is Map map))
             {
-                Log.Message($"[PMM_Reptiles] {def.defName} blocked: target is not a map");
+                PMMLog.Message($"[PMM_Reptiles] {def.defName} blocked: target is not a map");
                 return false;
             }
             if (map.GameConditionManager.ConditionIsActive(GameConditionDefOf.ToxicFallout))
             {
-                Log.Message($"[PMM_Reptiles] {def.defName} blocked: toxic fallout active");
+                PMMLog.Message($"[PMM_Reptiles] {def.defName} blocked: toxic fallout active");
                 return false;
             }
             if (ModsConfig.BiotechActive && map.GameConditionManager.ConditionIsActive(GameConditionDefOf.NoxiousHaze))
             {
-                Log.Message($"[PMM_Reptiles] {def.defName} blocked: noxious haze active");
+                PMMLog.Message($"[PMM_Reptiles] {def.defName} blocked: noxious haze active");
                 return false;
             }
 
@@ -112,7 +113,7 @@ namespace PMM_Reptiles
             List<PawnKindDef> viable = ViableKinds(tile, map);
             if (viable.Count == 0)
             {
-                Log.Message($"[PMM_Reptiles] {def.defName} blocked: no candidate species matches this tile " +
+                PMMLog.Message($"[PMM_Reptiles] {def.defName} blocked: no candidate species matches this tile " +
                     $"(biome={tile?.PrimaryBiome?.defName ?? "null"}, hilliness={tile?.hilliness}, caves={HasCaves(map)})");
                 return false; // no candidate species lives on this tile
             }
@@ -120,7 +121,7 @@ namespace PMM_Reptiles
                     c => map.reachability.CanReachColony(c),
                     map, CellFinder.EdgeRoadChance_Ignore, out _))
             {
-                Log.Message($"[PMM_Reptiles] {def.defName} blocked: no edge cell can reach the colony");
+                PMMLog.Message($"[PMM_Reptiles] {def.defName} blocked: no edge cell can reach the colony");
                 return false;
             }
             return true;
@@ -152,7 +153,7 @@ namespace PMM_Reptiles
                     c => map.reachability.CanReachColony(c),
                     map, CellFinder.EdgeRoadChance_Ignore, out IntVec3 cell))
             {
-                Log.Message($"[PMM_Reptiles] {def.defName} execute failed: no edge cell can reach the colony");
+                PMMLog.Message($"[PMM_Reptiles] {def.defName} execute failed: no edge cell can reach the colony");
                 return false;
             }
 
@@ -160,7 +161,7 @@ namespace PMM_Reptiles
             List<PawnKindDef> viable = ViableKinds(tile, map);
             if (viable.Count == 0)
             {
-                Log.Message($"[PMM_Reptiles] {def.defName} execute failed: candidates lost between CanFireNowSub and spawn");
+                PMMLog.Message($"[PMM_Reptiles] {def.defName} execute failed: candidates lost between CanFireNowSub and spawn");
                 return false;
             }
             PawnKindDef kind = viable.RandomElement();
@@ -221,7 +222,7 @@ namespace PMM_Reptiles
             TaggedString letterLabel = def.letterLabel.Formatted(kindLabel.Named("0")).CapitalizeFirst();
             PawnRelationUtility.TryAppendRelationsWithColonistsInfo(ref letterText, ref letterLabel, pawn);
             SendStandardLetter(letterLabel, letterText, def.letterDef, parms, pawn);
-            Log.Message($"[PMM_Reptiles] {def.defName} spawned {kind.defName} '{pawn.Name?.ToStringShort}' at {cell} (biome={tile?.PrimaryBiome?.defName}, hilliness={tile?.hilliness}, caves={HasCaves(map)})");
+            PMMLog.Message($"[PMM_Reptiles] {def.defName} spawned {kind.defName} '{pawn.Name?.ToStringShort}' at {cell} (biome={tile?.PrimaryBiome?.defName}, hilliness={tile?.hilliness}, caves={HasCaves(map)})");
             return true;
         }
     }
@@ -236,7 +237,7 @@ namespace PMM_Reptiles
         public static void Postfix(Pawn p, ref bool __result)
         {
             if (!__result && p?.kindDef != null && !p.IsSubhuman
-                && p.kindDef.defName.StartsWith("PMM_Wild"))
+                && p.kindDef.defName.StartsWith("PMM_Reptile_Wild"))
             {
                 __result = true;
             }
@@ -259,7 +260,7 @@ namespace PMM_Reptiles
     {
         public static void Postfix(Pawn p, ref bool __result)
         {
-            if (__result && p?.kindDef != null && p.kindDef.defName.StartsWith("PMM_Wild"))
+            if (__result && p?.kindDef != null && p.kindDef.defName.StartsWith("PMM_Reptile_Wild"))
             {
                 __result = false;
             }
