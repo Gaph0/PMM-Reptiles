@@ -4,20 +4,20 @@
 	<!--
 		Fresh scales: the small moodlet a reptile momo gets straight after a shed
 		(PLAN.md §1 listed it as optional). Shedding.cs grants it in DropScales, so it
-		fires exactly when her old hide comes away and the new one is under her hands.
+		fires exactly when her old scales comes away and the new one is under her hands.
 		A two-day memory worth +3 mood, stacking once.
 	-->
 	<ThoughtDef>
 		<defName>PMM_Thought_FreshScales</defName>
 		<thoughtClass>Thought_Memory</thoughtClass>
 		<label>fresh scales</label>
-		<description>Her old hide has come away, and the new scales underneath feel wonderful.</description>
+		<description>Her old scales have shed away, and her new scales underneath feel wonderful.</description>
 		<durationDays>2</durationDays>
 		<stackLimit>1</stackLimit>
 		<stages>
 			<li>
 				<label>fresh scales</label>
-				<description>Her old hide has come away, and the new scales underneath feel wonderful.</description>
+				<description>Her old scales have shed away, and her new scales underneath feel wonderful.</description>
 				<baseMoodEffect>3</baseMoodEffect>
 			</li>
 		</stages>

@@ -2,10 +2,10 @@
 <Defs>
 
 	<!--
-		Mechanic genes for Phase 2, both live: PMM_Gene_Petrify (PetrifyPowers.cs:
-		PMM_Ability_Petrify + PMM_Hediff_Petrified + the Need.IsFrozen stasis patch)
-		and PMM_Gene_MalefCorruption (MalefCorruption.cs: the tease-knockout
-		transform hook on core's TeaseKnockout.Evaluate).
+		Phase 2 genes. PMM_Gene_Petrify is live (PetrifyPowers.cs: PMM_Ability_Petrify
+		+ PMM_Hediff_Petrified + the Need.IsFrozen stasis patch).
+		PMM_Gene_MalefCorruption has no mechanic of its own: it is the marker a malef
+		dragon carries, which the blood harvest and the dark blood itself look for.
 	-->
 
 	<!-- Medusa: petrifying gaze. Grants PMM_Ability_Petrify (the Dorome mud-merge
@@ -28,20 +28,28 @@
 		</customEffectDescriptions>
 	</GeneDef>
 
-	<!-- Malef Dragon: transform victims. Behaviour lives in MalefCorruption.cs
-	     (fresh tease knockout by a carrier transforms the female victim). -->
+	<!-- Malef Dragon: the dark blood marker. There is no tease mechanic any more
+	     (scrapped 2026-09-05: the knockout and the colony offer are both gone).
+	     This gene marks a malef for the surgery that draws her blood
+	     (Source/Reptiles/BloodHarvest.cs), and PMM_DarkDragonsBlood does the
+	     remaking (Source/Reptiles/DarkDragonsBlood.cs): a dragonewt on the first
+	     drink, a malef dragon on the second. -->
 	<GeneDef>
 		<defName>PMM_Gene_MalefCorruption</defName>
 		<label>malef corruption</label>
 		<labelShortAdj>corrupting</labelShortAdj>
-		<description>Carriers of this gene remake the women they claim: a baseline victim rises as a dragonewt, and a dragon is blackened into a malef mirror of her seducer.</description>
+		<description>Her blood carries the corruption. A vial drawn from her turns an ordinary woman into a dragonewt, and a dragonewt who drinks a second vial becomes a malef dragon.</description>
 		<iconPath>UI/Icons/Genes/PMM_Gene_MalefCorruption</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<biostatCpx>2</biostatCpx>
 		<biostatMet>1</biostatMet>
+		<!-- Rewritten 2026-09-23: the old text promised women being transformed by broken
+		     will, which is the scrapped teasing mechanic and never happens in play. This now
+		     describes what the game actually does - the blood - so a player reading it is not
+		     sent looking for a power that does not exist. The lore wording is the user's. -->
 		<customEffectDescriptions>
-			<li>Women whose will breaks under her teasing are transformed: baselines into dragonewts, dragons into malef dragons.</li>
+			<li>Dark dragon's blood is drawn from her. Drinking a vial turns an ordinary woman into a dragonewt, and a second vial turns a dragonewt into a malef dragon.</li>
 		</customEffectDescriptions>
 	</GeneDef>
 

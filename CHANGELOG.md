@@ -2,6 +2,23 @@
 
 ## Player-facing
 
+- 2026-09-23: Changed the wedding collar to be invisible while worn. A dragon wears hers and shows nothing on her body; the collar itself is unchanged on the ground and in the gear list.
+- 2026-09-23: Added the wedding collar, sold by dragonian traders. A dragon wearing one stops being greedy and arrogant, becomes kind and masochistic while it is on, and feels better for it. Take it off and she is herself again.
+- 2026-09-23: Removed the jealous trait from dragons. They keep their arrogance and their greed, but they no longer sulk about who has the best bedroom.
+- 2026-09-23: Changed dragons to be arrogant. Every dragon now has the arrogant trait, so she is sure she is the best and picks arguments more often.
+- 2026-09-22: Added the dragon orb, which dragonian traders sell. Set one up and its light calls a wild dragon to your colony at night, whatever the land around you is like. The orb goes quiet once a dragon answers.
+- 2026-09-22: Added the glowing dragon orb, the quiet coloured one the same traders sell. It lights the yard and calls nothing, and it is what a spent calling orb becomes.
+- 2026-09-22: Rebalanced bunyip wool to protect against heat like other wools do (110%), down from 300%.
+- 2026-09-22: Changed the reptile scales to four materials. Dragon-kin give dragon scales, the serpent-kin give lamia scales, the lizard-kin give lizardman scales, and the bunyip keeps her own wool.
+- 2026-09-22: Rebalanced dragonium's essence ward to 10% recovery a piece, up from 5%.
+- 2026-09-22: Changed dragonium armour to ward the wearer: a worn piece speeds up essence recovery and slows mana drain.
+- 2026-09-22: Changed the dragonian towns to trade with player caravans that reach them.
+- 2026-09-22: Added dragonium, a violet metal that only Dragonia trades, in plasteel's amounts. It beats plasteel against heat and on sharp attacks and beauty, but has fewer hit points and worse cold insulation.
+- 2026-09-22: Added flasks of Dragon's Lifeblood to Scalebound Broods loot. Their raiders and camps carry the wine they cannot buy.
+- 2026-09-22: Added Dragon's Lifeblood, a strong Dragonia wine that dragonian traders sell. It gets the drinker drunk, restores her mana or essence, and leaves her eager for her lover.
+- 2026-09-22: Changed the salamander's melee. She now has a remarkable melee aptitude instead of strong melee damage and a tough body.
+- 2026-09-22: Changed Dark Dragon's Blood to turn an ordinary woman into a dragonewt first, instead of a malef dragon.
+- 2026-09-22: Added a second step to Dark Dragon's Blood: a dragonewt who drinks it becomes a malef dragon. A normal dragon still becomes one straight away.
 - 2026-09-22: Added a cave matriarch to the Medieval Overhaul snake ruin. The ruin's strongest defender is now a lamia.
 - 2026-09-22: Added basilisks, medusas, lamias and wurms to the Medieval Overhaul cave snake faction. A tenth of the faction are ordinary humans.
 
@@ -26,6 +43,7 @@
 - 2026-09-05: Added the medusa ruins ambush. A caravan that passes near a ruin can be ambushed by Broods medusas lying in wait among the stones.
 - 2026-09-05: Changed Ideology to a soft dependency. Without the DLC both factions still spawn, and the Broods simply lose their forced Monster Extremists meme.
 - 2026-09-05: Added Dark Dragon's Blood: an ingestible drug that remakes the drinker as a malef dragon. Human baseliners and normal dragons both change. Dragonewts, malefs, men, children and beasts do not.
+- 2026-09-05: Added a surgery that draws dark dragon's blood from a living malef dragon. It gives a vial and costs her half her blood, and it is refused when it would kill her.
 - 2026-09-05: Changed each faction to one member pawnkind, with the faction's xenotype roster deciding the species mix.
 - 2026-09-05: Fixed a faction member tooltip that showed "Baseliner 100%".
 - 2026-09-05: Changed faction member pawnkinds to be faction leaders, so factions can generate leaders.
@@ -45,6 +63,24 @@
 
 ## Internal
 
+- 2026-09-23: Removed the wedding collar's `wornGraphicPath`, so nothing is drawn on the pawn. Verified in the assembly: `Apparel.WornGraphicPath` has no fallback to the item icon, and `TryGetGraphicApparel` returns false on an empty one, giving the apparel no render node.
+- 2026-09-23: Changed the wedding collar's hediff to stay off the Health tab (`CompDisallowVisible`), leaving the mood thought and the collar gene as its visible traces. A `GeneDef` cannot be hidden at all - the def schema offers no field for it.
+- 2026-09-23: Changed the wedding collar's nullifying from a `TraitSet.HasTrait` patch to the collar's own gene with `suppressedTraits` (`Defs/GeneDefs/Genes_WeddingCollar.xml`), so greedy and arrogant grey out in her trait list as well as stopping their effects. Deleted the patch.
+- 2026-09-23: Fixed the wedding collar's follow-up errors: a mood-moving thought stage needs a `<description>`, and the `TraitSet.HasTrait` postfix argument had to be named `tDef` (Harmony binds by name), which had killed the mod's static constructor a second time.
+- 2026-09-23: Fixed three wedding collar startup errors: `HediffStage` takes no `moodOffset` (the mood is a thought now), the apparel needed `<smeltable>false</smeltable>`, and naming `TraitSet.HasTrait` alone threw an AmbiguousMatchException in the mod's static constructor.
+- 2026-09-23: Added `PMM_WeddingCollar` (neck apparel on `ApparelNoQualityBase`) with `PMM_Hediff_WeddingCollar` and `Source/Reptiles/WeddingCollar.cs`: `TraitSet.HasTrait` reports Greedy and `PMM_Arrogant` absent while a collar is worn, and the hediff's comp gains then returns Kind and Masochist.
+- 2026-09-23: Removed `Jealous` from `PMM_GeneTrait_DragonPride`'s forced traits, which now read Arrogant + Greedy. Vanilla lists Greedy and Jealous as each other's `conflictingTrait`, so forcing both was contradictory.
+- 2026-09-23: Added core's `PMM_Arrogant` to `PMM_GeneTrait_DragonPride`'s forced traits, so every dragon is arrogant. Malef dragons and wyverns do not carry that gene and are unchanged.
+- 2026-09-22: Added `PMM_DragonOrb` and `PMM_DragonOrbDecor`: 1x1 minifiable buildings with no `designationCategory` and no `costList`, so a trader hands one over as a `MinifiedThing` the player installs, and the Architect menu never offers either.
+- 2026-09-22: Added `ReptileWildExtension.orbCandidates` and the orb's night check to the wander-in worker: a lit calling orb adds its species to the roll whatever the habitat, and becomes the glowing orb when the roll picks one of its species.
+- 2026-09-22: Added the `PMM_DragonOrbCall` incident, which cannot fire without a lit calling orb on the map, and renamed the stock patch to `Patches/ExcludeDragonContentFromVanillaStock.xml` now that it excludes the metal and the orbs.
+- 2026-09-22: Changed ReptileDefOf, Shedding.ScaleMaterialFor and the medusa ruin fill to four shared materials, with bunyip wool kept separate as a wool (user ruling), and deleted the per-species scale defs plus the unused generic PMM_ReptileScale.
+- 2026-09-22: Changed dragonium's worn ward to use two new core gear stats and vanilla's own gear-stat parts, so no patch was needed.
+- 2026-09-22: Changed dragonium into the vanilla raw resources category and excluded it by name from the three vanilla stock generators that roll that category.
+- 2026-09-22: Added dragonium as a Metallic stuff copying plasteel.
+- 2026-09-22: Added Dragon's Lifeblood to `PMM_BroodsRaidLootMaker` beside the dark dragon's blood, since a permanent enemy faction can never send traders.
+- 2026-09-22: Added the Dragon's Lifeblood item and its hidden hediff, which takes its lovin' effect from vanilla's own lovin'-MTB comp rather than a patch.
+- 2026-09-22: Changed Dark Dragon's Blood so a dragonewt takes the same re-stamp path as a dragon, and a first drink stamps the dragonewt xenotype.
 - 2026-09-22: Added `PMM_Reptile_CaveSnakeMatriarch` and pointed MO's `DankPyon_BrigandLeader` KCSG symbol at her.
 - 2026-09-22: Added a snake cave faction patch: one reptile member kind, a 0.225 x 4 xenotypeSet roster and a weight of 70 in the Combat group.
 
