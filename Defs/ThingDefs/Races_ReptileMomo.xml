@@ -12,8 +12,9 @@
 		butchered, and puts her body on the race instead of inside a gene.
 
 		Each species is a ThingDef on ParentName="Human". It carries her body, her hide
-		(leatherDef -> that species' own scale material, the same one she sheds while
-		she lives) and a BigAndSmall.RaceExtension naming her tracker.
+		(leatherDef -> one of the four shared materials (dragon, lamia or lizardman
+		scales, or the bunyip's own wool), the same one she sheds while she lives) and a
+		BigAndSmall.RaceExtension naming her tracker.
 
 		Which tracker, and why (user ruling 2026-09-20, "one row"):
 		- The three plain species (lizardman, dragonewt, salamander) use a tracker of
@@ -70,7 +71,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
-			<leatherDef>PMM_Scale_Basilisk</leatherDef>
+			<leatherDef>PMM_Scale_Lizardman</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
 		</race>
@@ -109,7 +110,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
-			<leatherDef>PMM_Scale_Medusa</leatherDef>
+			<leatherDef>PMM_Scale_Lamia</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
 		</race>
@@ -128,7 +129,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
-			<leatherDef>PMM_Scale_Wurm</leatherDef>
+			<leatherDef>PMM_Scale_Lamia</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
 		</race>
@@ -187,7 +188,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
-			<leatherDef>PMM_Scale_Wyvern</leatherDef>
+			<leatherDef>PMM_Scale_Dragon</leatherDef>
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<modExtensions>
@@ -205,7 +206,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
-			<leatherDef>PMM_Scale_MalefDragon</leatherDef>
+			<leatherDef>PMM_Scale_Dragon</leatherDef>
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<modExtensions>
@@ -253,7 +254,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
-			<leatherDef>PMM_Scale_Dragonewt</leatherDef>
+			<leatherDef>PMM_Scale_Dragon</leatherDef>
 		</race>
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
@@ -281,7 +282,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
-			<leatherDef>PMM_Scale_Salamander</leatherDef>
+			<leatherDef>PMM_Scale_Lizardman</leatherDef>
 		</race>
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">

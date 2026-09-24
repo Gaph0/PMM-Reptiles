@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The collar's nullifying, as a gene (2026-09-23). This is what greys out greedy and
+		arrogant in a wearer's trait list, and it is the only way to do it: `suppressedTraits`
+		exists on GeneDef alone (checked against the generated def schema), so a hediff cannot
+		suppress a trait and neither can a code patch - a patch on TraitSet.HasTrait can mute
+		the *effects* of a trait, which the first version of this collar did, but the trait
+		list on the Social tab still showed them in full colour.
+
+		Granted and removed by Source/Reptiles/WeddingCollar.cs with the hediff, as a
+		**xenogene** (the game's own word for an acquired gene, the same kind a gene drug
+		gives). Nothing here is cosmetic: the engine reads this list when it decides whether
+		the pawn has a trait at all, so vanilla's own trait checks report greedy and arrogant
+		absent while she wears the collar, and the trait rows grey out.
+
+		Nothing is forced here: kind and masochistic are really gained, by the hediff's comp,
+		because those two have to behave as well as appear. Suppression is one-way - the
+		engine can hide a trait, not grant one - which is why the two halves are split.
+
+		The xenotype is untouched: Pawn_GeneTracker keeps the xenotype in a field set at
+		generation, so adding or removing an acquired gene leaves the pawn's displayed
+		xenotype exactly as it was.
+
+		Icon: Textures/UI/Icons/Genes/PMM_Gene_WeddingCollar.png, the collar itself.
+	-->
+	<GeneDef>
+		<defName>PMM_Gene_WeddingCollar</defName>
+		<label>wedding collar</label>
+		<labelShortAdj>collared</labelShortAdj>
+		<description>She wears a wedding collar, and its spell keeps her dragon's pride quiet: while it is on she is neither greedy nor arrogant.</description>
+		<iconPath>UI/Icons/Genes/PMM_Gene_WeddingCollar</iconPath>
+		<displayCategory>Miscellaneous</displayCategory>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<biostatCpx>0</biostatCpx>
+		<biostatMet>0</biostatMet>
+		<suppressedTraits>
+			<li><def>Greedy</def></li>
+			<li><def>PMM_Arrogant</def></li>
+		</suppressedTraits>
+	</GeneDef>
+
+</Defs>

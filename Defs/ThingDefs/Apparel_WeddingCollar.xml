@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Wedding collar (2026-09-23). Dragonia's own jewellery, and the item the realm's
+		wives wear: a collar a dragon wears with pride, because wearing one means she has
+		found a man she judges worth submitting to.
+
+		Worn on the neck, on the Overhead layer, exactly like vanilla's slave collar from
+		Ideology - the same body part group, the same layer. It works the other way round,
+		though: the slave collar suppresses its wearer, and this one is a wedding gift she
+		wants to wear. It is also invisible while worn (see the apparel block below).
+
+		While worn it nullifies the greedy and arrogant traits, hands her the kind and
+		masochistic traits, and lifts her mood by 3. The trait swap is the hediff
+		(Hediffs_WeddingCollar.xml), the mood is a situational thought
+		(Thoughts_WeddingCollar.xml), and the nullifying is the collar's own gene
+		(Genes_WeddingCollar.xml): `suppressedTraits` lives on `GeneDef` and nowhere else, and
+		it is the only thing that takes a trait out of her list rather than muting it.
+
+		Not makeable and not stuffable: this is bought from Dragonia's jewellers, one
+		finished piece, not a thing a colonist tails out of leather. Only the dragonian
+		caravan trader carries it, and only one or two at a time - the wiki prices it at
+		"as much as a dragoon's first month of pay", which is what MarketValue 850 is.
+
+		Art: Textures/Things/Pawn/Humanlike/Apparel/WeddingCollar/PMM_WeddingCollar.png
+		(64x64), used as the item icon - on the ground, in a pawn's inventory, in a stockpile.
+		It is deliberately NOT the worn graphic: the collar shows nothing at all on the pawn
+		(see the apparel block below).
+	-->
+	<ThingDef ParentName="ApparelNoQualityBase">
+		<defName>PMM_WeddingCollar</defName>
+		<label>wedding collar</label>
+		<description>A collar of mamono realm silver set with dragon scale and a single magic gem, cut to sit at the base of the throat. Dragonian jewellers in Dragon's Den Alley make them to order, and a dragon wears hers with pride: a wedding collar is proof that she found a man mightier than herself.\n\nThe stone carries the spell. While she wears it, a dragon's pride goes quiet - she is not grasping, and not arrogant - and a gentler woman shows through instead, one who finds a kind of comfort in belonging to someone. Only a husband is meant to fasten one on her, though nothing stops a clever colonist from buying one and seeing what it does.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/WeddingCollar/PMM_WeddingCollar</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.85</drawSize>
+		</graphicData>
+		<techLevel>Medieval</techLevel>
+		<thingCategories>
+			<li>ApparelMisc</li>
+		</thingCategories>
+		<statBases>
+			<MaxHitPoints>60</MaxHitPoints>
+			<WorkToMake>3000</WorkToMake>
+			<Mass>0.2</Mass>
+			<MarketValue>850</MarketValue>
+			<StuffEffectMultiplierArmor>0</StuffEffectMultiplierArmor>
+			<StuffEffectMultiplierInsulation_Cold>0</StuffEffectMultiplierInsulation_Cold>
+			<StuffEffectMultiplierInsulation_Heat>0</StuffEffectMultiplierInsulation_Heat>
+			<EquipDelay>2</EquipDelay>
+		</statBases>
+		<!-- Bought jewelry, not salvage. Without this, the inherited smeltable flag logs
+		     "Config error in PMM_WeddingCollar: is smeltable but does not give anything for
+		     smelting" on every load. -->
+		<smeltable>false</smeltable>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<bodyPartGroups>
+				<li>Neck</li>
+			</bodyPartGroups>
+			<!-- No <wornGraphicPath>: the collar does not show on the pawn. Verified against the
+			     game's own code - Apparel.WornGraphicPath returns this field with no fallback to
+			     the item icon, and ApparelGraphicRecordGetter.TryGetGraphicApparel returns false
+			     when it is empty, which makes DynamicPawnRenderNodeSetup_Apparel give the
+			     apparel no render node at all. Nothing to draw, and no config error.
+			     (2026-09-23, on request: she wears it, you just cannot see it.) -->
+			<layers>
+				<li>Overhead</li>
+			</layers>
+			<canBeDesiredForIdeo>false</canBeDesiredForIdeo>
+			<canBeGeneratedToSatisfyWarmth>false</canBeGeneratedToSatisfyWarmth>
+			<canBeGeneratedToSatisfyToxicEnvironmentResistance>false</canBeGeneratedToSatisfyToxicEnvironmentResistance>
+		</apparel>
+	</ThingDef>
+
+</Defs>

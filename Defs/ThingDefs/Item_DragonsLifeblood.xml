@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Dragon's Lifeblood (2026-09-22): Dragonia's own strong red vintage, sold by
+		the realm's trader caravans and by the visiting traders it sends
+		(Defs/TraderKindDefs/TraderKinds_Dragonia.xml).
+
+		Alcohol, taken wholesale from vanilla beer (Core/Defs/Drugs/Alcohol_Beer.xml)
+		so it behaves exactly like vanilla drink and not like a copy of it:
+		- the two IngestionOutcomeDoer_GiveHediff blocks below are beer's, verbatim
+		  (AlcoholHigh 0.15 per drink, so repeated drinking walks her through vanilla's
+		  warm / tipsy / drunk / wasted stages, plus the AlcoholTolerance line with
+		  beer's own rate and its divideByBodySize and multiplyByGeneToleranceFactors);
+		- CompProperties_Drug with chemical Alcohol gives the vanilla tolerance,
+		  dependency and addiction machinery, and needLevelOffset 0.9 is beer's
+		  chemical recreation top-up;
+		- joyKind Chemical + drugCategory Social is how vanilla's chemical recreation
+		  (joy) is granted.
+		The only differences from beer: 0.2 severity per drink instead of 0.15 (this
+		is the strong stuff), a medieval tech level, and the two extra outcome doers
+		below.
+
+		The two extra effects:
+		- PMM_Hediff_DragonsLifeblood, the hidden "blood running hot" hediff. It
+		  carries vanilla's own HediffCompProperties_GiveLovinMTBFactor, which
+		  JobDriver_Lovin reads when it schedules the next lovin', so lovin' comes
+		  around sooner while it lasts. No patch needed; see Hediffs_Reptile.xml.
+		- IngestionOutcomeDoer_DragonsLifeblood, which tops up whichever life-energy
+		  need the drinker has: a Momo carries mana (her gene swaps Essence out for
+		  it), an ordinary human carries essence. Amounts are the two fields at the
+		  end of that block.
+
+		Not sold by the Broods: they are permanent enemies and never trade.
+	-->
+	<ThingDef>
+		<defName>PMM_DragonsLifeblood</defName>
+		<label>dragon's lifeblood</label>
+		<description>A stoppered flask of Dragonia's famous red vintage, with not one drop of blood in it despite the name: mamono-realm grapes raised by the Queen's own hand, cut with alraune nectar and calming herbs until a soldier can drink it all night. It restores strength and willpower in a swallow, and sets the essence bubbling up like magma in a volcano.\n\nIt is strong wine, and it goes to the head faster than beer. The Dragoon Corps is issued a flask each, and the corps' standing joke is that the wine's real danger was never the hangover: a woman who empties her flask has a warm, restless night ahead of her.</description>
+		<descriptionHyperlinks>
+			<HediffDef>AlcoholHigh</HediffDef>
+			<HediffDef>AlcoholTolerance</HediffDef>
+			<HediffDef>Hangover</HediffDef>
+			<HediffDef>AlcoholAddiction</HediffDef>
+			<HediffDef>Cirrhosis</HediffDef>
+			<HediffDef>ChemicalDamageModerate</HediffDef>
+		</descriptionHyperlinks>
+		<thingClass>ThingWithComps</thingClass>
+		<category>Item</category>
+		<drawerType>MapMeshOnly</drawerType>
+		<useHitPoints>true</useHitPoints>
+		<selectable>true</selectable>
+		<altitudeLayer>Item</altitudeLayer>
+		<stackLimit>25</stackLimit>
+		<rotatable>false</rotatable>
+		<pathCost>14</pathCost>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<alwaysHaulable>true</alwaysHaulable>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<resourceReadoutPriority>Middle</resourceReadoutPriority>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<MarketValue>18</MarketValue>
+			<Mass>0.3</Mass>
+			<Flammability>0.5</Flammability>
+			<DeteriorationRate>0.5</DeteriorationRate>
+			<Nutrition>0.08</Nutrition>
+		</statBases>
+		<graphicData>
+			<texPath>Things/Item/Resource/PMM_DragonsLifeblood</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<techLevel>Medieval</techLevel>
+		<ingestible>
+			<foodType>Fluid, Processed, Liquor</foodType>
+			<preferability>NeverForNutrition</preferability>
+			<joyKind>Chemical</joyKind>
+			<joy>0.2</joy>
+			<nurseable>true</nurseable>
+			<drugCategory>Social</drugCategory>
+			<ingestSound>Ingest_Beer</ingestSound>
+			<ingestCommandString>Drink {0}</ingestCommandString>
+			<ingestReportString>Drinking {0}.</ingestReportString>
+			<maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+			<defaultNumToIngestAtOnce>1</defaultNumToIngestAtOnce>
+			<chairSearchRadius>8</chairSearchRadius>
+			<canAutoSelectAsFoodForCaravan>false</canAutoSelectAsFoodForCaravan>
+			<tableDesired>false</tableDesired>
+			<outcomeDoers>
+				<!-- Beer's two, verbatim: the high, then the tolerance build-up. -->
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>AlcoholHigh</hediffDef>
+					<severity>0.2</severity>
+					<toleranceChemical>Alcohol</toleranceChemical>
+				</li>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>AlcoholTolerance</hediffDef>
+					<toleranceChemical>Alcohol</toleranceChemical>
+					<severity>0.016</severity>
+					<divideByBodySize>true</divideByBodySize>
+					<multiplyByGeneToleranceFactors>true</multiplyByGeneToleranceFactors>
+				</li>
+				<!-- Her blood runs hot for a while: the hidden hediff that shortens the
+				     wait between lovin' (vanilla's own lovin'-MTB comp). -->
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>PMM_Hediff_DragonsLifeblood</hediffDef>
+					<severity>1</severity>
+				</li>
+				<!-- Strength and willpower: tops up mana (a Momo) or essence (anyone else). -->
+				<li Class="PMM_Reptiles.IngestionOutcomeDoer_DragonsLifeblood">
+					<manaRefill>0.5</manaRefill>
+					<essenceRefill>0.5</essenceRefill>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+			<!-- Required: DrugPolicy.InitializeIfNeeded sorts all IsDrug defs by
+			     CompProperties_Drug.listOrder and NREs without it. listOrder 11 puts
+			     this right behind vanilla beer (10) in the drug policy list. -->
+			<li Class="CompProperties_Drug">
+				<chemical>Alcohol</chemical>
+				<addictiveness>0.010</addictiveness>
+				<minToleranceToAddict>0.25</minToleranceToAddict>
+				<existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+				<needLevelOffset>0.9</needLevelOffset>
+				<listOrder>11</listOrder>
+			</li>
+		</comps>
+		<thingCategories>
+			<li>Drugs</li>
+		</thingCategories>
+		<tradeTags>
+			<li>Drugs</li>
+			<li>ExoticMisc</li>
+		</tradeTags>
+	</ThingDef>
+
+</Defs>

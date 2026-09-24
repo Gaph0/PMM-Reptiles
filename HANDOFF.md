@@ -75,7 +75,9 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
   was cut (user ruling): fire is flavour text only, no ability.
 - **Forced-trait genes** (`Defs/GeneDefs/Genes_ReptileTraits.xml`, Biotech
   `forcedTraits`/KindInstinct pattern, germline so wild+colony share personality):
-  kept **DragonPride** (Jealous+Greedy — no vanilla "Arrogant" exists) and **WurmMind**
+  kept **DragonPride** (Arrogant + Greedy — `PMM_Arrogant` is our own core trait, written
+  2026-09-23 because no trait mod in play ships an "Arrogant" trait; Jealous was dropped the
+  same day, since vanilla makes Greedy and Jealous each other's `conflictingTrait`) and **WurmMind**
   (**SlowLearner** degree 0 — NOT TooSmart/−1; TooSmart only has degree 0 and the bad
   degree caused ~193× log spam). Scrapped (user ruling): LizardmanFury, Lustful,
   BunyipTongue — those xenotypes have no personality gene.
@@ -90,9 +92,10 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
   (Odyssey-only, locked), wetland=`PrimaryBiome=="TropicalSwamp"` (locked), river/lake=
   `World.LakeDirectionAt != Invalid || CoastAngleAt(Ocean|Lake).HasValue`.
   Bunyip is wild-only (no faction). Malef/Dragonewt are NOT wild (faction/ambush only).
-- **Per-species scales** (`Defs/ThingDefs/Items_ReptileScales_Species.xml`, locked Q5):
-  11 materials, generic art + colour tints; `Shedding.cs ScaleMaterialFor(xenotype)`
-  maps species→material, generic fallback (`Item_ReptileScale.xml`, standalone def).
+- **Four skin materials** (`Defs/ThingDefs/Items_ReptileScales_Species.xml`, was per-species until 2026-09-22):
+  dragon / lamia / lizardman scales plus the bunyip's own wool (user ruling: she is a
+  special reptile). Generic art + colour tints; `Shedding.cs ScaleMaterialFor(xenotype)`
+  maps species→material, falling back to lizardman scales.
   Stats (2026-09-06) from the user's `leather chart.ods`: armour sharp/blunt/heat are
   factors on the LeatherBase values (blunt factors the SHARP base — see the file's
   header comment), insulation is absolute °C, HP/beauty are stuffProps statFactors,
@@ -150,16 +153,18 @@ claws/fangs as mechanical, not cosmetic.
    with — ONE patch freezes food/rest/joy/mood at once; `Need.pawn`/`IsFrozen`
    are protected in 1.6 → cached `AccessTools.FieldRef`). 2-day timer, thaw
    letter/message, 7-day cooldown. Icon from mktex.py.
-2. ~~**Malef corruption**~~ REDESIGNED (2026-09-05): the tease-knockout
-   corruption AND the later colony offer were both scrapped (user ruling). A Malef
-   is now made ONLY by an item — `PMM_DarkDragonsBlood`
+2. ~~**Malef corruption**~~ REDESIGNED (2026-09-05), CHAIN CHANGED (2026-09-22):
+   the tease-knockout corruption AND the later colony offer were both scrapped
+   (user ruling). A Malef is now made ONLY by an item — `PMM_DarkDragonsBlood`
    (`Defs/ThingDefs/Item_DarkDragonsBlood.xml`, a NeverForNutrition drug) whose
    `IngestionOutcomeDoer_DarkDragonsBlood` (`Source/Reptiles/DarkDragonsBlood.cs`)
-   transforms the drinker into `PMM_Reptile_MalefDragon`: baseliner → core `ApplyXenotype`
-   (`CanEverTransform` gates men/children/monsters/too-young), normal Dragon →
-   core `MomoTransformation.ConvertXenotype` (which STAYS in core for this).
-   Dragonewts/Malefs/men/children/non-humans unaffected. The core
-   `VoluntaryTransformTargetOverride` hook was reverted (driver back to plain
+   remakes the drinker in two steps, one vial each: an ordinary woman who drinks it
+   rises as `PMM_Reptile_Dragonewt` (core `ApplyXenotype`; `CanEverTransform` gates
+   men/children/monsters/too-young), and a dragonewt who drinks it becomes
+   `PMM_Reptile_MalefDragon` (core `MomoTransformation.ConvertXenotype`, which
+   STAYS in core for this). A normal dragon still reaches Malef on her FIRST vial,
+   by the same ConvertXenotype path. Malefs/men/children/non-humans unaffected. The
+   core `VoluntaryTransformTargetOverride` hook was reverted (driver back to plain
    proposer-xenotype).
 3. ~~**Medusa ruins ambush**~~ DONE (2026-09-05): `RuinsAmbush.cs` —
    `IncidentWorker_MedusaRuinsAmbush : IncidentWorker_Ambush` (NOTE: 1.6 has NO
@@ -180,8 +185,9 @@ claws/fangs as mechanical, not cosmetic.
    Extremists, leaders generated), egg inheritance (Stage 3, highest risk), grapple,
    shedding, wild-momo habitat gates. NEW since this list: petrify (cast on a
    colonist → downed, needs pinned 2 days, thaws standing up; raider medusa uses
-   it), malef corruption (Malef tease-KOs a baseliner → Dragonewt; a Dragon →
-   Malef; a Dragonewt → nothing), ruins ambush (caravan near a ruin).
+   it), dark dragon's blood (an ordinary woman → Dragonewt on one vial, Dragonewt →
+   Malef on the next; a Dragon → Malef on her first; a Malef → nothing; plus the
+   harvest surgery on a living Malef), ruins ambush (caravan near a ruin).
 
 6. **Own race defs for the 11 species — DONE 2026-09-20, not yet field-tested.**
    Every species has a race def (`Defs/ThingDefs/Races_ReptileMomo.xml`), each
@@ -219,6 +225,26 @@ claws/fangs as mechanical, not cosmetic.
    instantVisitorsGift` in dev mode makes visitors leave at once); shedding shows the
    moodlet.
 
+8. **Dragon orbs — BUILT 2026-09-22, not yet field-tested.** The wiki's porch lamps, as
+   furniture that is bought instead of built:
+   - DEFS: `Defs/ThingDefs/Building_DragonOrb.xml` — `PMM_DragonOrb` (calling) and
+     `PMM_DragonOrbDecor` (glowing), 1x1, `minifiedDef MinifiedThing`, and deliberately
+     NO `designationCategory` and no `costList`, which is what keeps them out of the
+     Architect menu while still letting a trader hand one over as a minified object.
+     Art: `Textures/Things/Building/PMM_DragonOrb.png`, shared by both; the light tells
+     them apart (calling: 8 tiles, pale lavender; glowing: 12 tiles, violet).
+   - LURE: `Source/Reptiles/ReptileWandersIn.cs`. `ReptileWildExtension.orbCandidates`
+     (dragons only) joins the roll when a calling orb is INSTALLED and it is night
+     (`GenLocalDate.HourInteger`), entered twice so the light pulls the roll; plus the
+     `PMM_DragonOrbCall` incident (baseChance 0.5), which cannot fire without a lit orb.
+     When the orb's species is the one picked, the orb is destroyed and the glowing orb
+     spawns in its place, silently.
+   - TRADE: one calling orb (1~1) and one or two glowing orbs on `PMM_DragoniaTrader`
+     only, at MarketValue 420 and 150, and both defs named in
+     `Patches/ExcludeDragonContentFromVanillaStock.xml` (renamed from
+     `ExcludeDragoniumFromVanillaStock.xml`) so no vanilla trade rolls them.
+   Test: see `MASTER-PLAN.md` §6.1 item 18.
+
 ## 9. Hard-won lessons (don't relearn these)
 
 - **Vanilla textures in Unity bundles aren't reliably resolvable by loose path from
@@ -241,6 +267,18 @@ claws/fangs as mechanical, not cosmetic.
   settlementTexturePath, xenotypeSet location all bit me).
 - **The terminal heredoc for writing files gets mangled** — use the file-creation tool,
   not `cat <<EOF`, for anything non-trivial.
+- **A def that must never be buildable must NOT inherit `FurnitureBase`**: it hard-codes
+  `<designationCategory>Furniture</designationCategory>`, and that field is what puts a
+  def in the Architect menu. Parent to `BuildingBase` and copy `minifiedDef MinifiedThing`
+  and the `BuildingsFurniture` category out of `FurnitureBase` by hand.
+- **Vanilla sells furniture through the same stock helper as everything else**, which is
+  why a minifiable building can be a trade good: three vanilla trader kinds roll the
+  `BuildingsFurniture` category (`TraderKinds_Base_Outlander.xml`,
+  `TraderKinds_Caravan_Outlander.xml`, `TraderKinds_Orbital_Misc.xml`). None of the three
+  carries an `excludedThingDefs` list, so a mod adding furniture must ADD the element, not
+  append to it — hence the `match`/`nomatch` conditional in our patch.
+- **`uninstallWork` is a `<building>` child**, not a top-level ThingDef field, and a
+  minified building is a `MinifiedThing` in `listerThings`, never its own def.
 
 ## 10. Where the canonical state lives
 

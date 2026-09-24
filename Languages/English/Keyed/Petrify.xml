@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<!-- Shown when the petrifying gaze is refused because the victim has no working,
+	     uncovered eye (CompAbilityEffect_Petrify). The rule is the 2026-09-24 one:
+	     Sight under 20%, or eyes hidden by FullHead/Eyes apparel. Fills MEDUSA (the
+	     caster) and PAWN (the victim) - the point is that she cannot find his eyes. -->
+	<PMM_Reptiles_PetrifyNoEyes>{MEDUSA_labelShort} cannot see {PAWN_labelShort}'s eyes.</PMM_Reptiles_PetrifyNoEyes>
+
+</LanguageData>

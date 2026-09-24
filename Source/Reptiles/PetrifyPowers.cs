@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -24,6 +25,9 @@ namespace PMM_Reptiles
         /// <summary>2 days frozen.</summary>
         private const int PetrifyTicks = 120000;
 
+        /// <summary>Sight a victim needs for the gaze to catch them.</summary>
+        private const float MinSightToCatch = 0.2f;
+
         public override bool Valid(LocalTargetInfo target, bool throwMessages = false)
         {
             Pawn victim = target.Pawn;
@@ -35,7 +39,29 @@ namespace PMM_Reptiles
             {
                 return false; // already stone
             }
+            if (!CanMeetGaze(victim))
+            {
+                if (throwMessages)
+                {
+                    // Names both of them: the point is that she cannot find his eyes.
+                    Messages.Message(
+                        "PMM_Reptiles_PetrifyNoEyes".Translate(parent.pawn.Named("MEDUSA"), victim.Named("PAWN")),
+                        new LookTargets(victim), MessageTypeDefOf.RejectInput, historical: false);
+                }
+                return false;
+            }
             return base.Valid(target, throwMessages);
+        }
+
+        /// <summary>
+        /// The AI path is separate from Valid, so the eye rule has to be repeated here
+        /// - otherwise a raider medusa keeps choosing masked pawns and burns her 7-day
+        /// cooldown on a gaze that cannot land.
+        /// </summary>
+        public override bool AICanTargetNow(LocalTargetInfo target)
+        {
+            Pawn victim = target.Pawn;
+            return victim != null && CanMeetGaze(victim) && base.AICanTargetNow(target);
         }
 
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
@@ -45,6 +71,12 @@ namespace PMM_Reptiles
             Pawn victim = target.Pawn;
             if (caster?.Map == null || victim == null || victim.Dead)
             {
+                return;
+            }
+            if (!CanMeetGaze(victim))
+            {
+                // Something changed between targeting and the cast - a helmet went on,
+                // or the eyes were lost. Nothing for the stone to catch.
                 return;
             }
 
@@ -61,6 +93,57 @@ namespace PMM_Reptiles
             }
             Messages.Message("PMM_Reptiles_PetrifyCaught".Translate(victim.Named("VICTIM"), caster.Named("MEDUSA")),
                 new LookTargets(victim), MessageTypeDefOf.NegativeEvent);
+        }
+
+        /// <summary>
+        /// The gaze needs a working, uncovered eye. Both halves use the game's own
+        /// measures rather than new defs: Sight is the capacity vanilla already uses for
+        /// how much a pawn can see (a blinded or eyeless pawn sits at 0), and apparel
+        /// coverage is the same body part group test the armor system runs against a
+        /// headshot. The human eye parts carry the FullHead and Eyes groups, so a war
+        /// mask or veil hides them while an open-faced helmet does not - vanilla's simple
+        /// and advanced helmets are UpperHead.
+        /// Ruling updated 2026-09-24: nothing is immune by species, but the stone needs an
+        /// eye to catch.
+        /// </summary>
+        private static bool CanMeetGaze(Pawn victim)
+        {
+            if (victim?.health?.capacities == null)
+            {
+                return true; // nothing to judge by; the other checks still apply
+            }
+            if (victim.health.capacities.GetLevel(PawnCapacityDefOf.Sight) < MinSightToCatch)
+            {
+                return false;
+            }
+            return !EyesCovered(victim);
+        }
+
+        /// <summary>Is any worn apparel covering the FullHead or Eyes groups?</summary>
+        private static bool EyesCovered(Pawn victim)
+        {
+            Pawn_ApparelTracker apparel = victim.apparel;
+            if (apparel == null || apparel.WornApparelCount == 0)
+            {
+                return false;
+            }
+            foreach (Apparel worn in apparel.WornApparel)
+            {
+                List<BodyPartGroupDef> groups = worn?.def?.apparel?.bodyPartGroups;
+                if (groups == null)
+                {
+                    continue;
+                }
+                for (int i = 0; i < groups.Count; i++)
+                {
+                    BodyPartGroupDef group = groups[i];
+                    if (group == BodyPartGroupDefOf.FullHead || group == BodyPartGroupDefOf.Eyes)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 

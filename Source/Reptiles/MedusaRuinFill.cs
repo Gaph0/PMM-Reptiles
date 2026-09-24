@@ -150,11 +150,11 @@ namespace PMM_Reptiles
         {
             SpawnStack(map, ThingDefOf.Silver, Rand.RangeInclusive(60, 150));
             SpawnStack(map, ThingDefOf.Jade, Rand.RangeInclusive(20, 60));
-            if (ReptileDefOf.PMM_Scale_Medusa != null)
+            if (ReptileDefOf.PMM_Scale_Lamia != null)
             {
                 for (int i = Rand.RangeInclusive(1, 3); i > 0; i--)
                 {
-                    SpawnStack(map, ReptileDefOf.PMM_Scale_Medusa, Rand.RangeInclusive(10, 30));
+                    SpawnStack(map, ReptileDefOf.PMM_Scale_Lamia, Rand.RangeInclusive(10, 30));
                 }
             }
         }

@@ -58,41 +58,70 @@
 				<countRange>80~350</countRange>
 			</li>
 
-			<!-- Shed scales, one line per species the realm fields. Dragon and medusa
-			     scales are the rare, valuable ones. -->
+			<!-- Dragon orbs (2026-09-22): the realm's own craft, and the caravan
+			     trader's alone - the visitor kind below carries none, the same way
+			     vanilla visitor traders carry no plasteel. One calling orb at a time,
+			     because it is an expensive thing and because an orb that has called a
+			     dragon is no longer a calling orb; the glowing orbs are cheap enough
+			     to arrive in pairs. -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_DragonOrb</thingDef>
+				<countRange>1~1</countRange>
+			</li>
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_DragonOrbDecor</thingDef>
+				<countRange>1~2</countRange>
+			</li>
+
+			<!-- Wedding collars (2026-09-23): Dragonia's jewellers, one or two at a time.
+			     The wiki prices one at a dragoon's first month of pay, and the caravan
+			     trader is the only one who has them - the visitor kind carries none. -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_WeddingCollar</thingDef>
+				<countRange>1~2</countRange>
+			</li>
+
+			<!-- The realm's own metal (2026-09-22), at plasteel's own rate: vanilla's
+			     neolithic shaman-merchant and outlander bulk trader both carry 50~150
+			     plasteel, and 50~150 is what this is. It appears in no other trader's
+			     stock, because it lives in a thing category no generator rolls (see
+			     Defs/ThingDefs/Item_Dragonium.xml). The visitor kind below carries none,
+			     exactly as vanilla visitor traders carry no plasteel. -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_Dragonium</thingDef>
+				<countRange>50~150</countRange>
+			</li>
+
+			<!-- Shed scales: one line per scale material the realm fields (three since
+			     2026-09-22, with the ranges covering every species that sheds each).
+			     No bunyip wool: the bunyip is a wild creature, not a realm subject, so
+			     her wool is butcher and shed loot only. -->
 			<li Class="StockGenerator_SingleDef">
 				<thingDef>PMM_Scale_Lizardman</thingDef>
-				<countRange>40~120</countRange>
+				<countRange>60~180</countRange>
 			</li>
 			<li Class="StockGenerator_SingleDef">
 				<thingDef>PMM_Scale_Lamia</thingDef>
-				<countRange>30~90</countRange>
-			</li>
-			<li Class="StockGenerator_SingleDef">
-				<thingDef>PMM_Scale_Basilisk</thingDef>
-				<countRange>30~90</countRange>
-			</li>
-			<li Class="StockGenerator_SingleDef">
-				<thingDef>PMM_Scale_Wyvern</thingDef>
-				<countRange>15~45</countRange>
-			</li>
-			<li Class="StockGenerator_SingleDef">
-				<thingDef>PMM_Scale_Wurm</thingDef>
-				<countRange>15~45</countRange>
+				<countRange>50~150</countRange>
 			</li>
 			<li Class="StockGenerator_SingleDef">
 				<thingDef>PMM_Scale_Dragon</thingDef>
-				<countRange>5~20</countRange>
-			</li>
-			<li Class="StockGenerator_SingleDef">
-				<thingDef>PMM_Scale_Medusa</thingDef>
-				<countRange>5~15</countRange>
+				<countRange>8~25</countRange>
 			</li>
 
 			<!-- Drugs, medieval ceiling -->
 			<li Class="StockGenerator_Category">
 				<categoryDef>Drugs</categoryDef>
 				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+
+			<!-- The realm's own vintage (2026-09-22). An explicit line on top of the
+			     category roll above, which only might have offered it: every dragonian
+			     caravan carries a crate of Dragon's Lifeblood, the wine the Queen's
+			     dragoons drink. -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_DragonsLifeblood</thingDef>
+				<countRange>15~40</countRange>
 			</li>
 
 			<!-- Weapons: melee only, this is a medieval realm -->
@@ -176,29 +205,32 @@
 				<countRange>30~150</countRange>
 			</li>
 
-			<!-- Scales: the signature line, four of the seven species so one woman can
-			     carry them all. -->
+			<!-- Scales: the signature line, all three scale materials, so one woman can
+			     carry them all. No bunyip wool - that one is a wild creature's. -->
 			<li Class="StockGenerator_SingleDef">
 				<thingDef>PMM_Scale_Lizardman</thingDef>
-				<countRange>15~50</countRange>
+				<countRange>20~60</countRange>
 			</li>
 			<li Class="StockGenerator_SingleDef">
 				<thingDef>PMM_Scale_Lamia</thingDef>
-				<countRange>10~40</countRange>
-			</li>
-			<li Class="StockGenerator_SingleDef">
-				<thingDef>PMM_Scale_Wyvern</thingDef>
-				<countRange>5~20</countRange>
+				<countRange>15~50</countRange>
 			</li>
 			<li Class="StockGenerator_SingleDef">
 				<thingDef>PMM_Scale_Dragon</thingDef>
-				<countRange>1~8</countRange>
+				<countRange>2~10</countRange>
 			</li>
 
 			<!-- Drugs, medieval ceiling (same gate as the caravan kind) -->
 			<li Class="StockGenerator_Category">
 				<categoryDef>Drugs</categoryDef>
 				<maxTechLevelGenerate>Medieval</maxTechLevelGenerate>
+			</li>
+
+			<!-- The realm's own vintage (2026-09-22): a few flasks in her pack, the
+			     same wine the caravan kind carries by the crate. -->
+			<li Class="StockGenerator_SingleDef">
+				<thingDef>PMM_DragonsLifeblood</thingDef>
+				<countRange>5~15</countRange>
 			</li>
 
 			<!-- Weapons: melee only, this is a medieval realm -->

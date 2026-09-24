@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<!-- A victim wrenching free of the coils, rolled every eighth of an hour (Hediff_Constricted). -->
+	<PMM_Reptiles_CoilEscaped>{VICTIM_labelShort} wrenches free of {LAMIA_labelShort}'s coils!</PMM_Reptiles_CoilEscaped>
+
+</LanguageData>

@@ -16,14 +16,20 @@ namespace PMM_Reptiles
     /// These bracket patches flag while a hatch is generating its baby (Prefix sets,
     /// Finalizer clears — even on exception), and the GeneratePawn postfix applies
     /// the core rules when the egg's mother (hatcheeParent) is a momo: the baby gets
-    /// exactly the mother's endogenes and her xenotype, is not flagged hybrid, and
-    /// is always a girl. Mirrors BabyXenotypeInheritancePatch and
-    /// BabyCustomXenotypeBirthPatch in the core mod.
+    /// exactly the mother's endogenes, keeps her xenotype, is not flagged hybrid, is
+    /// always a girl, and carries no xenogenes - VEF's stored mix has to be dropped, or
+    /// the baby inherits her mother's genes a second time as implants. Mirrors
+    /// BabyXenotypeInheritancePatch and BabyCustomXenotypeBirthPatch in the core mod.
     /// </summary>
     public static class MomoEggCompat
     {
         /// <summary>The hatcher currently generating a baby, or null.</summary>
         public static VEF.Genes.CompHumanHatcher ActiveHatcher;
+
+        /// <summary>The baby the current hatch generated, held until the hatch has finished
+        /// placing her so her birth letter can point at a pawn who is actually on the map.
+        /// Reset at the start of every hatch, so a hatch that threw can never leak one.</summary>
+        public static Pawn PendingBirthLetter;
     }
 
     [HarmonyPatch(typeof(VEF.Genes.CompHumanHatcher), nameof(VEF.Genes.CompHumanHatcher.Hatch))]
@@ -32,6 +38,7 @@ namespace PMM_Reptiles
         public static void Prefix(VEF.Genes.CompHumanHatcher __instance)
         {
             MomoEggCompat.ActiveHatcher = __instance;
+            MomoEggCompat.PendingBirthLetter = null;
         }
 
         public static void Finalizer()
@@ -59,8 +66,20 @@ namespace PMM_Reptiles
 
             Pawn baby = __result;
 
-            // Full maternal endogenes: remove the father's contributions, add any
-            // of the mother's genes the hatch mix dropped.
+            // VEF's hatcher builds the baby out of the gene mix it stored at conception and
+            // lays that mix down as XENOGENES. Left alone the baby carries the mother's genes
+            // twice - once as her real endogenes (from the xenotype set below) and again as an
+            // implant-like xenogene set - which a player sees as a duplicate row under
+            // "Xenogenes" in the gene inspector. Momo genetics live in the endogenes, so the
+            // whole mix goes; that is also what takes the father's contribution out.
+            for (int i = baby.genes.Xenogenes.Count - 1; i >= 0; i--)
+            {
+                baby.genes.RemoveGene(baby.genes.Xenogenes[i]);
+            }
+
+            // Full maternal endogenes: remove anything the hatch mix contributed, then add back
+            // every gene the mother carries. Added as ENDOGENES deliberately - passing
+            // xenogene: true here is the other half of how the duplicate set appeared.
             List<GeneDef> motherGenes = mother.genes.Endogenes?.ConvertAll(g => g.def);
             if (motherGenes != null && motherGenes.Count > 0)
             {
@@ -76,7 +95,7 @@ namespace PMM_Reptiles
                 {
                     if (baby.genes.GetGene(def) == null)
                     {
-                        baby.genes.AddGene(def, true);
+                        baby.genes.AddGene(def, false);
                     }
                 }
             }
@@ -95,6 +114,11 @@ namespace PMM_Reptiles
 
             // Momos are always female; their children are too.
             ForceFemale(baby);
+
+            // Hand her to the hatch's own postfix, which runs once the hatcher has placed her
+            // and can decide whether this baby is the colony's business (see
+            // Patch_HumanHatcher_BirthLetter). Nothing is shown from here.
+            MomoEggCompat.PendingBirthLetter = baby;
         }
 
         private static void ForceFemale(Pawn baby)
@@ -117,6 +141,40 @@ namespace PMM_Reptiles
             {
                 baby.Drawer.renderer.SetAllGraphicsDirty();
             }
+        }
+    }
+
+    /// <summary>
+    /// Gives a hatched momo the popup a live birth gets. Vanilla's own ChoiceLetter_BabyBirth is
+    /// what Biotech shows when a colony baby arrives: it carries the "name the baby" button and
+    /// the status choice, and it opens itself. Vanilla creates it with LetterMaker.MakeLetter and
+    /// LetterDefOf.BabyBirth - the def names the letter class - so reusing both means the popup
+    /// our egg shows is the vanilla one, options and all, instead of an imitation of it. The
+    /// letter's Start() resolves its own pawn from the look targets, which is why the baby is
+    /// passed as a target rather than assigned by hand.
+    ///
+    /// Only a baby who belongs to the player's faction is lettered: a wild momo's egg is none of
+    /// the colony's business. Runs after the hatch has placed her, so "jump to" works.
+    /// </summary>
+    [HarmonyPatch(typeof(VEF.Genes.CompHumanHatcher), nameof(VEF.Genes.CompHumanHatcher.Hatch))]
+    public static class Patch_HumanHatcher_BirthLetter
+    {
+        public static void Postfix()
+        {
+            Pawn baby = MomoEggCompat.PendingBirthLetter;
+            MomoEggCompat.PendingBirthLetter = null;
+            if (baby?.Faction != Faction.OfPlayer || baby.RaceProps?.Humanlike != true)
+            {
+                return;
+            }
+
+            ChoiceLetter_BabyBirth letter = (ChoiceLetter_BabyBirth)LetterMaker.MakeLetter(
+                "PMM_MomoEggHatchedLabel".Translate(),
+                "PMM_MomoEggHatched".Translate(baby.Named("PAWN1")),
+                LetterDefOf.BabyBirth,
+                new LookTargets(baby));
+            letter.Start();
+            Find.LetterStack.ReceiveLetter(letter, null, 0, true);
         }
     }
 }

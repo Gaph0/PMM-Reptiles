@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The collar's effect on its wearer (2026-09-23). Granted and removed by
+		Source/Reptiles/WeddingCollar.cs the moment a wedding collar goes on or comes off,
+		so it is never something the player has to manage.
+
+		Two jobs:
+		  * the record of which traits the collar handed out (HediffComp_WeddingCollar), so
+		    taking the collar off returns kind and masochistic only if the collar is what
+		    gave them to her;
+		  * nothing visible: the comp refuses to show on the Health tab (CompDisallowVisible),
+		    because the mood is already on the Needs tab as a thought and a "wedding collar"
+		    health row would just be clutter.
+
+		The mood lift is NOT here: a hediff stage has no mood field in this build, so it lives
+		in a situational thought instead (Thoughts_WeddingCollar.xml).
+	-->
+	<HediffDef>
+		<defName>PMM_Hediff_WeddingCollar</defName>
+		<label>wedding collar</label>
+		<description>A collar of mamono realm silver and dragon scale, fastened at the throat. Its spell quiets a dragon's pride and gentles her temper.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<isBad>false</isBad>
+		<initialSeverity>1</initialSeverity>
+		<maxSeverity>1</maxSeverity>
+		<comps>
+			<li Class="PMM_Reptiles.HediffCompProperties_WeddingCollar" />
+		</comps>
+		<stages>
+			<li>
+				<label>content</label>
+			</li>
+		</stages>
+	</HediffDef>
+
+</Defs>

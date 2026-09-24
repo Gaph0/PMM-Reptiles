@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Dragon orbs (2026-09-22). Furniture that is never built, only bought: the
+		dragonian caravan trader sells them, and no other trader can, because both
+		defs are excluded by name from the three vanilla stock generators that roll
+		BuildingsFurniture (Patches/ExcludeDragonContentFromVanillaStock.xml).
+
+		Why there is no designationCategory and no costList. That pair is exactly
+		what puts a def in the Architect menu, so leaving both off is what makes an
+		orb unsellable-but-unbuildable: it exists only as something a trader hands
+		over. FurnitureBase would be the natural parent, but it hard-codes
+		<designationCategory>Furniture</designationCategory> - so the fields it would
+		have given us are repeated here instead, and the category is left out.
+		<minifiedDef> is what makes the orb an object at all: it is what a trader's
+		stock generator wraps the building in (the same machinery vanilla's own
+		furniture trade uses, which is why a bought dresser arrives as a minified
+		dresser), and it is what lets the player install, uninstall and carry her orb
+		like any other piece of furniture.
+
+		Two variants, one per kind of orb the wiki describes:
+
+		  PMM_DragonOrb       the calling orb, a clear stone. Only at night, and only
+		                      while it is installed on a map, it draws a wild dragon
+		                      to that map whatever the habitat (Source/Reptiles/
+		                      ReptileWandersIn.cs). It spends itself doing it: once a
+		                      dragon has answered, the calling orb quietly becomes
+		                      the glowing orb below.
+		  PMM_DragonOrbDecor  the ever-flow orb: coloured, prettier, and nothing more
+		                      than a porch light and a ward. It is what a spent
+		                      calling orb becomes, and it can also be bought alone.
+
+		Beauty is fixed rather than stuffable, and deliberately so. The player can
+		never choose a material for a def she cannot build, and nothing in vanilla
+		picks a stuff for a minified building a trader stocks - a stuffable orb would
+		be spawned without one and would lose its beauty, its hit points and its art.
+
+		Art: Textures/Things/Building/PMM_DragonOrb.png (64x64), shared by both
+		variants. They are told apart by their light, not their stone: the calling
+		orb is the dimmer, paler one - moonlight with a slight drift of violet, where
+		the glowing orb is a full violet - and that light is what the player sees
+		change on the night the orb pays for itself.
+	-->
+	<ThingDef Name="PMM_DragonOrbBase" ParentName="BuildingBase" Abstract="True">
+		<thingClass>Building</thingClass>
+		<size>(1,1)</size>
+		<rotatable>false</rotatable>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>14</pathCost>
+		<fillPercent>0.15</fillPercent>
+		<graphicData>
+			<texPath>Things/Building/PMM_DragonOrb</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<thingCategories>
+			<li>BuildingsFurniture</li>
+		</thingCategories>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<building>
+			<uninstallWork>1200</uninstallWork>
+		</building>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Mass>12</Mass>
+			<WorkToBuild>2500</WorkToBuild>
+			<Flammability>0</Flammability>
+		</statBases>
+		<placeWorkers>
+			<li>PlaceWorker_GlowRadius</li>
+		</placeWorkers>
+	</ThingDef>
+
+	<!-- The calling orb: the one a dragon answers. -->
+	<ThingDef ParentName="PMM_DragonOrbBase">
+		<defName>PMM_DragonOrb</defName>
+		<label>dragon orb</label>
+		<description>A fist-sized gem set in a dragon-carved stone, on a plinth low enough to stand beside a door. The stone is clear, and the light moving inside it is the colour of moonlight with a breath of violet in it.\n\nDragonian households set one by the porch and let it burn all night. A wild dragon can see that light from far out in the dark, and a dragon who comes to look does not leave again: she stays on the map like any wild creature, and she can be tamed. The gem pays for the visit. Once a dragon has answered it, the orb dims to an ordinary glow and calls nothing else.</description>
+		<statBases>
+			<Beauty>15</Beauty>
+			<MarketValue>420</MarketValue>
+		</statBases>
+		<comps>
+			<!-- Each variant declares its own glower: the light is what tells the two
+			     orbs apart. (Child <li> list nodes append to the parent's list, so this
+			     base could hold shared comps - it holds none, and each variant lists
+			     the one comp it wants.) -->
+			<li Class="CompProperties_Glower">
+				<glowRadius>8</glowRadius>
+				<!-- Pale lavender: moonlight with a slight drift of the violet the glowing
+				     orb carries, so the two are still told apart by saturation rather than
+				     by hue. More red lifts it towards purple, more blue towards moonlight. -->
+				<glowColor>(186,178,255,0)</glowColor>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- The ever-flow orb: the pretty one, and what a spent calling orb becomes. -->
+	<ThingDef ParentName="PMM_DragonOrbBase">
+		<defName>PMM_DragonOrbDecor</defName>
+		<label>glowing dragon orb</label>
+		<description>A fist-sized gem set in a dragon-carved stone, on a plinth low enough to stand beside a door. This one is coloured, and its light flows through it without ever going out - the spell the dragonians call ever-flow.\n\nIt is a porch light and a ward against the dark, and nothing more: dragons do not answer a coloured orb. It is also what a calling orb becomes, on the night its light finally pays for itself.</description>
+		<statBases>
+			<Beauty>24</Beauty>
+			<MarketValue>150</MarketValue>
+		</statBases>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>12</glowRadius>
+				<glowColor>(196,150,255,0)</glowColor>
+			</li>
+		</comps>
+	</ThingDef>
+
+</Defs>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Dragonium (2026-09-22): Dragonia's own metal, a Metallic stuff built on
+		vanilla plasteel (Core/Defs/ThingDefs_Items/Items_Resource_Stuff.xml) with
+		seven numbers moved and everything else left alone, so the game treats it
+		as a metal it already knows: mass, market value, sharp and blunt armour,
+		work to make and build, the melee cooldown, the sounds, the Metallic stuff
+		category and the construct effect are all plasteel's.
+
+		  better   StuffPower_Armor_Heat        0.65 -> 0.95
+		           StuffPower_Insulation_Heat     0 -> 8
+		           SharpDamageMultiplier         1.1 -> 1.3
+		           statFactors.Beauty              1 -> 1.5
+		  worse    statFactors.MaxHitPoints     2.8 -> 2.2
+		           StuffPower_Insulation_Cold      3 -> 1
+		           BluntDamageMultiplier         0.9 -> 0.7
+
+		Everything else is untouched, which is why the numbers above are the only
+		differences from plasteel in the info card.
+
+		The ward (2026-09-22). Two stat pairs in the core mod (Defs/Stats_Momo.xml)
+		turn "made of dragonium" into something the wearer feels, through vanilla's own
+		gear-stat parts - the same machinery eltex gear uses for psychic sensitivity:
+		- statOffsets PMM_EssenceRecoveryOffset 0.1 per piece, and the wearer's
+		  essence recovery is multiplied by 1 + the total, so one piece is +10% and
+		  three are +30%. Offsets ADD; they never compound. It is written 0.1
+		  because offsets are counted from a neutral 0 - a literal 1.1 here would
+		  mean +110% for a single piece.
+		- statFactors PMM_ManaDrainFactor 0.95 per piece, multiplied into the wearer's
+		  mana drain, so one piece drains at 95% and three at 86% (factors compound).
+		Only worn apparel counts, so a dragonium sword or a wall of it changes nothing
+		for anyone - and the stats work for ANY apparel made of the metal, this mod's
+		or another's.
+
+		Trade. Dragonia sells it and no one else does, at plasteel's own rate: 50~150
+		in a caravan, the exact count vanilla's neolithic shaman-merchant and
+		outlander bulk trader carry of plasteel. Vanilla visitor traders carry no
+		plasteel at all, so our visitors carry no dragonium either.
+
+		Category. Dragonium sits in ResourcesRaw, beside plasteel, steel, uranium and
+		gold, the way every other metal in the game does. That category IS rolled by
+		vanilla's own traders - Base_Outlander_Standard, Base_Neolithic_Standard and
+		Orbital_BulkGoods each stock raw resources with a StockGenerator_Category -
+		and StockGenerator_Category takes any def inside it whose tradeability lets
+		a trader sell it, with no tech gate unless the generator asks for one. So the
+		metal is excluded from those three by name, exactly the way vanilla excludes
+		Bioferrite and the Odyssey panels from them:
+		Patches/ExcludeDragonContentFromVanillaStock.xml (which also keeps the
+		dragon orbs out of the three vanilla generators that roll furniture).
+
+		Deliberately NOT copied from plasteel: the deep-drilling fields
+		(deepCommonality, deepCountPerPortion, deepLumpSizeRange). Dragonium is an
+		ore of Dragonia, not something a deep drill anywhere on the planet can
+		find. Add them if it should be drillable.
+
+		Art: Textures/Things/Item/Resource/PMM_Dragonium/PMM_Dragonium_a|b|c.png,
+		the stack-of-three pattern Graphic_StackCount expects (the same shape the
+		reptile scale material uses).
+	-->
+	<ThingDef ParentName="ResourceBase">
+		<defName>PMM_Dragonium</defName>
+		<label>dragonium</label>
+		<description>A rare violet ore found only in Dragonia: a vein of mamono realm silver driven up into the open, then left to crystallize for years in air thick with dragon mana. It is warm to the touch and it hums faintly, the way a hive hums.\n\nThe Dragoon Corps calls that property the dragon's breath, and it is what makes the ore worth the risk of digging for. Armour and shields made with dragonium spread a mana-charged blow away instead of taking it; a dragonium blade lets a warrior's own mana ripple out far wider than her arm; and a pendant worn against the skin eases the weariness that comes of lying with a dragon. Handled carelessly it scatters that mana - and its owner's essence with it - which is why the Corps only hands a dragonium lance to a dragoon who has earned her title.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/PMM_Dragonium</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<soundInteract>Metal_Drop</soundInteract>
+		<soundDrop>Metal_Drop</soundDrop>
+		<useHitPoints>false</useHitPoints>
+		<healthAffectsPrice>false</healthAffectsPrice>
+		<statBases>
+			<MarketValue>9</MarketValue>
+			<Mass>0.25</Mass>
+			<StuffPower_Armor_Sharp>1.14</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0.55</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>0.95</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>1</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>8</StuffPower_Insulation_Heat>
+			<SharpDamageMultiplier>1.3</SharpDamageMultiplier>
+			<BluntDamageMultiplier>0.7</BluntDamageMultiplier>
+		</statBases>
+		<thingCategories>
+			<li>ResourcesRaw</li>
+		</thingCategories>
+		<burnableByRecipe>false</burnableByRecipe>
+		<smeltable>true</smeltable>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<stuffProps>
+			<categories>
+				<li>Metallic</li>
+			</categories>
+			<stuffAdjective>dragonium</stuffAdjective>
+			<appearance>Metal</appearance>
+			<commonality>0.05</commonality>
+			<constructEffect>ConstructMetal</constructEffect>
+			<isAirtight>true</isAirtight>
+			<!-- The violet of the ore art, so things built from it come out in the
+			     same colour family as the lump it was made from. -->
+			<color>(110,52,166)</color>
+			<soundImpactBullet>BulletImpact_Metal</soundImpactBullet>
+			<soundMeleeHitSharp>MeleeHit_Metal_Sharp</soundMeleeHitSharp>
+			<soundMeleeHitBlunt>MeleeHit_Metal_Blunt</soundMeleeHitBlunt>
+			<soundImpactMelee>Pawn_Melee_Punch_HitBuilding_Metal</soundImpactMelee>
+			<!-- The essence ward: added, not multiplied, so a set never runs away with
+			     itself. This one line is what "+10% a piece" is written as. -->
+			<statOffsets>
+				<PMM_EssenceRecoveryOffset>0.1</PMM_EssenceRecoveryOffset>
+			</statOffsets>
+			<statFactors>
+				<MaxHitPoints>2.2</MaxHitPoints>
+				<Beauty>1.5</Beauty>
+				<Flammability>0</Flammability>
+				<WorkToMake>2.2</WorkToMake>
+				<WorkToBuild>2.2</WorkToBuild>
+				<MeleeWeapon_CooldownMultiplier>0.8</MeleeWeapon_CooldownMultiplier>
+				<!-- The mana ward: a worn piece drains mana at 95%, and a set's factors
+				     multiply together. -->
+				<PMM_ManaDrainFactor>0.95</PMM_ManaDrainFactor>
+			</statFactors>
+		</stuffProps>
+		<techLevel>Medieval</techLevel>
+		<allowedArchonexusCount>80</allowedArchonexusCount>
+	</ThingDef>
+
+</Defs>

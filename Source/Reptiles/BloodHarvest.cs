@@ -33,7 +33,7 @@ namespace PMM_Reptiles
         {
             if (thing is Pawn pawn && !HasEnoughBlood(pawn))
             {
-                return "PMM_Reptiles_NotEnoughBlood".Translate();
+                return "PMM_Reptiles_NotEnoughBlood".Translate(pawn.Named("PAWN"));
             }
             return base.AvailableReport(thing, part);
         }
@@ -62,16 +62,23 @@ namespace PMM_Reptiles
                 return;
             }
 
-            // Draw the blood: half her current supply, as a BloodLoss hediff.
+            // Draw the blood: half her supply, as a BloodLoss hediff.
             Hediff bloodLoss = HediffMaker.MakeHediff(HediffDefOf.BloodLoss, pawn);
             bloodLoss.Severity = BloodLossSeverity;
             pawn.health.AddHediff(bloodLoss);
 
-            base.OnSurgerySuccess(pawn, part, billDoer, ingredients, bill);
+            // OnSurgerySuccess is the virtual hook, and vanilla's Recipe_ExtractHemogen calls it
+            // exactly like this from its own ApplyOnPawn. Neither obvious alternative works:
+            // base.ApplyOnPawn never reaches it (vanilla's own extraction made no pack that way),
+            // and base.OnSurgerySuccess goes to the empty base and skips our override. Both were
+            // tried in game on 2026-09-23 and produced no vial.
+            OnSurgerySuccess(pawn, part, billDoer, ingredients, bill);
         }
 
         protected override void OnSurgerySuccess(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
+            base.OnSurgerySuccess(pawn, part, billDoer, ingredients, bill);
+
             Thing vial = ThingMaker.MakeThing(ReptileDefOf.PMM_DarkDragonsBlood);
             if (!GenPlace.TryPlaceThing(vial, pawn.PositionHeld, pawn.MapHeld, ThingPlaceMode.Near))
             {

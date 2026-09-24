@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Hostile medusa and lamia casting, 2026-09-23.
+
+		An ability is invisible to the AI unless two things are true: the AbilityDef carries
+		<aiCanUse>true</aiCanUse> (read by Ability.AICanTargetNow), and some think-tree node
+		actually asks for it. `hostile` only marks the act as hostile. Vanilla has no generic
+		"cast any hostile ability" node, so each hostile ability gets its own.
+
+		Core's Abilities_Aggressive is the right tree: the raider DutyDefs reference it, and its
+		only node is the AnimalWarcall one. These nodes are that shape. The leaf is our own
+		PMM_Reptiles.JobGiver_AICastHostileAbility, because vanilla's JobGiver_AICastAbility is
+		abstract - XML cannot build it, which is why no ability in the game uses the generic one.
+		Ours picks the caster's best visible enemy and gives Ability.AICanTargetNow the last word,
+		so aiCanUse, range, cooldown and the target rules still decide whether she casts.
+
+		Inserted inside the tree's non-colonist conditional, so the player's own momos still cast
+		only when told to. A non-colonist gets this tree through the duty she is on, which for our
+		factions means raiders - a wild momo casts nothing.
+	-->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThinkTreeDef[defName="Abilities_Aggressive"]/thinkRoot/subNodes/li/subNodes</xpath>
+		<value>
+			<li Class="ThinkNode_ConditionalHasAbility">
+				<ability>PMM_Ability_Petrify</ability>
+				<subNodes>
+					<li Class="ThinkNode_ConditionalHashIntervalTick">
+						<interval>65</interval>
+						<subNodes>
+							<li Class="PMM_Reptiles.JobGiver_AICastHostileAbility">
+								<abilityDef>PMM_Ability_Petrify</abilityDef>
+							</li>
+						</subNodes>
+					</li>
+				</subNodes>
+			</li>
+			<li Class="ThinkNode_ConditionalHasAbility">
+				<ability>PMM_Ability_TailGrapple</ability>
+				<subNodes>
+					<li Class="ThinkNode_ConditionalHashIntervalTick">
+						<interval>65</interval>
+						<subNodes>
+							<li Class="PMM_Reptiles.JobGiver_AICastHostileAbility">
+								<abilityDef>PMM_Ability_TailGrapple</abilityDef>
+							</li>
+						</subNodes>
+					</li>
+				</subNodes>
+			</li>
+		</value>
+	</Operation>
+
+</Patch>

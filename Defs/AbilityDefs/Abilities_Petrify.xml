@@ -7,11 +7,18 @@
 		from cooldownTicksRange, so there is no custom cooldown state. The comp
 		effect (PMM_Reptiles.CompProperties_AbilityPetrify) applies
 		PMM_Hediff_Petrified: the victim is downed and every need is held in stasis
-		for 2 days. Locked ruling: nothing is immune, mechanoids included; frozen
-		pawns are simply downed, not statue-items.
+for 2 days. Locked ruling (updated 2026-09-24): nothing is immune by
+              species - mechanoids included - but the stone needs a working, uncovered eye
+              to catch: Sight under 20%, or eyes hidden by FullHead/Eyes apparel (a war
+              mask or a veil), refuses the gaze. Frozen pawns are simply downed, not
+              statue-items.
 
-		hostile = true, so Scalebound Brood medusas use it on their own (the impid
-		fire-spew precedent).
+		hostile = true marks the act as hostile, and that alone does nothing for the AI: an ability
+		is invisible to a hostile unless its def sets aiCanUse and a think-tree node actually asks
+		for it. Both are here - aiCanUse below, the node in
+		Patches/Abilities_Aggressive_Reptiles.xml - which is the impid fire-spew precedent
+		(FireSpew sets aiCanUse; the AnimalWarcall node is the same shape). A raider medusa never
+		cast before 2026-09-23 because both halves were missing.
 	-->
 	<AbilityDef>
 		<defName>PMM_Ability_Petrify</defName>
@@ -20,6 +27,9 @@
 		<iconPath>UI/Abilities/PMM_Petrify</iconPath>
 		<cooldownTicksRange>420000</cooldownTicksRange>
 		<hostile>true</hostile>
+		<!-- Read by Ability.AICanTargetNow: without it the AI never considers the ability, whatever
+		     the think trees say. -->
+		<aiCanUse>true</aiCanUse>
 		<casterMustBeCapableOfViolence>true</casterMustBeCapableOfViolence>
 		<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
 		<disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>

@@ -41,7 +41,7 @@
 
 	<!--
 		Dragonia, the neutral faction (locked ruling). A mountain realm where dragons
-		and humans coexist: not a natural enemy, not a siege faction, no forced memes —
+		and humans coexist: not a natural enemy, not a siege faction, no forced memes -
 		its ideoligions roll freely. Can be befriended, traded with, and offended.
 	-->
 	<FactionDef ParentName="PMM_ReptileFactionBase">
@@ -135,6 +135,14 @@
 		<visitorTraderKinds>
 			<li>PMM_DragoniaVisitor</li>
 		</visitorTraderKinds>
+		<!-- Base trading (added 2026-09-22): a player caravan that reaches a Dragonian
+		     town can trade there. The Broods are permanent enemies and stay untradeable.
+		     Settlement_TraderTracker reads this list live off the faction def, so this
+		     also fixes existing saves. The kind is the larger caravan variant in
+		     Defs/TraderKindDefs/TraderKinds_Dragonia.xml. -->
+		<baseTraderKinds>
+			<li>PMM_DragoniaTrader</li>
+		</baseTraderKinds>
 	</FactionDef>
 
 	<!--
@@ -190,7 +198,8 @@
 			</li>
 		</pawnGroupMakers>
 		<!-- Broods loot: dark dragon's blood turns up in their raids and on their
-		     settlements (they harvest it from their own malef dragons). -->
+		     settlements (they harvest it from their own malef dragons), and with it
+		     the dragonian wine they drink. See PMM_BroodsRaidLootMaker. -->
 		<raidLootMaker>PMM_BroodsRaidLootMaker</raidLootMaker>
 		<settlementLootMaker>PMM_BroodsRaidLootMaker</settlementLootMaker>
 	</FactionDef>
@@ -198,8 +207,15 @@
 	<!--
 		Broods raid/settlement loot: mostly the usual silver and supplies a
 		medieval raider carries, with a chance of a vial of dark dragon's blood
-		(their signature). Count-based so a vial is a discrete find, not a value
-		share; the blood is the draw, the silver is filler.
+		(their signature) and of the dragonian wine they drink. Count-based so a
+		vial is a discrete find, not a value share; the blood is the draw, the
+		silver is filler.
+
+		The wine is here because the Broods cannot trade: they are permanent
+		enemies, and the game never sends traders from a permanent enemy, so a
+		raider's pack and a captured camp are how this side of the world's share of
+		Dragon's Lifeblood reaches the player. It is the common find of the two - a
+		crate of flasks against a single vial of blood.
 	-->
 	<ThingSetMakerDef>
 		<defName>PMM_BroodsRaidLootMaker</defName>
@@ -215,6 +231,19 @@
 								</thingDefs>
 							</filter>
 							<countRange>1~2</countRange>
+						</fixedParams>
+					</thingSetMaker>
+				</li>
+				<li>
+					<chance>0.7</chance>
+					<thingSetMaker Class="ThingSetMaker_Count">
+						<fixedParams>
+							<filter>
+								<thingDefs>
+									<li>PMM_DragonsLifeblood</li>
+								</thingDefs>
+							</filter>
+							<countRange>2~6</countRange>
 						</fixedParams>
 					</thingSetMaker>
 				</li>

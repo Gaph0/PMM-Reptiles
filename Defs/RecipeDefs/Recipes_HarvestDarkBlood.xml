@@ -5,21 +5,30 @@
 		Harvest Dark Dragon's Blood: draw a vial of blackened blood from a living
 		Malef Dragon, costing her half her blood. The worker
 		(PMM_Reptiles.Recipe_HarvestDarkBlood) is modelled on vanilla's hemogen
-		extraction — it only operates on a living Malef with enough blood to give,
-		adds a 0.5 BloodLoss hediff, and places the vial. Targeting the torso keeps
-		it a straightforward draw, not a surgery on a specific part.
+		extraction - it only operates on a living Malef with enough blood to give,
+		adds a 0.5 BloodLoss hediff, and places the vial. It is a whole-body operation - it works
+		off her, not off a part - like vanilla's hemogen extraction.
 	-->
-	<RecipeDef>
+	<RecipeDef ParentName="SurgeryFlesh">
 		<defName>PMM_HarvestDarkBlood</defName>
 		<label>harvest dark dragon's blood</label>
 		<description>Draw a vial of dark dragon's blood from a malef dragon. This takes half her blood and leaves her weakened.</description>
 		<workerClass>PMM_Reptiles.Recipe_HarvestDarkBlood</workerClass>
 		<jobString>Harvesting dark dragon's blood.</jobString>
 		<workAmount>1200</workAmount>
-		<targetsBodyPart>true</targetsBodyPart>
-		<appliedOnFixedBodyParts>
-			<li>Torso</li>
-		</appliedOnFixedBodyParts>
+		<!-- Whole-body, the shape vanilla's hemogen extraction uses. It used to target a fixed
+		     Torso part, and on a malef that resolved to zero parts - and an operation with no
+		     part to apply to is withheld silently, which is why it never appeared. Settled by a
+		     diagnostic line from the running game: result=True, isSurgery=True, the recipe was on
+		     her def's own list, parts=0 (2026-09-23). The worker handles a null part: it works
+		     off the pawn. -->
+		<hideBodyPartNames>true</hideBodyPartNames>
+		<!-- No anesthetic and no ingredients, exactly like vanilla's hemogen extraction: the draw
+		     costs no medicine, so putting her under for free was wrong (user-reported
+		     2026-09-23). SurgeryFlesh above supplies the vanilla surgery dressing - the Medicine
+		     skill, the working sound and the outcome effect. -->
+		<anesthetize>false</anesthetize>
+		<targetsBodyPart>false</targetsBodyPart>
 		<surgerySuccessChanceFactor>1.0</surgerySuccessChanceFactor>
 		<recipeUsers>
 			<li>Human</li>

@@ -113,27 +113,33 @@ namespace PMM_Reptiles
         private int IntervalTicks => (int)(Props.intervalDays * GenDate.TicksPerDay);
 
         /// <summary>
-        /// The scale material this reptile sheds (locked Q5: per-species). Falls back
-        /// to the generic PMM_ReptileScale for any reptile without a species entry
-        /// (e.g. a reptile-gene human with no reptile xenotype).
+        /// The material this reptile sheds. Four shared materials since 2026-09-22
+        /// (was one per species): dragon-kin give dragon scales, serpent-kin give
+        /// lamia scales, lizard-kin give lizardman scales, and the bunyip keeps her
+        /// own wool (user ruling: she is a special kind of reptile). The fallback
+        /// covers a reptile with no reptile xenotype (a reptile-gene human).
         /// </summary>
         private ThingDef ScaleMaterialFor(Pawn pawn)
         {
             string xeno = pawn?.genes?.Xenotype?.defName;
             switch (xeno)
             {
-                case "PMM_Reptile_Basilisk": return ReptileDefOf.PMM_Scale_Basilisk;
-                case "PMM_Reptile_Dragon": return ReptileDefOf.PMM_Scale_Dragon;
-                case "PMM_Reptile_Lamia": return ReptileDefOf.PMM_Scale_Lamia;
-                case "PMM_Reptile_Lizardman": return ReptileDefOf.PMM_Scale_Lizardman;
-                case "PMM_Reptile_Medusa": return ReptileDefOf.PMM_Scale_Medusa;
-                case "PMM_Reptile_Wurm": return ReptileDefOf.PMM_Scale_Wurm;
-                case "PMM_Reptile_Wyvern": return ReptileDefOf.PMM_Scale_Wyvern;
-                case "PMM_Reptile_MalefDragon": return ReptileDefOf.PMM_Scale_MalefDragon;
-                case "PMM_Reptile_Dragonewt": return ReptileDefOf.PMM_Scale_Dragonewt;
-                case "PMM_Reptile_Salamander": return ReptileDefOf.PMM_Scale_Salamander;
-                case "PMM_Reptile_Bunyip": return ReptileDefOf.PMM_Scale_Bunyip;
-                default: return ReptileDefOf.PMM_ReptileScale;
+                case "PMM_Reptile_Dragon":
+                case "PMM_Reptile_MalefDragon":
+                case "PMM_Reptile_Dragonewt":
+                case "PMM_Reptile_Wyvern":
+                    return ReptileDefOf.PMM_Scale_Dragon;
+                case "PMM_Reptile_Lamia":
+                case "PMM_Reptile_Medusa":
+                case "PMM_Reptile_Wurm":
+                    return ReptileDefOf.PMM_Scale_Lamia;
+                case "PMM_Reptile_Bunyip":
+                    return ReptileDefOf.PMM_Scale_Bunyip;
+                case "PMM_Reptile_Lizardman":
+                case "PMM_Reptile_Basilisk":
+                case "PMM_Reptile_Salamander":
+                default:
+                    return ReptileDefOf.PMM_Scale_Lizardman;
             }
         }
 

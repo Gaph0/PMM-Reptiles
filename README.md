@@ -45,8 +45,7 @@ and turns kind and masochistic instead, wearing an easier mood besides. She only
 off to be herself again.
 
 See `MASTER-PLAN.md` for the design, the decisions behind it and what is left to test, and
-`XENOTYPES.md` for the species list. With Medieval Overhaul loaded, the cave snake faction
-takes reptile members, and its ruin hides a lamia matriarch.
+`XENOTYPES.md` for the species list.
 
 Requires Harmony, Biotech, Vanilla Expanded Framework, Big and Small - Framework, and
 Project Momo. Ideology is optional: without it both factions still spawn, and the

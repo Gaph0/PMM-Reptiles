@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<!--
+		Keeps dragonium out of the hands of vanilla traders without hiding it from
+		vanilla's own systems.
+
+		Dragonium sits in the ResourcesRaw category, like plasteel, steel, uranium
+		and gold, so it appears beside them in the storage filters and is treated
+		as a raw resource everywhere else. Three vanilla trader kinds stock raw
+		resources with a StockGenerator_Category on that category -
+		Base_Outlander_Standard, Base_Neolithic_Standard and Orbital_BulkGoods -
+		and StockGenerator_Category takes ANY def inside the category whose
+		tradeability lets a trader sell it, with no tech gate unless the generator
+		asks for one (the field defaults to Archotech, i.e. no limit). Left alone,
+		the metal would turn up in outlander and orbital stock as well as
+		Dragonia's, which is the whole reason this patch exists.
+
+		The fix is vanilla's own: each of those generators already carries an
+		excludedThingDefs list, used to keep Bioferrite and the Odyssey panels out
+		of them. This adds PMM_Dragonium to all three lists. One xpath covers every
+		matching generator in the game, and the conditional around it means a
+		renamed or removed generator leaves a quiet log rather than an error.
+
+		Note this only covers vanilla. Another mod's trader is free to roll
+		ResourcesRaw and could still stock dragonium; the two explicit lines on
+		Dragonia's trader kinds (Defs/TraderKindDefs/TraderKinds_Dragonia.xml)
+		remain the only intended source.
+
+		The dragon orbs (2026-09-22) are the same problem in a different category.
+		PMM_DragonOrb and PMM_DragonOrbDecor sit in BuildingsFurniture, so they can
+		never be BUILT (they carry no designationCategory and no costList) - but
+		furniture is exactly what vanilla traders do stock: three vanilla kinds roll
+		BuildingsFurniture with a StockGenerator_Category, and one of them is the
+		orbital trader. So the orbs are excluded from all three by name as well.
+		Unlike the ResourcesRaw generators, none of those three carries an
+		excludedThingDefs list today, so the operation below has an else-branch:
+		append to a list another mod made, otherwise add the whole element.
+	-->
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/TraderKindDef/stockGenerators/li[@Class="StockGenerator_Category"][categoryDef="ResourcesRaw"]/excludedThingDefs</xpath>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<success>Always</success>
+					<xpath>Defs/TraderKindDef/stockGenerators/li[@Class="StockGenerator_Category"][categoryDef="ResourcesRaw"]/excludedThingDefs</xpath>
+					<value>
+						<li>PMM_Dragonium</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+	<!-- Dragon orbs: the three generators that roll BuildingsFurniture. -->
+	<Operation Class="PatchOperationConditional">
+		<success>Always</success>
+		<xpath>Defs/TraderKindDef/stockGenerators/li[@Class="StockGenerator_Category"][categoryDef="BuildingsFurniture"]/excludedThingDefs</xpath>
+		<match Class="PatchOperationAdd">
+			<success>Always</success>
+			<xpath>Defs/TraderKindDef/stockGenerators/li[@Class="StockGenerator_Category"][categoryDef="BuildingsFurniture"]/excludedThingDefs</xpath>
+			<value>
+				<li>PMM_DragonOrb</li>
+				<li>PMM_DragonOrbDecor</li>
+			</value>
+		</match>
+		<nomatch Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<success>Always</success>
+					<xpath>Defs/TraderKindDef/stockGenerators/li[@Class="StockGenerator_Category"][categoryDef="BuildingsFurniture"]</xpath>
+					<value>
+						<excludedThingDefs>
+							<li>PMM_DragonOrb</li>
+							<li>PMM_DragonOrbDecor</li>
+						</excludedThingDefs>
+					</value>
+				</li>
+			</operations>
+		</nomatch>
+	</Operation>
+</Patch>

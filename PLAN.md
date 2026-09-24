@@ -132,11 +132,11 @@ follow that example exactly:
 - On shed: drop a stack of `PMM_ReptileScale` at the pawn's feet + a subtle message;
   optional short moodlet "fresh new scales" (+2, 3 days).
 
-### Scales material — `PMM_ReptileScale`
+### Scales and wool material — `PMM_ReptileScaleSpeciesBase`
 - `stuffProps` category **Leathery** → usable in every recipe that takes leather/wool.
 - Stat factors, reptile-flavoured: slightly better sharp armor than plain leather, decent
   heat insulation, poor cold insulation; market value around leather.
-- One generic material now; per-species scales (lamia/dragon/etc.) in a later phase.
+- Four shared materials since 2026-09-22 (dragon, lamia, lizardman scales + the bunyip's own wool); per-species scales were built, then merged.
 
 ## 4. Lamia grapple — `PMM_Gene_LamiaTail` + `PMM_Ability_TailGrapple`
 

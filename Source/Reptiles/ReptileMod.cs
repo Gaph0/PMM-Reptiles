@@ -28,9 +28,19 @@ namespace PMM_Reptiles
         public static HediffDef PMM_Hediff_Shedding;
         public static HediffDef PMM_Hediff_Constricted;
         public static HediffDef PMM_Hediff_Petrified;
-        public static ThingDef PMM_ReptileScale;
         public static ThingDef PMM_ReptileEggFertilized;
         public static ThingDef PMM_DarkDragonsBlood;
+
+        // Dragon orbs (2026-09-22): the calling orb the dragonian traders sell, and
+        // the glowing orb it becomes once a dragon has answered it.
+        public static ThingDef PMM_DragonOrb;
+        public static ThingDef PMM_DragonOrbDecor;
+
+        // The wedding collar (2026-09-23): the jewelry that nullifies a dragon's pride, and
+        // the hediff that carries its mood and its trait swap.
+        public static ThingDef PMM_WeddingCollar;
+        public static HediffDef PMM_Hediff_WeddingCollar;
+        public static GeneDef PMM_Gene_WeddingCollar;
         public static ThoughtDef PMM_Thought_FreshScales;
         public static AbilityDef PMM_Ability_TailGrapple;
         public static AbilityDef PMM_Ability_Petrify;
@@ -42,17 +52,11 @@ namespace PMM_Reptiles
         public static XenotypeDef PMM_Reptile_MalefDragon;
         public static XenotypeDef PMM_Reptile_Dragonewt;
 
-        // Per-species scale materials (locked Q5).
-        public static ThingDef PMM_Scale_Basilisk;
+        // Skin materials (four since 2026-09-22, was one per species). Bunyip wool
+        // is its own material: the bunyip is a special reptile (user ruling).
         public static ThingDef PMM_Scale_Dragon;
         public static ThingDef PMM_Scale_Lamia;
         public static ThingDef PMM_Scale_Lizardman;
-        public static ThingDef PMM_Scale_Medusa;
-        public static ThingDef PMM_Scale_Wurm;
-        public static ThingDef PMM_Scale_Wyvern;
-        public static ThingDef PMM_Scale_MalefDragon;
-        public static ThingDef PMM_Scale_Dragonewt;
-        public static ThingDef PMM_Scale_Salamander;
         public static ThingDef PMM_Scale_Bunyip;
 
         // The eleven species races (Defs/ThingDefs/Races_ReptileMomo.xml, 2026-09-20).

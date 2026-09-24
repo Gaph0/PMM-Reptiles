@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The calling orb's own incident (2026-09-22). A lit calling orb on a map at
+		night already adds a dragon to the ordinary reptile wander-in (the
+		<orbCandidates> line on PMM_ReptileWandersIn); this def gives the same orb a
+		second, dedicated chance on top of that, so an orb standing on a desert or a
+		river bank really does raise the odds there - not only on the mountains and
+		caves where dragons already walk.
+
+		No <candidates>: this def has no habitat roster at all. Its whole list is the
+		orb's own <orbCandidates>, which is why the worker refuses the incident
+		outright when no calling orb is lit - and why it says so in the log in
+		development mode. Dragons only: no wyverns (user ruling).
+
+		Silent spending: the worker turns the calling orb into the glowing orb on the
+		roll that a dragon actually arrives on, with no message. Nothing in this
+		letter mentions the orb either, so the swap is silent from the player's side
+		(user ruling).
+	-->
+	<IncidentDef>
+		<defName>PMM_DragonOrbCall</defName>
+		<label>a dragon answers a dragon orb</label>
+		<category>Misc</category>
+		<targetTags><li>Map_PlayerHome</li></targetTags>
+		<workerClass>PMM_Reptiles.IncidentWorker_ReptileWandersIn</workerClass>
+		<baseChance>0.5</baseChance>
+		<populationEffect>IncreaseMedium</populationEffect>
+		<letterLabel>{0} answers the orb</letterLabel>
+		<letterText>A wild {0} has followed the light of a dragon orb out of the dark. {PAWN_pronoun}'s called {PAWN_nameDef}.\n\nYou can attempt to tame {PAWN_objective}.</letterText>
+		<letterDef>NeutralEvent</letterDef>
+		<modExtensions>
+			<li Class="PMM_Reptiles.ReptileWildExtension">
+				<orbCandidates>
+					<li>PMM_Reptile_WildDragon</li>
+				</orbCandidates>
+			</li>
+		</modExtensions>
+	</IncidentDef>
+
+</Defs>

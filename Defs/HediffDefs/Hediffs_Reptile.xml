@@ -8,7 +8,7 @@
 		a pregnancy fertilizes it (VEF captures the genetics and removes the birth),
 		and exactly one PMM_ReptileEggFertilized is laid. With no eggUnfertilizedDef
 		set, only fertilized eggs are ever laid. femaleDominant nudges the hatch
-		toward daughters — momo babies are always girls either way (our assembly's
+		toward daughters - momo babies are always girls either way (our assembly's
 		hatch compat shim enforces the full core inheritance rules).
 	-->
 	<HediffDef>
@@ -19,10 +19,14 @@
 		<scenarioCanAdd>false</scenarioCanAdd>
 		<maxSeverity>1.0</maxSeverity>
 		<isBad>false</isBad>
-		<!-- Visible in the Health tab: severity defaults to max (1.0), so the stage
-		     label shows as "egg-bearer". VEF's HediffComp_HumanEggLayer.CompTipStringExtra
-		     supplies the live detail ("Egg progress: x%", "Fertilized", or
-		     "Progress stopped until fertilized") in the tooltip. -->
+		<!-- Visible in the Health tab as "oviparous (egg-bearer)". The bracketed half is the
+		     stage label below: Hediff.LabelInBrackets returns the current stage's label, and a
+		     single stage at the default minSeverity shows at any severity, so no severity is
+		     needed to make it appear. VEF's HediffComp_HumanEggLayer supplies the live detail in
+		     the tooltip ("Egg progress: x%", "Fertilized", or "Progress stopped until
+		     fertilized"), and it keeps that progress in its own field rather than in this
+		     hediff's severity. Ours is a cap only, so the number can never wander.
+		     (Checked 2026-09-23 against the 1.6 VEF build and the vanilla assembly.) -->
 		<stages>
 			<li>
 				<label>egg-bearer</label>
@@ -41,7 +45,7 @@
 
 	<!--
 		Yearly shedding. Invisible marker hediff (the hediffClass overrides Visible to
-		false — the slime-jelly-oozing pattern) added and removed by the reptilian gene;
+		false - the slime-jelly-oozing pattern) added and removed by the reptilian gene;
 		the comp runs the countdown and drops the scales. 60 days = one RimWorld year.
 	-->
 	<HediffDef>
@@ -63,15 +67,26 @@
 
 	<!--
 		Constricted in a lamia's coils. Applied by the tail-grapple ability. The Moving
-		offset roots the victim (5% move: effectively held, but NOT downed — she can
-		still fight back); the custom hediff class ticks tease damage from the core
-		mod's tease system and releases the victim when its timer runs out or the
-		constrictor is downed, killed, or no longer adjacent.
+		offset roots the victim (5% move, held in place); the custom hediff class ticks
+		tease damage from the core mod's tease system and releases the victim when its
+		timer runs out, or the constrictor is downed, killed, or gone from the map, or he
+		wrenches free - escape is rolled every eighth of an in-game hour (2026-09-24).
+		Adjacency used to be a condition and is not one any more: the coil lasts an
+		hour, so requiring the two to stay adjacent meant a lamia who took one step
+		lost her victim instantly (fixed 2026-09-24). Being carried is not a condition
+		either: a victim she picks up to kidnap is despawned while carried, and the
+		old same-map test deleted the coil the moment the carrying began.
+
+		Note, 2026-09-24: a probe in game read a coiled victim as downed for the whole
+		coil, with full consciousness. Vanilla's ShouldBeDowned does not explain that
+		by low Moving on its own - Moving only downs races whose RaceProps.doesntMove
+		is set - so the cause is still open. Pain shock from the tease damage is the
+		likely one. Worth probing before touching the offset here.
 	-->
 	<HediffDef>
 		<defName>PMM_Hediff_Constricted</defName>
 		<label>constricted</label>
-		<description>Wrapped in a lamia's crushing coils — unable to pull free, willpower melting under her teasing embrace.</description>
+		<description>Wrapped in a lamia's crushing coils - unable to pull free, willpower melting under her teasing embrace.</description>
 		<hediffClass>PMM_Reptiles.Hediff_Constricted</hediffClass>
 		<defaultLabelColor>(1.0, 0.6, 0.8)</defaultLabelColor>
 		<isBad>true</isBad>
@@ -89,6 +104,39 @@
 				</capMods>
 			</li>
 		</stages>
+	</HediffDef>
+
+	<!--
+		Hidden "blood running hot" flare from a flask of Dragon's Lifeblood
+		(Defs/ThingDefs/Item_DragonsLifeblood.xml). Invisible on the Health tab - the
+		hediffClass overrides Visible to false, the shedding pattern - and it has no
+		stages, art or tooltip for a player to read.
+
+		The effect is entirely vanilla, so no patch is needed:
+		HediffCompProperties_GiveLovinMTBFactor is the comp that
+		JobDriver_Lovin.GenerateRandomMinTicksToNextLovin multiplies into the gap
+		between lovin', so a factor below 1 brings it round sooner (0.5 = twice as
+		often). HediffCompProperties_SeverityPerDay walks the severity down, and
+		Hediff.ShouldRemove (severity <= 0) retires the hediff; half a point a day
+		means a two-day glow per flask, topped back up by the next drink.
+	-->
+	<HediffDef>
+		<defName>PMM_Hediff_DragonsLifeblood</defName>
+		<label>dragon's lifeblood</label>
+		<description>Her blood is running hot from Dragonia's wine.</description>
+		<hediffClass>PMM_Reptiles.Hediff_DragonsLifeblood</hediffClass>
+		<isBad>false</isBad>
+		<everCurableByItem>false</everCurableByItem>
+		<initialSeverity>1</initialSeverity>
+		<maxSeverity>1</maxSeverity>
+		<comps>
+			<li Class="HediffCompProperties_GiveLovinMTBFactor">
+				<lovinMTBFactor>0.5</lovinMTBFactor>
+			</li>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.5</severityPerDay>
+			</li>
+		</comps>
 	</HediffDef>
 
 </Defs>

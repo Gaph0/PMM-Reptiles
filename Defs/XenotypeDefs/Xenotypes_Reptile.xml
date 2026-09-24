@@ -5,7 +5,7 @@
 		The eleven reptile momo xenotypes (Phase 2). Every one carries the shared base
 		ProjectMomo_Momo + PMM_Gene_Reptile (scales, warmth, egg-laying, shedding) and
 		is inheritable, all-female, and excluded from the factionless spawner
-		(factionlessGenerationWeight 0 — wild entry is via our wander-in incidents).
+		(factionlessGenerationWeight 0 - wild entry is via our wander-in incidents).
 		All momos are women. Gene defNames verified against Core/Biotech and the slime
 		mod's aptitude pattern (Aptitude{Level}_{Skill}).
 	-->
@@ -251,8 +251,10 @@
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>ProjectMomo_MomoFiery</li>
-			<li>MeleeDamage_Strong</li>
-			<li>Robust</li>
+			<!-- Melee: an aptitude gene, not a damage gene (user's call, 2026-09-22). It
+			     replaced vanilla MeleeDamage_Strong and Robust, so she trains melee faster
+			     and starts higher, but no longer hits harder or shrugs off more. -->
+			<li>AptitudeRemarkable_Melee</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">

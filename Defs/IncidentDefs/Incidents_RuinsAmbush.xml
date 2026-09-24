@@ -3,12 +3,17 @@
 
 	<!--
 		Medusa ruins ambush (XENOTYPES.md §4a): a caravan that strays near a ruin
-		world object may find medusas waiting among the stones. The worker
+		may find medusas waiting among the stones. The worker
 		(PMM_Reptiles.IncidentWorker_MedusaRuinsAmbush) extends the vanilla ambush
 		flow: the base class generates the ambush map and moves the caravan in;
-		our overrides gate on a nearby AbandonedSettlement/AbandonedCamp/
-		AbandonedLandmark and supply the medusa ambushers. The base letter code
-		formats {0} = caravan name and {1} = faction name.
+		our overrides gate on a nearby ruin world object (AbandonedSettlement,
+		AbandonedCamp, AbandonedLandmark, AbandonedArchotechStructures) or an
+		Odyssey landmark tile, and supply the one medusa. {0} in the two strings
+		below is the caravan's name, filled by the worker's GetLetterLabel and
+		GetLetterText overrides - the base returns these strings untouched, so
+		filling it here is what keeps the letter readable. The fill is Formatted(),
+		not Translate(): these are finished sentences, not translation keys, and a
+		failed Translate() lookup comes back accented under Dev Mode (2026-09-24).
 	-->
 	<IncidentDef>
 		<defName>PMM_MedusaRuinsAmbush</defName>
@@ -19,7 +24,7 @@
 		<baseChance>0.8</baseChance>
 		<minRefireDays>2</minRefireDays>
 		<letterLabel>{0}: medusa ambush</letterLabel>
-		<letterText>Stones that were not stone a moment ago move among the ruins — {0} has walked into a medusa's hunting ground. Scalebound Brood ambushers strike from the rocks!</letterText>
+		<letterText>{0} has walked into a medusas hunting ground. A hostile medusa approaches from the rocks.</letterText>
 		<letterDef>ThreatSmall</letterDef>
 	</IncidentDef>
 

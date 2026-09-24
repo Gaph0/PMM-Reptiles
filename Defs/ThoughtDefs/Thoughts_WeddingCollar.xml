@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The wedding collar's small lift in mood (2026-09-23), as a situational thought rather
+		than anything on the hediff: in this game build a hediff stage has no mood field at all
+		(`moodOffset` belongs to hediff comps and to thoughts), and the first version of this
+		item put `<moodOffset>` in a hediff stage, which RimWorld reported as
+		"doesn't correspond to any field in type HediffStage".
+
+		A thought is also the better fit: it is what the mood list on the Needs tab is for, so
+		the player sees "my wedding collar" there beside everything else that moves her mood.
+
+		The stage's <description> is required, not decoration: RimWorld logs "affects mood but
+		doesn't have a description" for any mood-moving thought stage without one - which is the
+		one place a hediff stage and a thought stage disagree, since a hediff stage must NOT have
+		one.
+
+		The worker (PMM_Reptiles.ThoughtWorker_WeddingCollar) is active while she wears a
+		collar, so there is nothing to grant or clean up.
+	-->
+	<ThoughtDef>
+		<defName>PMM_Thought_WeddingCollar</defName>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<workerClass>PMM_Reptiles.ThoughtWorker_WeddingCollar</workerClass>
+		<validWhileDespawned>true</validWhileDespawned>
+		<stages>
+			<li>
+				<label>my wedding collar</label>
+				<description>She wears the collar her husband fastened on her, and it suits her better than she would ever admit.</description>
+				<baseMoodEffect>3</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

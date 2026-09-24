@@ -18,8 +18,8 @@ A document is only a note about them.
 - `packageId` `PMM.Reptiles`, assembly `PMM_Reptiles.dll`, namespace `PMM_Reptiles`.
 - Hard requirements: Harmony, Biotech, Vanilla Expanded Framework (VEF),
   `PMM.Core`, Big and Small - Framework.
-- Soft requirements, all self-gating: Ideology (the Broods' forced meme),
-  Odyssey (Salamander volcanic spawns), Medieval Overhaul (the cave snake patch).
+- Soft requirements, all self-gating: Ideology (the Broods' forced meme)
+  and Odyssey (Salamander volcanic spawns).
 - Build `./build.sh` (compiles `Source/Reptiles/*.cs` against the RimWorld managed
   DLLs and `../Project Momo/Assemblies/ProjectMomo.dll`).
   `sync.sh` copies the mod into the live Mods folder. **Always sync before a test**,
@@ -33,24 +33,24 @@ dragon, lizardman, dragonewt, salamander.
 
 | Area | State | Field-tested |
 |---|---|---|
-| Two factions, mountains-only placement, medieval gear | built | boot-tested |
-| Reptilian gene (sharp hide, warmth, egg-laying, shedding) | built | boot-tested, egg inheritance still owed |
-| Lamia tail-grapple ability | built | no |
-| Eleven xenotypes, faction rosters, wild wander-ins | built | partly |
-| Medusa petrify (downs the target, freezes every need 2 days) | built | no |
-| Dark Dragon's Blood item + blood harvest surgery | built | no |
-| Medusa ruin ambush + ruin map fill | built | no |
-| Eleven species races, own hides, shared corpse line | built 2026-09-20 | no |
-| Dragonia trader caravans + visiting traders | built 2026-09-20 | yes, one bug found and fixed |
-| Fresh-scales moodlet | built 2026-09-20 | no |
-| Medieval Overhaul cave snake roster + cave matriarch | built 2026-09-22 | no |
-| Dragon's Lifeblood, Dragonia's wine, in trader stock | built 2026-09-22 | no |
-| Dragonium, Dragonia's metal, in trader stock | built 2026-09-22 | no |
-| Dragon orbs, bought lamps that call a dragon at night | built 2026-09-22 | no |
-| Full in-game test pass (HANDOFF §8 item 5) | **not done** | — |
+| Two factions, mountains-only placement, medieval gear | built | yes, 2026-09-24 |
+| Reptilian gene (sharp hide, warmth, egg-laying, shedding) | built | yes, 2026-09-24, egg inheritance included |
+| Lamia tail-grapple ability | built | yes, 2026-09-24, AI casting included |
+| Eleven xenotypes, faction rosters, wild wander-ins | built | yes, 2026-09-24 |
+| Medusa petrify (downs the target, freezes every need 2 days) | built | yes, 2026-09-24, AI casting and the eye rule included |
+| Dark Dragon's Blood item + blood harvest surgery | built | yes, 2026-09-24 |
+| Medusa ruin ambush + ruin map fill | built | yes, 2026-09-24 |
+| Eleven species races, own hides, shared corpse line | built 2026-09-20 | yes, 2026-09-24 |
+| Dragonia trader caravans + visiting traders | built 2026-09-20 | yes, 2026-09-24 |
+| Fresh-scales moodlet | built 2026-09-20 | yes, 2026-09-23 |
+| Dragon's Lifeblood, Dragonia's wine, in trader stock | built 2026-09-22 | yes, 2026-09-24 |
+| Dragonium, Dragonia's metal, in trader stock | built 2026-09-22 | yes, 2026-09-24 |
+| Dragon orbs, bought lamps that call a dragon at night | built 2026-09-22 | yes, 2026-09-24 |
+| Full in-game test pass (HANDOFF §8 item 5) | **done 2026-09-24** | items 14 and 21 still open |
 
-Most of the 2026-09-22 and 2026-09-23 work is still uncommitted - the dragon orbs, the
-wedding collar and these documents among it. Run `git status` for the live list.
+Most of the 2026-09-22 to 2026-09-24 work is still uncommitted - the dragon orbs, the
+wedding collar, the coil and gaze changes, and these documents among it. Run `git status`
+for the live list.
 
 ## 3. What is built, and where it lives
 
@@ -218,13 +218,6 @@ hediff is hidden from the Health tab the same way a def-level hide is possible a
 comp refusing to be visible; the gene row is the one visible trace, because `GeneDef` offers no
 field to hide it.
 
-### Medieval Overhaul (soft)
-`Patches/SnakeCaveFaction_ReptileMembers.xml` gives MO's cave snake faction a
-reptile roster (basilisk, medusa, lamia, wurm, 0.225 each, so a tenth stay human)
-and puts a `PMM_Reptile_CaveSnakeMatriarch` (a lamia) in the snake ruin.
-The patch self-gates with `PatchOperationConditional` on
-`DankPyon_SnakeCave_Faction`, so it is silent when MO is absent.
-
 ## 4. Locked decisions
 
 Names, rosters, composition:
@@ -348,73 +341,164 @@ Trade and events:
 - A minified building is a `MinifiedThing`, never its own def, so
   `listerThings.ThingsOfDef(thatDef)` only ever returns installed ones - which is what makes
   "an orb in a stockpile does nothing" free.
+- A dragon is a fiery-gene carrier, so core's fire ward lands on whoever she bonds. The Dragon and
+  Salamander xenotypes list core's `ProjectMomo_MomoFiery`, and core's `FireWardComponent` wards
+  any humanlike pawn whose living tsugai partner carries that gene - checked hourly, so it lands
+  within the hour of the bond. Nothing in either mod is wrong; the two features meet.
+- VEF's hatcher writes the conception-time gene mix into the baby's **xenogenes**, not its
+  endogenes. An egg-born momo baby therefore has to have that set stripped, or she carries her
+  mother's genes twice - the duplicate row under "Xenogenes" in the gene inspector. `EggCompat.cs`
+  drops it and adds the mother's genes back as endogenes.
+- A keyed string's `{PAWN_labelShort}`-style tokens **are** valid and are what vanilla uses (113 uses
+  of `{0_labelShort}` alone in Core), but they only fill in when the caller passes the matching named
+  argument: `"Key".Translate(pawn.Named("PAWN"))`. A call with **no** arguments prints the token at
+  the player verbatim, which is how the harvest's "too little blood" warning read as
+  `{PAWN_labelShort}` (2026-09-23). Nothing was wrong with the key text.
+- A `Recipe_Surgery` subclass must call **`OnSurgerySuccess(...)` itself** from `ApplyOnPawn`, the way
+  vanilla's `Recipe_ExtractHemogen` does. Neither obvious alternative works: `base.ApplyOnPawn` does not
+  reach the hook, and `base.OnSurgerySuccess` goes to the empty base and skips the override - both were
+  tried in game and produced no vial (2026-09-23). And `<anesthetize>` defaults to **true**, so a
+  surgery that takes no medicine still put the patient under until it was set false.
+- An operation with **no body part to apply to is withheld silently**: `PMM_HarvestDarkBlood`
+  targeted a fixed `Torso` part, which resolved to zero parts on a malef (a winged Big and Small
+  body), so it never appeared even though `AvailableOnNow` returned true and the recipe was on her
+  def's own list. Whole-body operations set `targetsBodyPart false` and drop
+  `appliedOnFixedBodyParts`, like vanilla's hemogen extraction. Found 2026-09-23 only by logging the
+  live values out of the worker, after three wrong def-side guesses.
+- Vanilla's birth popup is `ChoiceLetter_BabyBirth`, and `LetterMaker.MakeLetter(label, text,
+  LetterDefOf.BabyBirth, targets)` builds it: the letter class comes from the letter def,
+  `Start()` resolves the pawn from the look targets, and it carries Biotech's own naming and
+  status choices. A mod gets the same popup by reusing both, not by writing one.
+- An ability is invisible to the AI unless **both** halves are present: the `AbilityDef` carries
+  `<aiCanUse>true</aiCanUse>` (read by `Ability.AICanTargetNow`) *and* a think-tree node asks for it.
+  `hostile` only marks the act as hostile. Vanilla has no generic "cast any hostile ability" node:
+  Core's `Abilities_Aggressive` tree is referenced by the raider `DutyDef`s and its single node is
+  AnimalWarcall, so each hostile ability needs its own node there - `ThinkNode_ConditionalHasAbility`
+  -> `ThinkNode_ConditionalHashIntervalTick` -> a job giver holding the ability's def name.
+  That giver cannot be vanilla's `JobGiver_AICastAbility`: it is **abstract**, and its two shipped
+  subclasses are hardcoded (one targets the caster, one picks a wild animal), which is why **no XML
+  in the game** uses the generic class. Reptiles ships `PMM_Reptiles.JobGiver_AICastHostileAbility`
+  (`Source/Reptiles/JobGiver_AICastHostileAbility.cs`) for this: XML sets its public `<abilityDef>`,
+  `AttackTargetFinder.BestAttackTarget` finds the caster's best visible enemy, and
+  `Ability.AICanTargetNow` has the final say.
+  Player pawns are unaffected: the tree sits under a `ThinkNode_ConditionalColonist` with `invert`
+  true - and that flag is a **child element**, not an attribute, if you ever go looking for it.
+- A pawn spawned straight from dev mode gets **no lord**, so it has no orders: it walks about and
+  looks broken. Everything a raider does (walk in, target, assault, kidnap) comes from the lord the
+  raid builds, so an AI bug has to be tested with a real raid. A one-session rig did exactly that
+  (`PMM_TestRaidMedusa`, a dev-trigger-only incident that fired one-medusa Broods raids); it was
+  removed on 2026-09-24 once it had done its job, and the recipe is the bullet below it.
+- `IncidentWorker_Raid` picks its group kind with `parms.pawnGroupKind ?? PawnGroupKindDefOf.Combat`,
+  read from the incident parms. So a `IncidentWorker_RaidEnemy` subclass that overrides the protected
+  virtual `TryExecuteWorker`, sets `parms.faction` + `parms.pawnGroupKind` (+ `raidStrategy`), and
+  calls base gets **all** vanilla raid behaviour with pawns of its own choosing. The custom kind needs
+  a matching `PawnGroupMaker` on the faction (even if its worker ignores the options) or the game
+  refuses to generate pawns for that kind at all. `PawnGroupKindWorker` needs three overrides:
+  `GeneratePawns` (protected), `MinPointsToGenerateAnything` and `GeneratePawnKindsExample` (public).
+  So are wild momos - a pawn only gets that tree through a duty, which means raiders (2026-09-23).
 - `uninstallWork` lives under `<building>`, not at the top level of the ThingDef.
+- VEF's human egg-layer comp keeps egg progress in its own field and never touches the hediff's
+  severity, so `maxSeverity` on that hediff is only a cap. The Health tab's bracketed
+  "(egg-bearer)" is vanilla's `Hediff.LabelInBrackets`, which reads the current stage label, so
+  it needs no severity at all.
+- **A KCSG ruin's garrison belongs to the map's faction, not the pawnkind's, and Medieval
+  Overhaul's ruin quests pick that faction at random** (found 2026-09-24). MO's scripts run
+  `QuestNode_GetSitePartDefsByTagsAndFaction` before the node that sets `enemyFaction`, and that
+  first node reads `slate.Get("enemyFaction")` as its preferred faction, so it is null and
+  `SiteMakerHelper` takes a random hostile faction for `siteFaction`; vanilla's `Util_GenerateSite`
+  then builds the site with `$siteFaction`. A `KCSG.SymbolDef` with `spawnPartOfFaction` true hands
+  its pawn to that faction and ignores its own `<faction>`, and `PawnGenerator.XenotypesAvailableFor`
+  puts the faction's `xenotypeSet` on top of whatever pawnkind is generated - so MO's brigand kinds
+  spawned as insect momos of an insect faction, with only our xenotype-pinned matriarch looking
+  right. The whole Medieval Overhaul coupling was removed over this (2026-09-24). Fixing it properly
+  means reordering MO's quest nodes; offered and declined (user ruling).
+- **Do not leave vestigial code or config behind (user ruling 2026-09-24).** When a feature loses
+  its last consumer, delete it in the same pass - the def, the kind, the patch, and the patch file
+  when that was the only thing left in it. A self-gating patch that can never fire, or a roster
+  nothing reads, is not "kept in case": it reads as live support to the next agent. The Medieval
+  Overhaul cave patch went that way: symbol swap first, then the roster and member kind, then the
+  file.
 
 ## 6. What is left to do
 
 ### 6.1 Test debt (one list; run it in game with dev mode on)
-1. Boot with zero red errors; check the log for def-load warnings.
-2. Worldgen: one Dragonia and one Broods faction, mountains only, icons visible,
+Confirmed in game **2026-09-24**: items 1-13 and 15-20, and 14 is closed. What is actually left is
+**21**, which has not been tried yet, so the items below carry inline marks rather than being deleted.
+1. **Confirmed in game 2026-09-24.** Boot with zero red errors; check the log for def-load warnings.
+2. **Confirmed in game 2026-09-24.** Worldgen: one Dragonia and one Broods faction, mountains only, icons visible,
    Broods ideoligion has Monster Extremists, leaders generated.
-3. Every species comes out on her own race: faction pawns, wild wander-ins, raid
+3. **Confirmed in game 2026-09-24.** Every species comes out on her own race: faction pawns, wild wander-ins, raid
    pawns, and a woman corrupted into each species.
-4. A tailed or winged momo draws her tail or wings once, from the B&S tracker.
-5. Health tab shows one row per momo: the species name on a plain-body one, B&S's
+4. **Confirmed in game 2026-09-24.** A tailed or winged momo draws her tail or wings once, from the B&S tracker.
+5. **Confirmed in game 2026-09-24.** Health tab shows one row per momo: the species name on a plain-body one, B&S's
    "snake-person" / "winged humanoid" on a tailed or winged one.
-6. Butchering a reptile gives her own scales, and her corpse sits under the "momo
+6. **Confirmed in game 2026-09-24.** Butchering a reptile gives her own scales, and her corpse sits under the "momo
    corpses" line in the butcher menu and the item filters.
-7. Egg inheritance: a reptile pregnancy lays exactly one fertilized egg, no birth
-   bed, and the egg hatches the right baby. **Highest risk seam** (`EggCompat.cs`).
-8. Tail grapple: a lamia drags and roots a colonist; it ends on the timer and when
-   the caster goes down. A raider lamia uses it on her own.
-9. Petrify: cast on a colonist, she is downed, her needs freeze for two days, she
-   thaws standing up. A raider medusa uses it.
-10. Dark Dragon's Blood: an ordinary woman's first vial makes her a dragonewt, her
+7. **Confirmed in game 2026-09-24.** Egg inheritance: a reptile pregnancy lays exactly one fertilized egg, no birth
+   bed, and the egg hatches the right baby - her gene list showing her mother's genes
+   once, with no xenogene copy, and a colony hatchling raising the vanilla birth popup
+   so she can be named. **Highest risk seam** (`EggCompat.cs`).
+8. **Confirmed in game 2026-09-24.** Tail grapple: a lamia drags and roots a colonist; it ends on the timer and when
+   the caster goes down. A raider lamia uses it on her own - which needs `aiCanUse` and a
+   think-tree node (added 2026-09-23, §5); re-test the AI half.
+9. **Confirmed in game 2026-09-24.** Petrify: cast on a colonist, she is downed, her needs freeze for two days, she
+   thaws standing up. A raider medusa uses it - which needs `aiCanUse` and a think-tree node
+   (added 2026-09-23, §5); re-test the AI half with a real raid, because a dev-spawned pawn has no
+   lord and cannot show raider behaviour at all (the raid-rig recipe is in §5).
+10. **Confirmed in game 2026-09-24.** Dark Dragon's Blood: an ordinary woman's first vial makes her a dragonewt, her
     second makes her a malef dragon, and a normal dragon reaches malef on her first.
     A malef and a man get nothing. Harvest surgery on a living malef gives a vial
-    and costs half her blood, and is refused when it would kill her.
-11. Shedding: scales drop once a year and the fresh-scales moodlet appears.
-12. Trade: a caravan arrives with scales, jade and medieval goods and buys art; a
-    dragonia visitor group arrives and one of them may trade.
-13. Ruin ambush: a caravan near a ruin is ambushed on a dressed map with walls,
-    stone figures and buried loot.
-14. Medieval Overhaul: the cave snake faction spawns reptile members and the snake
-    ruin holds the lamia matriarch. Without MO, nothing in the log.
-15. Dragon's Lifeblood: a dragonian caravan and a dragonian visitor both arrive with
+    and costs half her blood, and it is refused when it would kill her. The operation
+    has to be listed under Operations on her, which it was not until the malef race was
+    named in its `recipeUsers` (2026-09-23).
+11. Shedding: scales drop once a year and the fresh-scales moodlet appears. **Confirmed in game
+    2026-09-23** (tested at a 1-day interval, since reverted to 60).
+12. **Confirmed in game 2026-09-24.** Trade: a caravan arrives with scales, jade and medieval goods and
+    buys art; a dragonia visitor group arrives and one of them may trade.
+13. **Confirmed in game 2026-09-24.** Ruin ambush: a caravan near a ruin is ambushed on a dressed map
+    with walls, stone figures and buried loot.
+14. **Closed 2026-09-24: nothing left to test.** The Medieval Overhaul coupling is gone - the ruin's
+    garrison belongs to whatever faction the quest rolled, so none of it was reachable. See §5 for
+    the mechanism and why the patch was not worth keeping.
+15. **Confirmed in game 2026-09-24.** Dragon's Lifeblood: a dragonian caravan and a dragonian visitor both arrive with
     flasks for sale; drinking one builds the vanilla alcohol stages over several
     flasks, satisfies chemical recreation, builds alcohol tolerance, tops up mana on
     a momo and essence on a human, and brings lovin' round sooner for a day or two.
     The hediff itself must not appear on the Health tab.
-16. Dragonium: a dragonian caravan arrives with 50-150 of it and no other vanilla trader
+16. **Confirmed in game 2026-09-24.** Dragonium: a dragonian caravan arrives with 50-150 of it and no other vanilla trader
     ever stocks it (check an outlander base, a neolithic base and an orbital bulk trader);
     armour, weapons and furniture can be made of it from the Metallic stuff list; a full
     outfit is better against heat and worse in the cold than plasteel; a deep drill cannot
     find it; and in the storage filters it sits under raw resources beside plasteel.
-17. The dragonium ward: a human in a full dragonium set recovers essence faster and the stat
+17. **Confirmed in game 2026-09-24.** The dragonium ward: a human in a full dragonium set recovers essence faster and the stat
     shows on her card; a momo in the same set drains mana at 86%; a dragonium sword's own card
     shows the ward figures but carrying it changes nothing.
-18. Dragon orbs: neither orb appears in the Architect menu; a dragonian caravan sells one
+18. **Confirmed in game 2026-09-24.** Dragon orbs: neither orb appears in the Architect menu; a dragonian caravan sells one
     calling orb and one or two glowing orbs and no other trader ever has either; an installed
     calling orb at night makes a dragon arrive (the dev log says "called by a dragon orb"),
     and the orb becomes the glowing orb in place with no message. A minified orb still in a
     stockpile calls nothing, and the dev log says why by day.
-19. Arrogant: a freshly generated dragon - wild, faction or player - shows the arrogant trait on
-    her Social tab; her opinion of a pawn below her level is docked, and the reasons under
+19. **Confirmed in game 2026-09-24.** Arrogant: a freshly generated dragon - wild, faction or player -
+    shows the arrogant trait on her Social tab; her opinion of a pawn below her level is docked, and the reasons under
     "Opinion of" list it as " - Arrogant (they are 6 levels lower): -6"; she is also quicker to
     insult them and to fall out with them. A malef dragon and a wyvern do not have it, and no
     random pawn, raider or trader ever spawns with it. Put a wedding collar on her and the
     penalty, and the line explaining it, both go.
-20. Wedding collar: a dragonian caravan sells one or two. On a dragon, putting one on adds kind
+20. **Confirmed in game 2026-09-24.** Wedding collar: a dragonian caravan sells one or two. On a dragon, putting one on adds kind
     and masochistic to her trait list, takes greedy and arrogant out of it altogether, raises her
     mood by 3, leaves no collar row on her Health tab, and shows nothing on her body - the collar
     is invisible while worn. Taking it off hands back exactly what it took, so a woman who was
     already masochistic keeps that trait, and greedy and arrogant come back. Her gene list shows
     the collar's gene; her Needs tab shows the mood thought. Save and reload while wearing one,
     and nothing changes.
+21. **Added 2026-09-24, not covered by item 8's pass.** The lamia's coil rework: a coiled man wears down
+    in about half an hour instead of nearly three; he rolls to break out every eighth of an hour, 10%
+    plus his strength advantage over her; the coils hold while she carries him off, and still end if
+    she goes down.
 
 ### 6.2 Repo chores
 Cleared 2026-09-23: the blood harvest surgery has the changelog line it was missing, for the
-day it landed; `README.md` points at this file and mentions the Medieval Overhaul cave snakes;
+day it landed; `README.md` points at this file;
 the `Thoughts_Reptile.xml` wording is committed; and `PMM_Gene_MalefCorruption` now describes
 the blood instead of the scrapped teasing, since its old text sent a player looking for a power
 that does not exist. Its lore wording stays the user's to change.
@@ -441,9 +525,9 @@ Nothing else is recorded as open here.
 | `RACES-PLAN.md` §2 says the tracker goes in `<raceHediffList>` | It is `<raceHediff>`, which is what §7 decision 1 ruled |
 | `RACES-PLAN.md` §4 says races carry comfort range, `SM_BodySizeMultiplier`, `MeatAmount` and melee tools | They carry only `LeatherAmount`. Size, temperature, armour and tools stay on the genes on purpose |
 | `RACES-PLAN.md` §4 example name `PMM_Race_ReptileDragon` | The real names are `PMM_Race_<Species>`, e.g. `PMM_Race_Dragon` |
-| `HANDOFF.md` §3 "no other optional mods" and §7 "`Patches/` is empty" | `Patches/SnakeCaveFaction_ReptileMembers.xml` (Medieval Overhaul) exists and self-gates |
+| `HANDOFF.md` §3 "no other optional mods" and §7 "`Patches/` is empty" | `Patches/` holds two patches, neither tied to an optional mod. A Medieval Overhaul patch existed and was removed 2026-09-24 (§5) |
 | `HANDOFF.md` §10 names memory files `pmm-reptiles.md` and `pmm-reptiles-phase2.md` | The live repo notes are `/memories/repo/reptile-races.md`, `reptile-features.md` and `reptile-doc-drift.md` |
-| All four documents are silent about the MO patch and the blood harvest | Both are in this file (§3) |
+| All four documents are silent about the blood harvest surgery | It is in this file (§3) |
 
 ## 8. Where the facts live
 

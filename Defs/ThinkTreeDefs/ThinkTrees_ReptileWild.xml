@@ -6,7 +6,7 @@
 		The vanilla Humanlike think tree only applies MainWildManBehaviorCore + the idle
 		wander to pawnKind=WildMan (ThinkNode_ConditionalPawnKind), so a wild reptile
 		would otherwise fall through to the guest branch and immediately
-		JobGiver_ExitMapBest off the map — the pawn spawns (the wander-in letter fires)
+		JobGiver_ExitMapBest off the map - the pawn spawns (the wander-in letter fires)
 		and walks straight to the edge before the player ever sees her. This was the
 		missing piece behind "wild momo wander-ins don't work": the incident, the gates,
 		and the spawn all worked; the pawn just left the map on her first think tick.
@@ -16,7 +16,7 @@
 
 		Every wild reptile kind must be listed or it will walk straight off the map:
 		PMM_Reptile_WildBasilisk / Dragon / Lamia / Lizardman / Medusa / Wurm / Wyvern /
-		Salamander / Bunyip. (Malef Dragon and Dragonewt are not wild — faction-only.)
+		Salamander / Bunyip. (Malef Dragon and Dragonewt are not wild - faction-only.)
 	-->
 	<ThinkTreeDef>
 		<defName>PMM_ReptileWildBehavior</defName>

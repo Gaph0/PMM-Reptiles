@@ -15,6 +15,13 @@ namespace PMM_Reptiles
     public class ReptileWildExtension : DefModExtension
     {
         public List<string> candidates = new List<string>();
+
+        /// <summary>
+        /// Species a lit calling orb may add to this def's incident whatever the
+        /// habitat says. Only the generic wander-in and the orb's own incident carry
+        /// one (Defs/IncidentDefs/Incidents_ReptileWild.xml, Incidents_DragonOrb.xml).
+        /// </summary>
+        public List<string> orbCandidates = new List<string>();
     }
 
     /// <summary>
@@ -111,11 +118,13 @@ namespace PMM_Reptiles
 
             RimWorld.Planet.Tile tile = Find.WorldGrid[map.Tile];
             List<PawnKindDef> viable = ViableKinds(tile, map);
-            if (viable.Count == 0)
+            List<PawnKindDef> lured = LuredKinds(map);
+            if (viable.Count == 0 && lured.Count == 0)
             {
                 PMMLog.Message($"[PMM_Reptiles] {def.defName} blocked: no candidate species matches this tile " +
-                    $"(biome={tile?.PrimaryBiome?.defName ?? "null"}, hilliness={tile?.hilliness}, caves={HasCaves(map)})");
-                return false; // no candidate species lives on this tile
+                    $"(biome={tile?.PrimaryBiome?.defName ?? "null"}, hilliness={tile?.hilliness}, caves={HasCaves(map)})" +
+                    (HasOrbCandidates() ? " and no calling orb is lit (orbs call at night, and only while installed)" : ""));
+                return false; // no candidate species lives on this tile, and nothing is calling
             }
             if (!CellFinder.TryFindRandomEdgeCellWith(
                     c => map.reachability.CanReachColony(c),
@@ -146,6 +155,92 @@ namespace PMM_Reptiles
             return viable;
         }
 
+        /// <summary>
+        /// Night on this map, read from the map's own local date so it matches the
+        /// clock in the corner. A calling orb only calls at night (user ruling), so
+        /// the orb is dead weight by day.
+        /// </summary>
+        protected static bool IsNight(Map map)
+        {
+            int hour = GenLocalDate.HourInteger(map);
+            return hour >= 20 || hour < 5;
+        }
+
+        /// <summary>
+        /// The calling orb standing on this map, or null. Only an INSTALLED orb
+        /// counts: a minified orb in a stockpile is a MinifiedThing and not this def,
+        /// so the lister never hands one back and an orb in storage cannot call.
+        /// (The by-def index does return installed buildings - confirmed in a live game
+        /// with two orbs standing, 2026-09-22 - so no fallback scan is needed.)
+        /// </summary>
+        protected static Thing LitCallingOrb(Map map)
+        {
+            List<Thing> orbs = map?.listerThings?.ThingsOfDef(ReptileDefOf.PMM_DragonOrb);
+            if (orbs == null)
+            {
+                return null;
+            }
+            foreach (Thing orb in orbs)
+            {
+                if (orb.Spawned && !orb.Destroyed)
+                {
+                    return orb;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Species a lit calling orb adds to this def's roll, habitat ignored (the
+        /// orb's own list: dragons only, user ruling). Empty when nothing is lit on
+        /// the map, or when it is not night.
+        /// </summary>
+        protected List<PawnKindDef> LuredKinds(Map map)
+        {
+            var lured = new List<PawnKindDef>();
+            if (LitCallingOrb(map) == null || !IsNight(map))
+            {
+                return lured;
+            }
+            ReptileWildExtension ext = def.GetModExtension<ReptileWildExtension>();
+            if (ext?.orbCandidates == null)
+            {
+                return lured;
+            }
+            foreach (string kindName in ext.orbCandidates)
+            {
+                PawnKindDef kind = DefDatabase<PawnKindDef>.GetNamedSilentFail(kindName);
+                if (kind != null)
+                {
+                    lured.Add(kind);
+                }
+            }
+            return lured;
+        }
+
+        /// <summary>True when this def's extension names species a lit orb may call.</summary>
+        private bool HasOrbCandidates() =>
+            def.GetModExtension<ReptileWildExtension>()?.orbCandidates?.Count > 0;
+
+        /// <summary>
+        /// The orb spends itself: a calling orb that has brought a dragon becomes the
+        /// quiet glowing orb, in place. No message, no letter line (user ruling:
+        /// silently) - the player sees the light change and works it out.
+        /// </summary>
+        protected static void SpendCallingOrb(Map map)
+        {
+            Thing orb = LitCallingOrb(map);
+            if (orb == null)
+            {
+                return;
+            }
+            IntVec3 pos = orb.Position;
+            Rot4 rot = orb.Rotation;
+            orb.Destroy(DestroyMode.Vanish);
+            GenSpawn.Spawn(ThingMaker.MakeThing(ReptileDefOf.PMM_DragonOrbDecor), pos, map, rot);
+            PMMLog.Message($"[PMM_Reptiles] calling orb at {pos} spent: it is now a glowing dragon orb");
+        }
+
         protected override bool TryExecuteWorker(IncidentParms parms)
         {
             Map map = (Map)parms.target;
@@ -159,12 +254,20 @@ namespace PMM_Reptiles
 
             RimWorld.Planet.Tile tile = Find.WorldGrid[map.Tile];
             List<PawnKindDef> viable = ViableKinds(tile, map);
-            if (viable.Count == 0)
+            List<PawnKindDef> lured = LuredKinds(map);
+            if (viable.Count == 0 && lured.Count == 0)
             {
                 PMMLog.Message($"[PMM_Reptiles] {def.defName} execute failed: candidates lost between CanFireNowSub and spawn");
                 return false;
             }
-            PawnKindDef kind = viable.RandomElement();
+            // A lit calling orb's species join the roll whatever the habitat says, and
+            // are entered twice, so the light pulls the roll towards a dragon instead
+            // of slipping her in as one more ticket in the hat.
+            var pool = new List<PawnKindDef>(viable);
+            pool.AddRange(lured);
+            pool.AddRange(lured);
+            PawnKindDef kind = pool.RandomElement();
+            bool calledByOrb = !viable.Contains(kind) && lured.Contains(kind);
 
             // Wild reptiles are factionless: request a FACTIONLESS pawn from the start
             // (the slime-mod pattern). The earlier version passed a random non-colony
@@ -206,6 +309,14 @@ namespace PMM_Reptiles
             }
             GenSpawn.Spawn(pawn, cell, map);
 
+            // The orb is spent the moment its dragon is on the map, and only when the
+            // orb is what brought her: a dragon her own habitat already allowed walks
+            // in for free and the orb stays lit.
+            if (calledByOrb)
+            {
+                SpendCallingOrb(map);
+            }
+
             // Mark as already "reached outside" so she lingers instead of marching
             // to the map edge and despawning (the slime-mod pattern; the
             // Patch_ReptileShouldNotReachOutside postfix below is the belt-and-braces
@@ -222,7 +333,7 @@ namespace PMM_Reptiles
             TaggedString letterLabel = def.letterLabel.Formatted(kindLabel.Named("0")).CapitalizeFirst();
             PawnRelationUtility.TryAppendRelationsWithColonistsInfo(ref letterText, ref letterLabel, pawn);
             SendStandardLetter(letterLabel, letterText, def.letterDef, parms, pawn);
-            PMMLog.Message($"[PMM_Reptiles] {def.defName} spawned {kind.defName} '{pawn.Name?.ToStringShort}' at {cell} (biome={tile?.PrimaryBiome?.defName}, hilliness={tile?.hilliness}, caves={HasCaves(map)})");
+            PMMLog.Message($"[PMM_Reptiles] {def.defName} spawned {kind.defName} '{pawn.Name?.ToStringShort}' at {cell} (biome={tile?.PrimaryBiome?.defName}, hilliness={tile?.hilliness}, caves={HasCaves(map)}{(calledByOrb ? ", called by a dragon orb" : "")})");
             return true;
         }
     }

@@ -8,6 +8,10 @@
 		habitat rules live in C# (the slime-mod pattern). Wild momos are factionless
 		and tamed like wild men. A low baseChance per habitat keeps them rare; the
 		worker drops species whose habitat doesn't match the tile.
+
+		A lit dragon orb at night can also add its own species to whichever def
+		carries <orbCandidates> - the generic def below does - so an orb helps on any
+		map, not only on the mountains and caves dragons already walk (2026-09-22).
 	-->
 
 	<!-- Cave + mountain dwellers: lamia, basilisk, wurm, wyvern, dragon, medusa, lizardman. -->
@@ -34,6 +38,11 @@
 					<li>PMM_Reptile_WildLizardman</li>
 					<li>PMM_Reptile_WildSalamander</li>
 				</candidates>
+				<!-- The orb's own list (2026-09-22): a lit calling orb at night may add a
+				     dragon to this roll whatever the habitat. Dragons only, no wyverns. -->
+				<orbCandidates>
+					<li>PMM_Reptile_WildDragon</li>
+				</orbCandidates>
 			</li>
 		</modExtensions>
 	</IncidentDef>

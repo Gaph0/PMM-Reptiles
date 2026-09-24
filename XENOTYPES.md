@@ -92,7 +92,9 @@ xenotype mix rolled per spawn.
 3. Duration **2 days**, then it drops off automatically (severity timer →
    `ShouldRemove`), with an expiry letter.
 4. Cooldown **7 days** (`cooldownTicksRange`, vanilla ability system runs it).
-Locked Q4: **nothing is immune** — any pawn can be petrified, mechanoids included.
+Locked Q4 (updated 2026-09-24): **nothing is immune by species** — any pawn can be petrified,
+mechanoids included — but the stone needs a **working, uncovered eye**: Sight under 20%, or eyes
+hidden by `FullHead`/`Eyes` apparel (a war mask or a veil), refuses the gaze.
 Frozen pawns are simply **downed** for the duration (the non-lethal "turned to
 stone" read); they are not carried, not statues-as-items.
 
@@ -125,15 +127,22 @@ and fall back to cave wander-ins when none do.
 scrapped.** A Malef Dragon no longer transforms victims by combat or consent. She
 is made **only by an item**: `PMM_DarkDragonsBlood` (`Defs/ThingDefs/Item_DarkDragonsBlood.xml`),
 a `NeverForNutrition` drug. Its `IngestionOutcomeDoer_DarkDragonsBlood`
-(`Source/Reptiles/DarkDragonsBlood.cs`) transforms the drinker into `PMM_Reptile_MalefDragon`:
-- **human baseliner** (or any non-dragon, non-exempt woman) → `ApplyXenotype`
-  (core `CanEverTransform` gates out men, children, monsters, the too-young);
-- **normal Dragon** → core `MomoTransformation.ConvertXenotype` (re-stamp —
-  `ApplyXenotype` refuses an already-monster pawn).
+(`Source/Reptiles/DarkDragonsBlood.cs`) remakes the drinker in two steps, one vial
+each (chain set 2026-09-22):
+- **an ordinary woman** (any woman still corruptible — the drink is not limited to
+  baseliners) → `PMM_Reptile_Dragonewt` via `ApplyXenotype` (core
+  `CanEverTransform` gates out men, children, monsters, the too-young);
+- **a Dragonewt** → `PMM_Reptile_MalefDragon` via core
+  `MomoTransformation.ConvertXenotype` (re-stamp — `ApplyXenotype` refuses an
+  already-monster pawn);
+- **a normal Dragon** → `PMM_Reptile_MalefDragon` on her first vial, by that same
+  re-stamp path.
 
-Dragonewts, Malefs, men, children and non-humans are unaffected. `PMM_Gene_MalefCorruption`
-is now an inert flavour gene on the xenotype (it no longer drives any mechanic).
-No wild spawn: Malefs appear in Broods raids/settlements, or are made by the item.
+A Malef Dragon is the end of the chain: the blood does nothing for her, nor for men,
+children and non-humans. `PMM_Gene_MalefCorruption` has no mechanic of its own — it
+is the marker a Malef carries, which the blood harvest looks for
+(`Source/Reptiles/BloodHarvest.cs`). No wild spawn: Malefs appear in Broods
+raids/settlements, or are made by the item.
 
 ## 6. Files to add/change
 
@@ -166,7 +175,8 @@ Bunyip (no faction) and the per-species wild kinds.
 2. **Traits:** combined **trait-genes** (Biotech `<forcedTraits>`, the `KindInstinct`
    pattern) — germline, so wild and colony reptiles share the personality. ✔
 3. **Wetlands (Wurm):** marsh/swamp biome. ✔
-4. **Petrify:** nothing immune; frozen pawns are simply **downed** for 2 days (not
+4. **Petrify:** nothing immune by species; the gaze still needs a working, uncovered
+   eye (Sight >= 20%, no `FullHead`/`Eyes` apparel). Frozen pawns are simply **downed** for 2 days (not
    carried, not statue-items). ✔
 5. **Scales:** per-species scale materials added WITH the xenotypes, reusing the
    generic `PMM_ReptileScale` art (single texture) until a later art pass. Each

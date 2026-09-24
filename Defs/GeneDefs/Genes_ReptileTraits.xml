@@ -6,7 +6,8 @@
 		a gene that carries <forcedTraits>, so the personality is germline (wild and
 		colony reptiles share it) rather than a faction-only pawnkind flag. Each is
 		endogenes-only and out of the tradeable pool (canGenerateInGeneSet false).
-		Trait defNames verified against Core Traits_Singular/Traits_Spectrum.
+		Trait defNames verified against Core Traits_Singular/Traits_Spectrum, with one
+		exception: PMM_Arrogant is ours (core, Defs/TraitDefs_Momo.xml).
 	-->
 
 	<!-- Dragon: arrogant and greedy, hoard-keeper pride. -->
@@ -21,7 +22,14 @@
 		<biostatCpx>0</biostatCpx>
 		<biostatMet>2</biostatMet>
 		<forcedTraits>
-			<li><def>Jealous</def></li>
+			<!-- PMM_Arrogant is ours, and lives in core (Defs/TraitDefs_Momo.xml). Its
+			     commonality is 0, so no random pawn ever rolls it - this gene is its only
+			     source, and the only dragon who lacks it is one who lacks this gene. -->
+			<li><def>PMM_Arrogant</def></li>
+			<!-- Greedy alone carries the hoard-keeper side (2026-09-23, user ruling).
+			     Jealous was dropped from this list: vanilla makes Greedy and Jealous each
+			     other's conflictingTrait, so forcing both asked for two traits the game
+			     itself says cannot go together. -->
 			<li><def>Greedy</def></li>
 		</forcedTraits>
 	</GeneDef>
