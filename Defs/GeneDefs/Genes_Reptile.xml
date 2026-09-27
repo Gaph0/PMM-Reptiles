@@ -32,12 +32,6 @@
 			<!-- Cold-blooded: comfortable band shifted 10 degrees warmer. -->
 			<ComfyTemperatureMin>10</ComfyTemperatureMin>
 		</statOffsets>
-		<customEffectDescriptions>
-			<li>Tough scales: modest resistance to sharp damage.</li>
-			<li>Cold-blooded: minimum comfortable temperature raised by 10°C.</li>
-			<li>Lays a single fertilized egg instead of giving live birth.</li>
-			<li>Sheds her scales once a year, leaving a stack of workable reptile scales.</li>
-		</customEffectDescriptions>
 		<modExtensions>
 			<li Class="VEF.Genes.GeneExtension">
 				<hediffToWholeBody>PMM_Hediff_EggLaying</hediffToWholeBody>
@@ -86,10 +80,6 @@
 		<abilities>
 			<li>PMM_Ability_TailGrapple</li>
 		</abilities>
-		<customEffectDescriptions>
-			<li>Her lower body is a powerful serpent tail instead of legs.</li>
-			<li>Can grapple an opponent with her tail: drags them into her coils and constricts them, building tease damage until their will breaks.</li>
-		</customEffectDescriptions>
 		<modExtensions>
 			<li Class="BigAndSmall.PawnExtension">
 				<!-- The tail is taller than the render atlas, so it would be cropped

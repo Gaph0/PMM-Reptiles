@@ -57,9 +57,6 @@
 		<statOffsets>
 			<SM_BodySizeOffset>0.5</SM_BodySizeOffset>
 		</statOffsets>
-		<customEffectDescriptions>
-			<li>Huge body: +0.5 body size.</li>
-		</customEffectDescriptions>
 	</GeneDef>
 
 	<!--

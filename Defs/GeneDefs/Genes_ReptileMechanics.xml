@@ -23,9 +23,6 @@
 		<abilities>
 			<li>PMM_Ability_Petrify</li>
 		</abilities>
-		<customEffectDescriptions>
-			<li>Can petrify a victim with her gaze: the target is frozen - downed and unchanging - for two days.</li>
-		</customEffectDescriptions>
 	</GeneDef>
 
 	<!-- Malef Dragon: the dark blood marker. There is no tease mechanic any more
@@ -48,9 +45,6 @@
 		     will, which is the scrapped teasing mechanic and never happens in play. This now
 		     describes what the game actually does - the blood - so a player reading it is not
 		     sent looking for a power that does not exist. The lore wording is the user's. -->
-		<customEffectDescriptions>
-			<li>Dark dragon's blood is drawn from her. Drinking a vial turns an ordinary woman into a dragonewt, and a second vial turns a dragonewt into a malef dragon.</li>
-		</customEffectDescriptions>
 	</GeneDef>
 
 </Defs>
