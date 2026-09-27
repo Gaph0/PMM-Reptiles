@@ -2,13 +2,13 @@
 <Defs>
 
 	<!--
-		The eleven reptile momo races (Big & Small pattern, 2026-09-20).
+		The eleven reptile mamono races (Big & Small pattern, 2026-09-20).
 
 		Until now a reptile pawn was a vanilla Human pawn wearing a reptile xenotype:
 		her body came from a gene body swap, and her corpse was an ordinary
 		Corpse_Human shared with every human in the game. Each species now owns a race
-		def, which is what lets her join the family's shared "momo corpses" line
-		(ProjectMomo.MomoCorpses in the core mod), gives her own hide when she is
+		def, which is what lets her join the family's shared "mamono corpses" line
+		(ProjectMamono.MamonoCorpses in the core mod), gives her own hide when she is
 		butchered, and puts her body on the race instead of inside a gene.
 
 		Each species is a ThingDef on ParentName="Human". It carries her body, her hide
@@ -66,7 +66,7 @@
 		<label>basilisk</label>
 		<description>A venomous hunter of caves and deserts, with a serpent's tail in place of legs.</description>
 		<statBases>
-			<!-- 30 scales a corpse, the same count the insect momos give in chitin.
+			<!-- 30 scales a corpse, the same count the insect mamonos give in chitin.
 			     Her live shedding is separate (PMM_Gene_Reptile). -->
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
@@ -86,7 +86,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Lamia</defName>
 		<label>lamia</label>
-		<description>A serpent-tailed momo of the high caves and mountains, slow on the ground but silver-tongued.</description>
+		<description>A serpent-tailed mamono of the high caves and mountains, slow on the ground but silver-tongued.</description>
 		<statBases>
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
@@ -238,7 +238,7 @@
 	<HediffDef ParentName="BS_DefaultRaceTracker">
 		<defName>PMM_RaceTracker_Lizardman</defName>
 		<label>lizardman</label>
-		<description>A lizardman momo: a scaled cave swordmaster.</description>
+		<description>A lizardman mamono: a scaled cave swordmaster.</description>
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>
@@ -266,7 +266,7 @@
 	<HediffDef ParentName="BS_DefaultRaceTracker">
 		<defName>PMM_RaceTracker_Dragonewt</defName>
 		<label>dragonewt</label>
-		<description>A dragonewt momo: a scaled dragon-kin of the Scalebound Broods.</description>
+		<description>A dragonewt mamono: a scaled dragon-kin of the Scalebound Broods.</description>
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>
@@ -294,7 +294,7 @@
 	<HediffDef ParentName="BS_DefaultRaceTracker">
 		<defName>PMM_RaceTracker_Salamander</defName>
 		<label>salamander</label>
-		<description>A salamander momo: a volcanic lizardman-kin born in fire and lava.</description>
+		<description>A salamander mamono: a volcanic lizardman-kin born in fire and lava.</description>
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>

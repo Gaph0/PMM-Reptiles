@@ -2,7 +2,7 @@
 <Defs>
 
 	<!--
-		Wild-momo pawnkinds for the wander-in incidents. Factionless wild creatures
+		Wild-mamono pawnkinds for the wander-in incidents. Factionless wild creatures
 		(no defaultFactionDef), naked and unarmed like the vanilla WildMan (the slime
 		PMM_Slime_Wild pattern), tamed like wild men via the assembly's IsWildMan patch.
 		Each pins exactly one xenotype through xenotypeSet; the wander-in worker rolls

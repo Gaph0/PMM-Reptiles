@@ -16,9 +16,9 @@
 		Ours picks the caster's best visible enemy and gives Ability.AICanTargetNow the last word,
 		so aiCanUse, range, cooldown and the target rules still decide whether she casts.
 
-		Inserted inside the tree's non-colonist conditional, so the player's own momos still cast
+		Inserted inside the tree's non-colonist conditional, so the player's own mamonos still cast
 		only when told to. A non-colonist gets this tree through the duty she is on, which for our
-		factions means raiders - a wild momo casts nothing.
+		factions means raiders - a wild mamono casts nothing.
 	-->
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThinkTreeDef[defName="Abilities_Aggressive"]/thinkRoot/subNodes/li/subNodes</xpath>

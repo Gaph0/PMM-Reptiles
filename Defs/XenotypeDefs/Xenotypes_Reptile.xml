@@ -2,11 +2,11 @@
 <Defs>
 
 	<!--
-		The eleven reptile momo xenotypes (Phase 2). Every one carries the shared base
-		ProjectMomo_Momo + PMM_Gene_Reptile (scales, warmth, egg-laying, shedding) and
+		The eleven reptile mamono xenotypes (Phase 2). Every one carries the shared base
+		ProjectMamono_Mamono + PMM_Gene_Reptile (scales, warmth, egg-laying, shedding) and
 		is inheritable, all-female, and excluded from the factionless spawner
 		(factionlessGenerationWeight 0 - wild entry is via our wander-in incidents).
-		All momos are women. Gene defNames verified against Core/Biotech and the slime
+		All mamonos are women. Gene defNames verified against Core/Biotech and the slime
 		mod's aptitude pattern (Aptitude{Level}_{Skill}).
 	-->
 
@@ -22,11 +22,11 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>PMM_Gene_LamiaTail</li>
-			<li>ProjectMomo_MomoVenom</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoVenom</li>
+			<li>ProjectMamono_MamonoClaws</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
@@ -40,16 +40,16 @@
 		<defName>PMM_Reptile_Lamia</defName>
 		<label>lamia</label>
 		<combatPowerFactor>1.2</combatPowerFactor>
-		<description>A serpent-tailed momo of the high caves and mountains. Silver-tongued, she talks her way out of trouble as easily as she coils her way into it - and when words fail, her tail drags the unwary into a teasing embrace.</description>
-		<descriptionShort>A persuasive serpent-tailed momo who grapples foes with her powerful tail.</descriptionShort>
+		<description>A serpent-tailed mamono of the high caves and mountains. Silver-tongued, she talks her way out of trouble as easily as she coils her way into it - and when words fail, her tail drags the unwary into a teasing embrace.</description>
+		<descriptionShort>A persuasive serpent-tailed mamono who grapples foes with her powerful tail.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_Lamia</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>PMM_Gene_LamiaTail</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>AptitudeRemarkable_Social</li>
 		</genes>
 		<modExtensions>
@@ -70,7 +70,7 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>PMM_Gene_LamiaTail</li>
 			<li>PMM_Gene_Petrify</li>
@@ -93,10 +93,10 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>PMM_Gene_LamiaTail</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>PMM_GeneTrait_WurmMind</li>
 			<li>MeleeDamage_Strong</li>
 			<li>Robust</li>
@@ -123,11 +123,11 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>PMM_Gene_Flight</li>
-			<li>ProjectMomo_MomoFiery</li>
+			<li>ProjectMamono_MamonoFiery</li>
 			<li>PMM_GeneTrait_DragonPride</li>
 		</genes>
 		<modExtensions>
@@ -148,9 +148,9 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>MeleeDamage_Strong</li>
 			<li>AptitudeStrong_Melee</li>
 			<li>Robust</li>
@@ -174,9 +174,9 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>PMM_Gene_Flight</li>
 			<li>MoveSpeed_Quick</li>
 		</genes>
@@ -200,10 +200,10 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>PMM_Gene_Flight</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>AptitudeStrong_Social</li>
 			<li>PMM_Gene_MalefCorruption</li>
 		</genes>
@@ -225,9 +225,9 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>AptitudeStrong_Social</li>
 		</genes>
 		<modExtensions>
@@ -248,9 +248,9 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
-			<li>ProjectMomo_MomoFiery</li>
+			<li>ProjectMamono_MamonoFiery</li>
 			<!-- Melee: an aptitude gene, not a damage gene (user's call, 2026-09-22). It
 			     replaced vanilla MeleeDamage_Strong and Robust, so she trains melee faster
 			     and starts higher, but no longer hits harder or shrugs off more. -->
@@ -276,10 +276,10 @@
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Reptile</li>
 			<li>PMM_Gene_LamiaTail</li>
-			<li>ProjectMomo_MomoClaws</li>
+			<li>ProjectMamono_MamonoClaws</li>
 			<li>MeleeDamage_Strong</li>
 			<li>Robust</li>
 			<li>AptitudePoor_Social</li>

@@ -10,7 +10,7 @@ namespace PMM_Reptiles
     /// on vanilla's Recipe_ExtractHemogen (itself a Recipe_Surgery): ApplyOnPawn
     /// adds the BloodLoss hediff, OnSurgerySuccess places the vial. Only valid on
     /// a living Malef (carrier of PMM_Gene_MalefCorruption) with enough blood left
-    /// to give — the vanilla "extraction would kill her" guard, so the operation
+    /// to give - the vanilla "extraction would kill her" guard, so the operation
     /// is refused rather than fatal.
     /// </summary>
     public class Recipe_HarvestDarkBlood : Recipe_Surgery

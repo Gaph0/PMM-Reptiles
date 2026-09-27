@@ -72,7 +72,7 @@ namespace PMM_Reptiles
 
     /// <summary>
     /// Yearly shed: drops a stack of reptile scales at the pawn's feet. Only grown
-    /// reptiles shed a workable hide — children skip the countdown entirely.
+    /// reptiles shed a workable hide - children skip the countdown entirely.
     /// </summary>
     public class HediffComp_Shedding : HediffComp
     {

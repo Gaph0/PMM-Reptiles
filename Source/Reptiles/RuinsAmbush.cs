@@ -19,7 +19,7 @@ namespace PMM_Reptiles
     /// the Broods roster): factionless pawns would just wander the map instead
     /// of ambushing, and the base class builds the lord from parms.faction, so
     /// GeneratePawns stamps the faction into the parms (the EnemyFaction
-    /// pattern). Without the Broods there is no ambush at all — medusas stay a
+    /// pattern). Without the Broods there is no ambush at all - medusas stay a
     /// cave wander-in (the locked fallback).
     ///
     /// Ruins are matched by defName; a missing DLC's names simply never resolve. Two
@@ -86,7 +86,7 @@ namespace PMM_Reptiles
             }
             if (Broods == null)
             {
-                return false; // no Broods faction — the cave wander-in fallback stands
+                return false; // no Broods faction - the cave wander-in fallback stands
             }
             return RuinOrLandmarkNear(caravan.Tile);
         }
@@ -150,7 +150,7 @@ namespace PMM_Reptiles
 
         protected override LordJob CreateLordJob(List<Pawn> generatedPawns, IncidentParms parms)
         {
-            // She lies in wait among the stones — and strikes: an assault lord
+            // She lies in wait among the stones - and strikes: an assault lord
             // drives the medusas at the caravan (the EnemyFaction ambush pattern).
             // canKidnap true: the Broods descend to claim men, and with it false the
             // ambushers had nothing to do at all once the party was downed - they do not

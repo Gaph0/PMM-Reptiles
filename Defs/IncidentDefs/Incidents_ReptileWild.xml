@@ -2,10 +2,10 @@
 <Defs>
 
 	<!--
-		Wild reptile momos wander in. One generic worker (PMM_Reptiles.IncidentWorker_
+		Wild reptile mamonos wander in. One generic worker (PMM_Reptiles.IncidentWorker_
 		ReptileWandersIn) rolls the species mix and gates on the world tile's habitat;
 		each def below passes its own candidate species through a modExtension, so the
-		habitat rules live in C# (the slime-mod pattern). Wild momos are factionless
+		habitat rules live in C# (the slime-mod pattern). Wild mamonos are factionless
 		and tamed like wild men. A low baseChance per habitat keeps them rare; the
 		worker drops species whose habitat doesn't match the tile.
 

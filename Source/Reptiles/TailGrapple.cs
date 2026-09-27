@@ -1,4 +1,4 @@
-using ProjectMomo;
+using ProjectMamono;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -82,7 +82,7 @@ namespace PMM_Reptiles
                     FleckMaker.ThrowDustPuff(spot, map, 1.2f);
                 }
                 // No valid adjacent cell: the grapple simply fails to move them,
-                // but her tail still finds them — constriction applies anyway.
+                // but her tail still finds them - constriction applies anyway.
             }
 
             victim.jobs?.StopAll();
@@ -100,7 +100,7 @@ namespace PMM_Reptiles
 
     /// <summary>
     /// Wrapped in a lamia's coils. The XML stage roots the victim (Moving offset
-    /// leaves 5%: held, but not downed — she can still fight back). This class
+    /// leaves 5%: held, but not downed - she can still fight back). This class
     /// ticks tease damage through the core mod's tease system (the same severity
     /// arithmetic as melee teasing, willpower knockout included) and releases the
     /// victim when the timer runs out, the constrictor is downed or killed, or she
@@ -113,7 +113,7 @@ namespace PMM_Reptiles
     /// she picks up to carry off is despawned while carried, so the coil died the
     /// instant a kidnapping began.
     /// Removal goes through ShouldRemove, so the
-    /// health tracker removes the hediff between ticks — never mid-iteration.
+    /// health tracker removes the hediff between ticks - never mid-iteration.
     /// </summary>
     public class Hediff_Constricted : HediffWithComps
     {
@@ -186,8 +186,8 @@ namespace PMM_Reptiles
             }
 
             int manStr = IsekaiCompat.Strength(victim);
-            int momoStr = IsekaiCompat.Strength(constrictor);
-            float advantage = momoStr > 0 ? Mathf.Max(0f, (manStr - momoStr) / (float)momoStr) : 0f;
+            int mamonoStr = IsekaiCompat.Strength(constrictor);
+            float advantage = mamonoStr > 0 ? Mathf.Max(0f, (manStr - mamonoStr) / (float)mamonoStr) : 0f;
             float chance = Mathf.Clamp01(EscapeBaseChance + advantage);
 
             if (Rand.Chance(chance))

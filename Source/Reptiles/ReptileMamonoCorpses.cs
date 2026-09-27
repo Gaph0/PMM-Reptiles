@@ -1,18 +1,18 @@
-using ProjectMomo;
+using ProjectMamono;
 using Verse;
 
 namespace PMM_Reptiles
 {
     /// <summary>
-    /// Puts every reptile momo corpse under the family's shared "momo corpses" line.
+    /// Puts every reptile mamono corpse under the family's shared "mamono corpses" line.
     ///
     /// The category def and all of the moving live in the core mod
-    /// (ProjectMomo.MomoCorpses, Defs/ThingCategoryDefs/ThingCategories_MomoCorpses.xml), so
+    /// (ProjectMamono.MamonoCorpses, Defs/ThingCategoryDefs/ThingCategories_MamonoCorpses.xml), so
     /// the insects, the slimes, the elementals and the reptiles share one line instead of one
-    /// line each. See MomoCorpses for why a corpse's category cannot be set in XML.
+    /// line each. See MamonoCorpses for why a corpse's category cannot be set in XML.
     ///
     /// This only works because the eleven species now have race defs of their own
-    /// (Defs/ThingDefs/Races_ReptileMomo.xml). Until 2026-09-20 a reptile pawn was a vanilla
+    /// (Defs/ThingDefs/Races_ReptileMamono.xml). Until 2026-09-20 a reptile pawn was a vanilla
     /// Human pawn wearing a xenotype, so her corpse was an ordinary human corpse - the same
     /// def as every human in the game - and could not be told apart from one.
     ///
@@ -20,11 +20,11 @@ namespace PMM_Reptiles
     /// the build instead of quietly dropping that species off the line.
     /// </summary>
     [StaticConstructorOnStartup]
-    public static class ReptileMomoCorpses
+    public static class ReptileMamonoCorpses
     {
-        static ReptileMomoCorpses()
+        static ReptileMamonoCorpses()
         {
-            MomoCorpses.Register(
+            MamonoCorpses.Register(
                 ReptileDefOf.PMM_Race_Basilisk.defName,
                 ReptileDefOf.PMM_Race_Lamia.defName,
                 ReptileDefOf.PMM_Race_Medusa.defName,

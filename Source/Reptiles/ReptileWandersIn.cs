@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using ProjectMomo;
+using ProjectMamono;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
@@ -25,7 +25,7 @@ namespace PMM_Reptiles
     }
 
     /// <summary>
-    /// A wild reptile momo wanders in. Modelled on the slime-mod wander-in (itself the
+    /// A wild reptile mamono wanders in. Modelled on the slime-mod wander-in (itself the
     /// vanilla wild-man flow): factionless, tamed like wild men, already "reached
     /// outside" so it lingers on the map. The habitat gate reads the WORLD tile (not
     /// the map) and only fires when at least one candidate species lives there:
@@ -33,7 +33,7 @@ namespace PMM_Reptiles
     ///   caves      Find.World.HasCaves(tile)          (the slime-mod cave mutator check)
     ///   mountains  worldTile.hilliness == Mountainous
     ///   deserts    biome in {Desert, AridShrubland, ExtremeDesert}
-    ///   volcanic   biome == LavaField                 (Odyssey only — MayRequire; without
+    ///   volcanic   biome == LavaField                 (Odyssey only - MayRequire; without
     ///                                                  Odyssey the biome can never appear)
     ///   wetlands   biome == TropicalSwamp             (locked Q3: marsh/swamp)
     ///   river/lake World.CoastAngleAt / LakeDirectionAt finds adjacent water
@@ -93,7 +93,7 @@ namespace PMM_Reptiles
 
         // The slime/elemental pattern: skip the vanilla SeasonAcceptableFor(Human)
         // check (it gates on the CURRENT seasonal temperature being within a human's
-        // comfy range 16-26C, which hard-blocks reptiles on hot maps — exactly where
+        // comfy range 16-26C, which hard-blocks reptiles on hot maps - exactly where
         // desert basilisks and volcanic salamanders live) and the former-faction
         // requirement (wild reptiles are factionless creatures, not ex-faction wild
         // people). Keep the sensible environmental gates and log every refusal, so a
@@ -272,7 +272,7 @@ namespace PMM_Reptiles
             // Wild reptiles are factionless: request a FACTIONLESS pawn from the start
             // (the slime-mod pattern). The earlier version passed a random non-colony
             // faction as "former faction flavour" the way vanilla's WildMan does, then
-            // stripped it after generation — but the faction is not flavour here. In this
+            // stripped it after generation - but the faction is not flavour here. In this
             // world the only eligible factions are Dragonia and the Scalebound Broods, and
             // PawnGenerator generates the pawn AS a faction member (gear, ideo, relations,
             // tech-appropriate setup); SetFaction(null) afterwards then rips her out of a
@@ -339,7 +339,7 @@ namespace PMM_Reptiles
     }
 
     /// <summary>
-    /// Wild reptile momos are tamed like wild men. The slime-mod pattern: report the
+    /// Wild reptile mamonos are tamed like wild men. The slime-mod pattern: report the
     /// pawn as a wild man for taming purposes when it carries a reptile wild kind.
     /// </summary>
     [HarmonyLib.HarmonyPatch(typeof(WildManUtility), nameof(WildManUtility.IsWildMan))]
@@ -356,11 +356,11 @@ namespace PMM_Reptiles
     }
 
     /// <summary>
-    /// Stop wild reptile momos from marching to the map edge and despawning the
+    /// Stop wild reptile mamonos from marching to the map edge and despawning the
     /// instant they spawn. Vanilla <see cref="WildManUtility.WildManShouldReachOutsideNow"/>
     /// returns true for any wild man who hasn't "reached outside", which makes the
     /// pawn walk to the nearest edge and leave. Setting WildManEverReachedOutside at
-    /// spawn only covers the spawn tick — the check re-runs every think tick, and a
+    /// spawn only covers the spawn tick - the check re-runs every think tick, and a
     /// reptile that spawns in an unseen corner is never arrested/tamed before the
     /// walk begins, so she just walks off. Report wild reptiles as already reached
     /// outside so the edge-walk never triggers (the slime-mod Patch_SlimeShouldNotReachOutside

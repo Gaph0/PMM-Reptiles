@@ -8,7 +8,7 @@
 		would otherwise fall through to the guest branch and immediately
 		JobGiver_ExitMapBest off the map - the pawn spawns (the wander-in letter fires)
 		and walks straight to the edge before the player ever sees her. This was the
-		missing piece behind "wild momo wander-ins don't work": the incident, the gates,
+		missing piece behind "wild mamono wander-ins don't work": the incident, the gates,
 		and the spawn all worked; the pawn just left the map on her first think tick.
 		These subtrees are inserted via the Humanlike_PostMain insertTag, mirroring the
 		vanilla wild-man branches (the slime mod's ThinkTrees_Slime.xml pattern, which

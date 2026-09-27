@@ -2,6 +2,10 @@
 
 ## Player-facing
 
+- 2026-09-27: Changed every internal name to Mamono, so saves from earlier versions no longer load.
+- 2026-09-27: Changed the mod name to Project Mamono Reptiles.
+- 2026-09-27: Changed the word momo to mamono in the mod's labels and descriptions.
+
 - 2026-09-24: Removed the lamia matriarch from Medieval Overhaul's snake ruin.
 
 - 2026-09-24: Fixed the medusa ambush letter showing strange accented letters on every word.
@@ -96,6 +100,10 @@
 - 2026-09-03: Added egg-laying. A reptile momo lays one fertilized egg instead of giving birth.
 
 ## Internal
+
+- 2026-09-27: Changed the mod folder and project names to Mamono.
+- 2026-09-27: Changed the defNames, class names, scribe labels and file names to Mamono.
+- 2026-09-27: Changed the docs to say mamono.
 
 - 2026-09-24: Removed the Medieval Overhaul cave-snake patch and the rest of that coupling: its roster, its member kind and the ruin's symbol swap.
 

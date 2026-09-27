@@ -8,7 +8,7 @@
 		a pregnancy fertilizes it (VEF captures the genetics and removes the birth),
 		and exactly one PMM_ReptileEggFertilized is laid. With no eggUnfertilizedDef
 		set, only fertilized eggs are ever laid. femaleDominant nudges the hatch
-		toward daughters - momo babies are always girls either way (our assembly's
+		toward daughters - mamono babies are always girls either way (our assembly's
 		hatch compat shim enforces the full core inheritance rules).
 	-->
 	<HediffDef>

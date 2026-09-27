@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using HarmonyLib;
-using ProjectMomo;
+using ProjectMamono;
 using RimWorld;
 using Verse;
 
 namespace PMM_Reptiles
 {
     /// <summary>
-    /// Momo inheritance for egg births. VEF's CompHumanHatcher generates the hatched
+    /// Mamono inheritance for egg births. VEF's CompHumanHatcher generates the hatched
     /// baby from its own stored mother/father gene mix via PawnGenerator, bypassing
-    /// PregnancyUtility.GetInheritedGenes and ApplyBirthOutcome — the two seams the
-    /// core mod's momo inheritance patches hook. Left alone, a momo's egg-born baby
+    /// PregnancyUtility.GetInheritedGenes and ApplyBirthOutcome - the two seams the
+    /// core mod's mamono inheritance patches hook. Left alone, a mamono's egg-born baby
     /// could come out a hybrid or male.
     ///
     /// These bracket patches flag while a hatch is generating its baby (Prefix sets,
-    /// Finalizer clears — even on exception), and the GeneratePawn postfix applies
-    /// the core rules when the egg's mother (hatcheeParent) is a momo: the baby gets
+    /// Finalizer clears - even on exception), and the GeneratePawn postfix applies
+    /// the core rules when the egg's mother (hatcheeParent) is a mamono: the baby gets
     /// exactly the mother's endogenes, keeps her xenotype, is not flagged hybrid, is
     /// always a girl, and carries no xenogenes - VEF's stored mix has to be dropped, or
     /// the baby inherits her mother's genes a second time as implants. Mirrors
     /// BabyXenotypeInheritancePatch and BabyCustomXenotypeBirthPatch in the core mod.
     /// </summary>
-    public static class MomoEggCompat
+    public static class MamonoEggCompat
     {
         /// <summary>The hatcher currently generating a baby, or null.</summary>
         public static VEF.Genes.CompHumanHatcher ActiveHatcher;
@@ -37,29 +37,29 @@ namespace PMM_Reptiles
     {
         public static void Prefix(VEF.Genes.CompHumanHatcher __instance)
         {
-            MomoEggCompat.ActiveHatcher = __instance;
-            MomoEggCompat.PendingBirthLetter = null;
+            MamonoEggCompat.ActiveHatcher = __instance;
+            MamonoEggCompat.PendingBirthLetter = null;
         }
 
         public static void Finalizer()
         {
-            MomoEggCompat.ActiveHatcher = null;
+            MamonoEggCompat.ActiveHatcher = null;
         }
     }
 
     [HarmonyPatch(typeof(PawnGenerator), nameof(PawnGenerator.GeneratePawn), new[] { typeof(PawnGenerationRequest) })]
-    public static class Patch_GeneratePawn_MomoEgg
+    public static class Patch_GeneratePawn_MamonoEgg
     {
         public static void Postfix(ref Pawn __result)
         {
-            VEF.Genes.CompHumanHatcher hatcher = MomoEggCompat.ActiveHatcher;
+            VEF.Genes.CompHumanHatcher hatcher = MamonoEggCompat.ActiveHatcher;
             if (hatcher == null || __result?.genes == null)
             {
                 return;
             }
 
             Pawn mother = hatcher.hatcheeParent;
-            if (!EssenceTransfer.IsMomo(mother) || mother.genes == null)
+            if (!EssenceTransfer.IsMamono(mother) || mother.genes == null)
             {
                 return;
             }
@@ -70,7 +70,7 @@ namespace PMM_Reptiles
             // lays that mix down as XENOGENES. Left alone the baby carries the mother's genes
             // twice - once as her real endogenes (from the xenotype set below) and again as an
             // implant-like xenogene set - which a player sees as a duplicate row under
-            // "Xenogenes" in the gene inspector. Momo genetics live in the endogenes, so the
+            // "Xenogenes" in the gene inspector. Mamono genetics live in the endogenes, so the
             // whole mix goes; that is also what takes the father's contribution out.
             for (int i = baby.genes.Xenogenes.Count - 1; i >= 0; i--)
             {
@@ -112,13 +112,13 @@ namespace PMM_Reptiles
                 baby.genes.SetXenotypeDirect(mother.genes.Xenotype);
             }
 
-            // Momos are always female; their children are too.
+            // Mamonos are always female; their children are too.
             ForceFemale(baby);
 
             // Hand her to the hatch's own postfix, which runs once the hatcher has placed her
             // and can decide whether this baby is the colony's business (see
             // Patch_HumanHatcher_BirthLetter). Nothing is shown from here.
-            MomoEggCompat.PendingBirthLetter = baby;
+            MamonoEggCompat.PendingBirthLetter = baby;
         }
 
         private static void ForceFemale(Pawn baby)
@@ -145,7 +145,7 @@ namespace PMM_Reptiles
     }
 
     /// <summary>
-    /// Gives a hatched momo the popup a live birth gets. Vanilla's own ChoiceLetter_BabyBirth is
+    /// Gives a hatched mamono the popup a live birth gets. Vanilla's own ChoiceLetter_BabyBirth is
     /// what Biotech shows when a colony baby arrives: it carries the "name the baby" button and
     /// the status choice, and it opens itself. Vanilla creates it with LetterMaker.MakeLetter and
     /// LetterDefOf.BabyBirth - the def names the letter class - so reusing both means the popup
@@ -153,7 +153,7 @@ namespace PMM_Reptiles
     /// letter's Start() resolves its own pawn from the look targets, which is why the baby is
     /// passed as a target rather than assigned by hand.
     ///
-    /// Only a baby who belongs to the player's faction is lettered: a wild momo's egg is none of
+    /// Only a baby who belongs to the player's faction is lettered: a wild mamono's egg is none of
     /// the colony's business. Runs after the hatch has placed her, so "jump to" works.
     /// </summary>
     [HarmonyPatch(typeof(VEF.Genes.CompHumanHatcher), nameof(VEF.Genes.CompHumanHatcher.Hatch))]
@@ -161,16 +161,16 @@ namespace PMM_Reptiles
     {
         public static void Postfix()
         {
-            Pawn baby = MomoEggCompat.PendingBirthLetter;
-            MomoEggCompat.PendingBirthLetter = null;
+            Pawn baby = MamonoEggCompat.PendingBirthLetter;
+            MamonoEggCompat.PendingBirthLetter = null;
             if (baby?.Faction != Faction.OfPlayer || baby.RaceProps?.Humanlike != true)
             {
                 return;
             }
 
             ChoiceLetter_BabyBirth letter = (ChoiceLetter_BabyBirth)LetterMaker.MakeLetter(
-                "PMM_MomoEggHatchedLabel".Translate(),
-                "PMM_MomoEggHatched".Translate(baby.Named("PAWN1")),
+                "PMM_MamonoEggHatchedLabel".Translate(),
+                "PMM_MamonoEggHatched".Translate(baby.Named("PAWN1")),
                 LetterDefOf.BabyBirth,
                 new LookTargets(baby));
             letter.Start();

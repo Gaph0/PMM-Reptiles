@@ -20,7 +20,7 @@
 		Everything else is untouched, which is why the numbers above are the only
 		differences from plasteel in the info card.
 
-		The ward (2026-09-22). Two stat pairs in the core mod (Defs/Stats_Momo.xml)
+		The ward (2026-09-22). Two stat pairs in the core mod (Defs/Stats_Mamono.xml)
 		turn "made of dragonium" into something the wearer feels, through vanilla's own
 		gear-stat parts - the same machinery eltex gear uses for psychic sensitivity:
 		- statOffsets PMM_EssenceRecoveryOffset 0.1 per piece, and the wearer's

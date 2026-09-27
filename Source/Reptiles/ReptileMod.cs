@@ -59,7 +59,7 @@ namespace PMM_Reptiles
         public static ThingDef PMM_Scale_Lizardman;
         public static ThingDef PMM_Scale_Bunyip;
 
-        // The eleven species races (Defs/ThingDefs/Races_ReptileMomo.xml, 2026-09-20).
+        // The eleven species races (Defs/ThingDefs/Races_ReptileMamono.xml, 2026-09-20).
         // Each xenotype names its race through BigAndSmall.XenotypeExtension.setRace.
         public static ThingDef PMM_Race_Basilisk;
         public static ThingDef PMM_Race_Lamia;

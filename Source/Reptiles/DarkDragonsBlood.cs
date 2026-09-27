@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProjectMomo;
+using ProjectMamono;
 using RimWorld;
 using Verse;
 
@@ -8,10 +8,10 @@ namespace PMM_Reptiles
     /// <summary>
     /// Dark Dragon's Blood: a vial of blackened dragon's blood. It works in two
     /// steps, and between them they are the ONLY way to create a Malef outside the
-    /// Broods roster — the old tease-knockout corruption and the colony offer are
+    /// Broods roster - the old tease-knockout corruption and the colony offer are
     /// gone (scrapped 2026-09-05 in favour of this item).
     ///
-    ///   1. An ordinary woman — any woman who could still be corrupted — drinks it
+    ///   1. An ordinary woman - any woman who could still be corrupted - drinks it
     ///      and rises as a Dragonewt (ApplyXenotype, the first corruption).
     ///   2. A Dragonewt drinks it and is blackened into a Malef Dragon, and a
     ///      normal Dragon skips straight there on her first vial. Both are already
@@ -44,16 +44,16 @@ namespace PMM_Reptiles
             // so this is the re-stamp path (ApplyXenotype refuses a monster).
             if (current == ReptileDefOf.PMM_Reptile_Dragon || current == ReptileDefOf.PMM_Reptile_Dragonewt)
             {
-                MomoTransformation.ConvertXenotype(pawn, ReptileDefOf.PMM_Reptile_MalefDragon, source: null);
+                MamonoTransformation.ConvertXenotype(pawn, ReptileDefOf.PMM_Reptile_MalefDragon, source: null);
                 return;
             }
 
             // Step one: an ordinary woman of any xenotype rises as a dragonewt.
             // CanEverTransform gates out men, children, monsters and the too-young,
             // and doubles as the re-transformation guard.
-            if (MomoTransformation.CanEverTransform(pawn))
+            if (MamonoTransformation.CanEverTransform(pawn))
             {
-                MomoTransformation.ApplyXenotype(pawn, ReptileDefOf.PMM_Reptile_Dragonewt, source: null);
+                MamonoTransformation.ApplyXenotype(pawn, ReptileDefOf.PMM_Reptile_Dragonewt, source: null);
             }
         }
 

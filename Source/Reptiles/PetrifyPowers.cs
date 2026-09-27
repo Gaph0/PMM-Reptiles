@@ -15,7 +15,7 @@ namespace PMM_Reptiles
 
     /// <summary>
     /// Medusa's petrifying gaze: applies PMM_Hediff_Petrified to the target.
-    /// Locked ruling (XENOTYPES.md §3): NOTHING is immune — any pawn can be
+    /// Locked ruling (XENOTYPES.md §3): NOTHING is immune - any pawn can be
     /// petrified, mechanoids included; frozen pawns are simply downed for the
     /// duration (not carried, not statue-items). Target rules live in Valid; the
     /// vanilla ability system runs targeting, warmup and the 7-day cooldown.
@@ -149,12 +149,12 @@ namespace PMM_Reptiles
 
     /// <summary>
     /// Turned to living stone. The XML stage downs the victim (Consciousness
-    /// capped at 10% — the anesthesia precedent; Moving capped at 0 so pawns
+    /// capped at 10% - the anesthesia precedent; Moving capped at 0 so pawns
     /// without consciousness, e.g. mechanoids, still drop). While the hediff is
     /// present the Need.IsFrozen postfix below holds every need (food, rest,
-    /// joy, mood — all Need subclasses gate their NeedInterval on IsFrozen).
+    /// joy, mood - all Need subclasses gate their NeedInterval on IsFrozen).
     /// After 2 days the timer runs out, a thaw letter/message fires, and
-    /// ShouldRemove lets the health tracker remove the hediff between ticks —
+    /// ShouldRemove lets the health tracker remove the hediff between ticks -
     /// never mid-iteration (the Hediff_Constricted pattern).
     /// </summary>
     public class Hediff_Petrified : HediffWithComps
@@ -216,12 +216,12 @@ namespace PMM_Reptiles
     /// dormancy and off-map pawns), so one postfix on the getter freezes food,
     /// rest, joy, mood and every other need at once. Only Need_Authority
     /// overrides the getter, and it is irrelevant here.
-    /// (IsFrozen is protected in 1.6 — hence the string name, not nameof.)
+    /// (IsFrozen is protected in 1.6 - hence the string name, not nameof.)
     /// </summary>
     [HarmonyPatch(typeof(Need), "IsFrozen", MethodType.Getter)]
     public static class Need_IsFrozen_Petrified_Patch
     {
-        /// <summary>Need.pawn is protected in 1.6 — cached field reference.
+        /// <summary>Need.pawn is protected in 1.6 - cached field reference.
         /// The getter is called from every need's interval tick, so the extra
         /// hediff scan only runs while a pawn actually has needs ticking
         /// (and bails immediately when the need is already frozen).</summary>

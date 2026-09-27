@@ -1,4 +1,4 @@
-using ProjectMomo;
+using ProjectMamono;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -12,7 +12,7 @@ namespace PMM_Reptiles
     /// only tops up the drinker's life energy.
     ///
     /// Which energy depends on who is drinking, and exactly one of the two needs
-    /// ever exists on a pawn: the Momo gene swaps essence out for mana, so a Momo
+    /// ever exists on a pawn: the Mamono gene swaps essence out for mana, so a Mamono
     /// carries <see cref="Need_Mana"/> and an ordinary human carries
     /// <see cref="Need_Essence"/>. Both are checked, so the same flask serves a
     /// dragonian host and a human guest at her table.
@@ -57,7 +57,7 @@ namespace PMM_Reptiles
     /// the shedding / slime-jelly pattern); its whole job is the vanilla
     /// <c>HediffCompProperties_GiveLovinMTBFactor</c> declared on its def, which
     /// <c>JobDriver_Lovin.GenerateRandomMinTicksToNextLovin</c> multiplies into the
-    /// gap between lovin' — a factor below 1 means it comes around sooner. That is
+    /// gap between lovin' - a factor below 1 means it comes around sooner. That is
     /// vanilla's own comp, so this needs no Harmony patch; the vanilla
     /// HediffCompProperties_SeverityPerDay on the def decays it away, and
     /// <c>Hediff.ShouldRemove</c> (severity &lt;= 0) retires it.

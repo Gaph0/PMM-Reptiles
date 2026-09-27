@@ -2,7 +2,7 @@
 <Defs>
 
 	<!--
-		Fresh scales: the small moodlet a reptile momo gets straight after a shed
+		Fresh scales: the small moodlet a reptile mamono gets straight after a shed
 		(PLAN.md §1 listed it as optional). Shedding.cs grants it in DropScales, so it
 		fires exactly when her old scales comes away and the new one is under her hands.
 		A two-day memory worth +3 mood, stacking once.

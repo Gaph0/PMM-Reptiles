@@ -7,7 +7,7 @@
 		roster below; the pawnkind just supplies medieval gear and stats. Villager and
 		warrior alike roll the same xenotype mix - a Dragonia knight and a Dragonia
 		farmer are equally likely to be a dragon, a lizardman, a lamia, and so on.
-		All faction pawns are women (momos are always female).
+		All faction pawns are women (mamonos are always female).
 	-->
 	<PawnKindDef Name="PMM_ReptilePawnBase" Abstract="True">
 		<race>Human</race>

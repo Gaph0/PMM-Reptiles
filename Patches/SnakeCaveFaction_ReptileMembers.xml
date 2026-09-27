@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Gives Medieval Overhaul's cave snake faction a roster of reptile mamonos.
+
+    Left alone, DankPyon_SnakeCave_Faction generates only MO's three giant snakes
+    (lindwurm 10, giant constrictor 20, large cobra 40). This adds one reptile
+    member kind to that Combat group and puts the species mix on the faction's
+    xenotypeSet - the same pattern the rest of this mod uses, where a member's
+    species comes from FactionDef.xenotypeSet and never from the pawnkind.
+
+    Basilisks, medusas, lamias and wurms take 0.225 each. Omitting Baseliner from
+    the list is deliberate: XenotypeSet.BaselinerChance is "one minus the sum of
+    the non-baseliner chances", so a 0.9 roster leaves exactly 10% to Baseliner and
+    a tenth of the members come out as ordinary humans. The four reptile faction
+    rosters in Defs/FactionDefs/Factions_Reptile.xml use the same 0.9 convention.
+
+    The member kind carries no xenotypeSet on purpose: a pawnkind-level set is a
+    per-kind override and would shadow the faction roster (see the note in
+    Defs/PawnKindDefs/PawnKinds_Reptile.xml).
+
+    Guarding is done with PatchOperationConditional on the faction def, NOT with
+    PatchOperationFindMod. That operation calls ModLister.HasActiveModWithName,
+    which compares a mod's display name exactly rather than its package id, so a
+    guard written against a package id never matches and turns the whole patch
+    into a silent no-op with nothing in the log. Testing for the def itself is
+    also the more honest test - it is the defName the patch actually needs.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/FactionDef[defName="DankPyon_SnakeCave_Faction"]</xpath>
+    <match Class="PatchOperationSequence">
+      <success>Always</success>
+      <operations>
+
+        <!--
+          The faction's humanlike member kind, added as a new def. Gear and stats
+          mirror PMM_Reptile_BroodMember so a cave mamono is equipped like the other
+          reptile faction members. It inherits PMM_ReptilePawnBase rather than
+          PMM_BroodsBase so it does not inherit the Scalebound Broods default
+          faction.
+        -->
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs</xpath>
+          <value>
+            <PawnKindDef ParentName="PMM_ReptilePawnBase">
+              <defName>PMM_Reptile_CaveSnakeMember</defName>
+              <label>cave dweller</label>
+              <defaultFactionDef>DankPyon_SnakeCave_Faction</defaultFactionDef>
+              <combatPower>55</combatPower>
+              <itemQuality>Poor</itemQuality>
+              <gearHealthRange>0.4~1.4</gearHealthRange>
+              <apparelMoney>300~600</apparelMoney>
+              <apparelTags>
+                <li>Neolithic</li>
+                <li>MedievalMilitary</li>
+              </apparelTags>
+              <apparelAllowHeadgearChance>0.5</apparelAllowHeadgearChance>
+              <weaponMoney>120~250</weaponMoney>
+              <weaponTags>
+                <li>MedievalMeleeBasic</li>
+              </weaponTags>
+            </PawnKindDef>
+          </value>
+        </li>
+
+        <!--
+          The species roster. 0.225 x 4 = 0.9, so the remaining tenth is
+          Baseliner.
+        -->
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs/FactionDef[defName="DankPyon_SnakeCave_Faction"]</xpath>
+          <value>
+            <xenotypeSet>
+              <xenotypeChances>
+                <PMM_Reptile_Basilisk>0.225</PMM_Reptile_Basilisk>
+                <PMM_Reptile_Medusa>0.225</PMM_Reptile_Medusa>
+                <PMM_Reptile_Lamia>0.225</PMM_Reptile_Lamia>
+                <PMM_Reptile_Wurm>0.225</PMM_Reptile_Wurm>
+              </xenotypeChances>
+            </xenotypeSet>
+          </value>
+        </li>
+
+        <!--
+          Put the member kind into the Combat group next to MO's giant snakes. The
+          weight is the knob for how much of the faction is mamonos rather than
+          snakes: 70 against the snakes' 10+20+40 leaves the two halves even.
+        -->
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs/FactionDef[defName="DankPyon_SnakeCave_Faction"]/pawnGroupMakers/li[kindDef="Combat"]/options</xpath>
+          <value>
+            <PMM_Reptile_CaveSnakeMember>70</PMM_Reptile_CaveSnakeMember>
+          </value>
+        </li>
+
+        <!--
+          The ruin's boss used to live here: a lamia "cave matriarch" placed on MO's
+          DankPyon_BrigandLeader symbol. REMOVED 2026-09-24, do not re-add it.
+
+          MO's ruin quests run QuestNode_GetSitePartDefsByTagsAndFaction before the node
+          that sets enemyFaction, and that first node reads slate.Get("enemyFaction") as
+          its preferred faction. It is null at that point, so SiteMakerHelper picks a
+          random hostile faction for the site (siteFaction), vanilla's Util_GenerateSite
+          builds the site with $siteFaction, and a KCSG symbol with spawnPartOfFaction
+          true hands its pawn to the map's faction. So the whole garrison was another
+          faction's pawns - insect mamonos in the report - and one lamia standing among
+          them read as a mistake.
+
+          Putting her back means making the ruin belong to the cave snakes, which takes
+          reordering MO's quest nodes (offered, declined - user ruling 2026-09-24). Note
+          also that the roster above only bites when a map really is owned by the cave
+          snakes, and MO zeroes that faction's raid commonality.
+        -->
+
+      </operations>
+    </match>
+  </Operation>
+</Patch>

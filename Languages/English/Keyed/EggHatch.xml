@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-    <!-- The birth letter a hatched momo egg shows, reusing vanilla's ChoiceLetter_BabyBirth so
+    <!-- The birth letter a hatched mamono egg shows, reusing vanilla's ChoiceLetter_BabyBirth so
          the player gets the same window and the same choices Biotech gives a live birth.
          {PAWN1} is the hatchling. -->
-    <PMM_MomoEggHatchedLabel>A momo egg has hatched</PMM_MomoEggHatchedLabel>
-    <PMM_MomoEggHatched>{PAWN1} has hatched from her egg. She is yours to name and to raise.</PMM_MomoEggHatched>
+    <PMM_MamonoEggHatchedLabel>A mamono egg has hatched</PMM_MamonoEggHatchedLabel>
+    <PMM_MamonoEggHatched>{PAWN1} has hatched from her egg. She is yours to name and to raise.</PMM_MamonoEggHatched>
 </LanguageData>

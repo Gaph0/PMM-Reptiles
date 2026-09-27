@@ -7,7 +7,7 @@
 		colony reptiles share it) rather than a faction-only pawnkind flag. Each is
 		endogenes-only and out of the tradeable pool (canGenerateInGeneSet false).
 		Trait defNames verified against Core Traits_Singular/Traits_Spectrum, with one
-		exception: PMM_Arrogant is ours (core, Defs/TraitDefs_Momo.xml).
+		exception: PMM_Arrogant is ours (core, Defs/TraitDefs_Mamono.xml).
 	-->
 
 	<!-- Dragon: arrogant and greedy, hoard-keeper pride. -->
@@ -22,7 +22,7 @@
 		<biostatCpx>0</biostatCpx>
 		<biostatMet>2</biostatMet>
 		<forcedTraits>
-			<!-- PMM_Arrogant is ours, and lives in core (Defs/TraitDefs_Momo.xml). Its
+			<!-- PMM_Arrogant is ours, and lives in core (Defs/TraitDefs_Mamono.xml). Its
 			     commonality is 0, so no random pawn ever rolls it - this gene is its only
 			     source, and the only dragon who lacks it is one who lacks this gene. -->
 			<li><def>PMM_Arrogant</def></li>
@@ -51,7 +51,7 @@
 			<li><def>SlowLearner</def></li>
 		</forcedTraits>
 		<!-- Big & Small stat: the wurm is huge. +0.5 body size makes her visibly and
-		     mechanically bigger (more health, more hunger) than a baseline momo without
+		     mechanically bigger (more health, more hunger) than a baseline mamono without
 		     going cartoonish. Plain gene statOffsets - the SM_BodySizeOffset StatDef is
 		     supplied by Big & Small, the offset mechanic is vanilla. -->
 		<statOffsets>

@@ -27,7 +27,7 @@
 		  JobDriver_Lovin reads when it schedules the next lovin', so lovin' comes
 		  around sooner while it lasts. No patch needed; see Hediffs_Reptile.xml.
 		- IngestionOutcomeDoer_DragonsLifeblood, which tops up whichever life-energy
-		  need the drinker has: a Momo carries mana (her gene swaps Essence out for
+		  need the drinker has: a Mamono carries mana (her gene swaps Essence out for
 		  it), an ordinary human carries essence. Amounts are the two fields at the
 		  end of that block.
 
@@ -106,7 +106,7 @@
 					<hediffDef>PMM_Hediff_DragonsLifeblood</hediffDef>
 					<severity>1</severity>
 				</li>
-				<!-- Strength and willpower: tops up mana (a Momo) or essence (anyone else). -->
+				<!-- Strength and willpower: tops up mana (a Mamono) or essence (anyone else). -->
 				<li Class="PMM_Reptiles.IngestionOutcomeDoer_DragonsLifeblood">
 					<manaRefill>0.5</manaRefill>
 					<essenceRefill>0.5</essenceRefill>

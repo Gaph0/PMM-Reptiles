@@ -19,7 +19,7 @@
 		<defName>PMM_Gene_Reptile</defName>
 		<label>reptilian</label>
 		<labelShortAdj>reptilian</labelShortAdj>
-		<description>Carriers of this gene have the cold-blooded body of a reptile momo: tough scales that blunt cuts and claws, a warmth-loving disposition, and a body that lays a single egg rather than birthing live young. Once a year she sheds her old scales, which can be worked like fine leather.</description>
+		<description>Carriers of this gene have the cold-blooded body of a reptile mamono: tough scales that blunt cuts and claws, a warmth-loving disposition, and a body that lays a single egg rather than birthing live young. Once a year she sheds her old scales, which can be worked like fine leather.</description>
 		<iconPath>UI/Icons/Genes/PMM_Gene_Reptile</iconPath>
 		<geneClass>PMM_Reptiles.Gene_Reptile</geneClass>
 		<displayCategory>Miscellaneous</displayCategory>

@@ -3,7 +3,7 @@
 
 	<!--
 		Reptile skin materials, four of them (2026-09-22, user call: the item pool had
-		one material per species). Every reptile momo now sheds one of these four, so a
+		one material per species). Every reptile mamono now sheds one of these four, so a
 		corpse's material is easy to read at a glance and the list stays short. Bunyip
 		wool is deliberately kept on its own: the bunyip is a special kind of reptile
 		(user ruling 2026-09-22), so her wool stays a separate, wool-category material

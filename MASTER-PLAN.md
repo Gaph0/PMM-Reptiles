@@ -1,4 +1,4 @@
-# Project Momo Reptiles — Master Plan
+# Project Mamono Reptiles - Master Plan
 
 This file replaces the four older documents as the single entry point.
 `PLAN.md` (phase 1), `XENOTYPES.md` (phase 2), `RACES-PLAN.md` (the eleven races)
@@ -14,14 +14,14 @@ A document is only a note about them.
 
 ## 1. What the mod is
 
-- Repo: `/home/gapho/Desktop/Project Momo Reptiles`. Git repo, branch `master`.
+- Repo: `/home/gapho/Desktop/Project Mamono Reptiles`. Git repo, branch `master`.
 - `packageId` `PMM.Reptiles`, assembly `PMM_Reptiles.dll`, namespace `PMM_Reptiles`.
 - Hard requirements: Harmony, Biotech, Vanilla Expanded Framework (VEF),
   `PMM.Core`, Big and Small - Framework.
 - Soft requirements, all self-gating: Ideology (the Broods' forced meme)
   and Odyssey (Salamander volcanic spawns).
 - Build `./build.sh` (compiles `Source/Reptiles/*.cs` against the RimWorld managed
-  DLLs and `../Project Momo/Assemblies/ProjectMomo.dll`).
+  DLLs and `../Project Mamono/Assemblies/ProjectMamono.dll`).
   `sync.sh` copies the mod into the live Mods folder. **Always sync before a test**,
   or you test yesterday's code.
 - `Tools/mktex.py` makes every placeholder texture and icon.
@@ -55,29 +55,29 @@ for the live list.
 ## 3. What is built, and where it lives
 
 ### Factions
-`Defs/FactionDefs/Factions_Reptile.xml` — neutral **Dragonia**
+`Defs/FactionDefs/Factions_Reptile.xml` - neutral **Dragonia**
 (`PMM_DragoniaFaction`) and hostile **Scalebound Broods** (`PMM_ScaleboundBroodsFaction`,
 `permanentEnemy`, forced Monster Extremists meme). Member species come from each
 faction's `xenotypeSet` roster, never from a pawnkind. `Source/Reptiles/FactionPlacement.cs`
 forces mountain settlement tiles.
 
 ### Genes
-- `Defs/GeneDefs/Genes_Reptile.xml` — `PMM_Gene_Reptile` (egg-laying via VEF, shedding),
+- `Defs/GeneDefs/Genes_Reptile.xml` - `PMM_Gene_Reptile` (egg-laying via VEF, shedding),
   `PMM_Gene_LamiaTail` (grapple + `thingDefSwap BS_Naga` + `Flagger ShowBaseAbdomen`),
   the flight gene wiring.
-- `Defs/GeneDefs/Genes_ReptileTraits.xml` — **only two trait genes**:
+- `Defs/GeneDefs/Genes_ReptileTraits.xml` - **only two trait genes**:
   `PMM_GeneTrait_DragonPride` (Arrogant + Greedy) and `PMM_GeneTrait_WurmMind`
   (SlowLearner, and the Wurm's +0.5 body size). `PMM_Arrogant` itself is core content
-  (`Project Momo/Defs/TraitDefs_Momo.xml`), written with `commonality` 0 so only a gene can
+  (`Project Mamono/Defs/TraitDefs_Mamono.xml`), written with `commonality` 0 so only a gene can
   hand it out and no random pawn ever rolls it.
-- `Defs/GeneDefs/Genes_ReptileMechanics.xml` — `PMM_Gene_Petrify` (live) and
+- `Defs/GeneDefs/Genes_ReptileMechanics.xml` - `PMM_Gene_Petrify` (live) and
   `PMM_Gene_MalefCorruption` (inert flavour, but it is the marker the blood
   harvest looks for).
-- `Source/Reptiles/Shedding.cs` — holds `class Gene_Reptile` (the shedding hediff,
+- `Source/Reptiles/Shedding.cs` - holds `class Gene_Reptile` (the shedding hediff,
   the yearly scale drop, the fresh-scales thought).
 
 ### The eleven races
-`Defs/ThingDefs/Races_ReptileMomo.xml`. Every species is a `ThingDef ParentName="Human"`.
+`Defs/ThingDefs/Races_ReptileMamono.xml`. Every species is a `ThingDef ParentName="Human"`.
 
 | Species | Body | Health-tab tracker |
 |---|---|---|
@@ -94,8 +94,8 @@ forces mountain settlement tiles.
   copy on the race would stack with them.
 - `Defs/XenotypeDefs/Xenotypes_Reptile.xml` gives all eleven xenotypes `setRace` +
   `forceRace`. Both are required, not decoration.
-- `Source/Reptiles/ReptileMomoCorpses.cs` puts all eleven corpses on the core
-  "momo corpses" line (`ProjectMomo.MomoCorpses`).
+- `Source/Reptiles/ReptileMamonoCorpses.cs` puts all eleven corpses on the core
+  "mamono corpses" line (`ProjectMamono.MamonoCorpses`).
 - `Source/Reptiles/ReptileMod.cs` names every race, scale and related def in
   `ReptileDefOf`, so a rename breaks the build instead of the mod.
 
@@ -110,7 +110,7 @@ the **world tile**, not the map.
 `Defs/TraderKindDefs/TraderKinds_Dragonia.xml` (`PMM_DragoniaTrader` for caravans,
 `PMM_DragoniaVisitor` for visitors), wired by `caravanTraderKinds` +
 `visitorTraderKinds` + a `Trader` pawn group maker on Dragonia only.
-Guests use vanilla's own visitor-group incident. Core fills a visiting momo's mana
+Guests use vanilla's own visitor-group incident. Core fills a visiting mamono's mana
 on spawn and floors her drain (`VisitingGuestManaPatch`, `GuestManaFloor`).
 `Defs/ThoughtDefs/Thoughts_Reptile.xml` holds the fresh-scales moodlet.
 
@@ -132,7 +132,7 @@ doers, plus `CompProperties_Drug` (chemical Alcohol) for tolerance, dependency a
 chemical recreation. It adds two things: `IngestionOutcomeDoer_DragonsLifeblood`
 (`Source/Reptiles/DragonsLifeblood.cs`) tops up mana or essence, whichever need the
 drinker has, and the hidden `PMM_Hediff_DragonsLifeblood` shortens the wait between
-lovin' through vanilla's `HediffCompProperties_GiveLovinMTBFactor` — no patch, and
+lovin' through vanilla's `HediffCompProperties_GiveLovinMTBFactor` - no patch, and
 it fades on its own. The Broods cannot trade, so their raiders and their captured
 camps carry flasks as loot instead: `PMM_BroodsRaidLootMaker` (0.7 chance, 2-6
 flasks) on top of the single vial of dark blood that is their signature.
@@ -158,10 +158,10 @@ moved in beside it), the same mechanism vanilla uses to keep
 categories, and the metal is still `Metallic`. The deep-drill fields were deliberately left
 off plasteel's copy, so no deep drill can find it.
 
-The ward. Two stat pairs live in core (`Defs/Stats_Momo.xml`): `PMM_EssenceRecoveryOffset`
+The ward. Two stat pairs live in core (`Defs/Stats_Mamono.xml`): `PMM_EssenceRecoveryOffset`
 (item, 0.1 a piece) summed by `PMM_EssenceRecovery` through `StatPart_GearStatOffset`, and
 `PMM_ManaDrainFactor` (item, 0.95 a piece) multiplied by `PMM_ManaDrain` through
-`StatPart_GearStatFactor` — vanilla's own parts, the pair eltex gear uses. Core reads them in
+`StatPart_GearStatFactor` - vanilla's own parts, the pair eltex gear uses. Core reads them in
 `Need_Essence` (gain x 1 + the bonus) and in `Need_Mana.DrainMultiplier`. A set of three pieces
 therefore gives +30% essence recovery and drains mana at 86%. Only WORN apparel counts, but it
 counts for any apparel made of the metal, this mod's or another's.
@@ -238,7 +238,7 @@ Genes and bodies:
    birth. (2026-09-20)
 
 Races and corpses:
-10. **One Health row per momo.** The tailed five and winged three use Big and
+10. **One Health row per mamono.** The tailed five and winged three use Big and
     Small's own tracker; the three plain species get a tracker of ours labelled
     with the species. (2026-09-20)
 11. Plain-body species get a race def too: it is the only way they get their own
@@ -285,7 +285,7 @@ Trade and events:
     and wyverns are unchanged. No soft dependency on any trait mod is needed, because the trait is
     ours - the idea of gating it on Vanilla Traits Expanded was dropped once that mod turned out
     to have no such trait at all. (2026-09-23)
-    Its teeth are code, not XML (`Project Momo/Source/ProjectMomo/ArrogantTraitPatch.cs`),
+    Its teeth are code, not XML (`Project Mamono/Source/ProjectMamono/ArrogantTraitPatch.cs`),
     because a TraitDef cannot read another pawn's state: her opinion of anyone below her ISEKAI
     level is docked 2 a level up to 12, and her chance to pick an insult over small talk is
     multiplied by 1.5. The penalty also has to be written onto the screen by hand: vanilla builds
@@ -297,8 +297,8 @@ Trade and events:
     asking; its wording is a keyed translation in core (`PMM_ArrogantOpinionLine`), with the
     trait label taken from the def. The market value offset it started with was dropped the
     same day. It is mutually exclusive with vanilla's `Kind`, declared on both sides
-    (`Project Momo/Defs/TraitDefs_Momo.xml` plus
-    `Project Momo/Patches/Trait_ArrogantConflicts.xml`).
+    (`Project Mamono/Defs/TraitDefs_Mamono.xml` plus
+    `Project Mamono/Patches/Trait_ArrogantConflicts.xml`).
 25. The wedding collar is Dragonia's jewelry for married dragons: worn on the neck like
     vanilla's slave collar, bought from the caravan trader, not makeable and not stuffable,
     and invisible on the pawn (no `wornGraphicPath`, so the render tree gives it no node; the
@@ -342,11 +342,11 @@ Trade and events:
   `listerThings.ThingsOfDef(thatDef)` only ever returns installed ones - which is what makes
   "an orb in a stockpile does nothing" free.
 - A dragon is a fiery-gene carrier, so core's fire ward lands on whoever she bonds. The Dragon and
-  Salamander xenotypes list core's `ProjectMomo_MomoFiery`, and core's `FireWardComponent` wards
+  Salamander xenotypes list core's `ProjectMamono_MamonoFiery`, and core's `FireWardComponent` wards
   any humanlike pawn whose living tsugai partner carries that gene - checked hourly, so it lands
   within the hour of the bond. Nothing in either mod is wrong; the two features meet.
 - VEF's hatcher writes the conception-time gene mix into the baby's **xenogenes**, not its
-  endogenes. An egg-born momo baby therefore has to have that set stripped, or she carries her
+  endogenes. An egg-born mamono baby therefore has to have that set stripped, or she carries her
   mother's genes twice - the duplicate row under "Xenogenes" in the gene inspector. `EggCompat.cs`
   drops it and adds the mother's genes back as endogenes.
 - A keyed string's `{PAWN_labelShort}`-style tokens **are** valid and are what vanilla uses (113 uses
@@ -395,7 +395,7 @@ Trade and events:
   a matching `PawnGroupMaker` on the faction (even if its worker ignores the options) or the game
   refuses to generate pawns for that kind at all. `PawnGroupKindWorker` needs three overrides:
   `GeneratePawns` (protected), `MinPointsToGenerateAnything` and `GeneratePawnKindsExample` (public).
-  So are wild momos - a pawn only gets that tree through a duty, which means raiders (2026-09-23).
+  So are wild mamonos - a pawn only gets that tree through a duty, which means raiders (2026-09-23).
 - `uninstallWork` lives under `<building>`, not at the top level of the ThingDef.
 - VEF's human egg-layer comp keeps egg progress in its own field and never touches the hediff's
   severity, so `maxSeverity` on that hediff is only a cap. The Health tab's bracketed
@@ -409,7 +409,7 @@ Trade and events:
   then builds the site with `$siteFaction`. A `KCSG.SymbolDef` with `spawnPartOfFaction` true hands
   its pawn to that faction and ignores its own `<faction>`, and `PawnGenerator.XenotypesAvailableFor`
   puts the faction's `xenotypeSet` on top of whatever pawnkind is generated - so MO's brigand kinds
-  spawned as insect momos of an insect faction, with only our xenotype-pinned matriarch looking
+  spawned as insect mamonos of an insect faction, with only our xenotype-pinned matriarch looking
   right. The whole Medieval Overhaul coupling was removed over this (2026-09-24). Fixing it properly
   means reordering MO's quest nodes; offered and declined (user ruling).
 - **Do not leave vestigial code or config behind (user ruling 2026-09-24).** When a feature loses
@@ -429,10 +429,10 @@ Confirmed in game **2026-09-24**: items 1-13 and 15-20, and 14 is closed. What i
    Broods ideoligion has Monster Extremists, leaders generated.
 3. **Confirmed in game 2026-09-24.** Every species comes out on her own race: faction pawns, wild wander-ins, raid
    pawns, and a woman corrupted into each species.
-4. **Confirmed in game 2026-09-24.** A tailed or winged momo draws her tail or wings once, from the B&S tracker.
-5. **Confirmed in game 2026-09-24.** Health tab shows one row per momo: the species name on a plain-body one, B&S's
+4. **Confirmed in game 2026-09-24.** A tailed or winged mamono draws her tail or wings once, from the B&S tracker.
+5. **Confirmed in game 2026-09-24.** Health tab shows one row per mamono: the species name on a plain-body one, B&S's
    "snake-person" / "winged humanoid" on a tailed or winged one.
-6. **Confirmed in game 2026-09-24.** Butchering a reptile gives her own scales, and her corpse sits under the "momo
+6. **Confirmed in game 2026-09-24.** Butchering a reptile gives her own scales, and her corpse sits under the "mamono
    corpses" line in the butcher menu and the item filters.
 7. **Confirmed in game 2026-09-24.** Egg inheritance: a reptile pregnancy lays exactly one fertilized egg, no birth
    bed, and the egg hatches the right baby - her gene list showing her mother's genes
@@ -463,7 +463,7 @@ Confirmed in game **2026-09-24**: items 1-13 and 15-20, and 14 is closed. What i
 15. **Confirmed in game 2026-09-24.** Dragon's Lifeblood: a dragonian caravan and a dragonian visitor both arrive with
     flasks for sale; drinking one builds the vanilla alcohol stages over several
     flasks, satisfies chemical recreation, builds alcohol tolerance, tops up mana on
-    a momo and essence on a human, and brings lovin' round sooner for a day or two.
+    a mamono and essence on a human, and brings lovin' round sooner for a day or two.
     The hediff itself must not appear on the Health tab.
 16. **Confirmed in game 2026-09-24.** Dragonium: a dragonian caravan arrives with 50-150 of it and no other vanilla trader
     ever stocks it (check an outlander base, a neolithic base and an orbital bulk trader);
@@ -471,7 +471,7 @@ Confirmed in game **2026-09-24**: items 1-13 and 15-20, and 14 is closed. What i
     outfit is better against heat and worse in the cold than plasteel; a deep drill cannot
     find it; and in the storage filters it sits under raw resources beside plasteel.
 17. **Confirmed in game 2026-09-24.** The dragonium ward: a human in a full dragonium set recovers essence faster and the stat
-    shows on her card; a momo in the same set drains mana at 86%; a dragonium sword's own card
+    shows on her card; a mamono in the same set drains mana at 86%; a dragonium sword's own card
     shows the ward figures but carrying it changes nothing.
 18. **Confirmed in game 2026-09-24.** Dragon orbs: neither orb appears in the Architect menu; a dragonian caravan sells one
     calling orb and one or two glowing orbs and no other trader ever has either; an installed
@@ -531,10 +531,10 @@ Nothing else is recorded as open here.
 
 ## 8. Where the facts live
 
-- `MASTER-PLAN.md` — this file. State of the mod, decisions, test list.
-- `XENOTYPES.md` — species detail and the §3–§5 design of petrify and the malef item.
+- `MASTER-PLAN.md` - this file. State of the mod, decisions, test list.
+- `XENOTYPES.md` - species detail and the §3–§5 design of petrify and the malef item.
   Read it for flavour, not for file paths.
-- `PLAN.md` — phase 1 design history (factions, genes, eggs, grapple).
-- `RACES-PLAN.md` — the reasoning behind the eleven races, and the B&S findings.
-- `HANDOFF.md` — the long-form lessons and the per-item work log.
-- `CHANGELOG.md` — what a player sees, newest first.
+- `PLAN.md` - phase 1 design history (factions, genes, eggs, grapple).
+- `RACES-PLAN.md` - the reasoning behind the eleven races, and the B&S findings.
+- `HANDOFF.md` - the long-form lessons and the per-item work log.
+- `CHANGELOG.md` - what a player sees, newest first.

@@ -251,7 +251,7 @@ def preview(w=1200, h=600):
                 c.blend(x, y, 226, 196, 110, sun.px[i + 3])
     return c
 
-# Simple species silhouettes on a tinted disc — placeholder xenotype icons.
+# Simple species silhouettes on a tinted disc - placeholder xenotype icons.
 def xeno_icon(r, g, b, glyph):
     c = Canvas(64, 64)
     # tinted background disc

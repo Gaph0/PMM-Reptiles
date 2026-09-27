@@ -2,7 +2,7 @@
 <Defs>
 
 	<!--
-		Shared base for both reptile momo factions. Medieval tech (locked ruling),
+		Shared base for both reptile mamono factions. Medieval tech (locked ruling),
 		tribal backstories (the closest vanilla pool to medieval mountain-folk),
 		tribal raid loot. The mountain-only settlement placement is NOT expressible
 		in XML: PMM_Reptiles.Patch_RandomSettlementTileFor enforces it in C#.
@@ -170,7 +170,7 @@
 		<factionNameMaker>PMM_NamerFactionBroods</factionNameMaker>
 		<settlementNameMaker>PMM_NamerSettlementBroods</settlementNameMaker>
 		<requiredMemes>
-			<li MayRequire="Ludeon.RimWorld.Ideology">ProjectMomo_Meme_MonsterExtremists</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">ProjectMamono_Meme_MonsterExtremists</li>
 		</requiredMemes>
 		<!-- Member xenotype roster (locked): Malef Dragon, Dragonewt, Salamander
 		     exclusive; plus the shared Lamia, Basilisk, Medusa, Wurm. FRACTIONS. -->

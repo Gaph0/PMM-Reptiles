@@ -7,14 +7,14 @@ using Verse;
 namespace PMM_Reptiles
 {
     /// <summary>
-    /// Reptile factions only settle mountains — never hills (locked ruling:
+    /// Reptile factions only settle mountains - never hills (locked ruling:
     /// LargeHills are off-theme). Vanilla offers no XML hook for per-faction
     /// settlement tile filters, so this postfix re-rolls the result of
     /// TileFinder.RandomSettlementTileFor for our two factions until the tile is
     /// Mountainous (chaining the caller's own extraValidator, so every other
     /// vanilla rule still applies). 300 re-rolls × TileFinder's own 500 candidates
     /// ≈ 150k samples, which finds a mountain in any world that has them at all.
-    /// TileFinder can never throw on failure — it logs and returns PlanetTile(0) —
+    /// TileFinder can never throw on failure - it logs and returns PlanetTile(0) -
     /// so even a mountainless world degrades gracefully rather than soft-locking.
     /// Overhead-mountain map areas (caves) come free on mountainous tiles, which
     /// is why the "mountains and caves" ruling reduces to a hilliness check.
