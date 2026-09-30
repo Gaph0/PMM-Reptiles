@@ -95,7 +95,9 @@ pawnkinds switch to `xenotypeSet` entries.
 
 XML (`Defs/GeneDefs/Genes_Reptile.xml`), style-matched to `Gene_SlimeGel.xml`:
 - `statOffsets`: `ArmorRating_Sharp` **+0.15** (modest), `ComfyTemperatureMin` **+10 °C**
-  (cold-blooded: comfort band shifts up; vanilla handles the discomfort consequences).
+  (cold-blooded: comfort band shifts up, so her safe minimum is 16 °C. The cold torpor in
+  `Source/Reptiles/ColdTorpor.cs` is what she gets instead of hypothermia - built 2026-09-30,
+  see HANDOFF §3).
 - `geneClass` `PMM_Reptiles.Gene_Reptile`; `customEffectDescriptions` list egg-laying,
   shedding, sharp hide, heat-loving.
 - Endogenes-only, `canGenerateInGeneSet` false (same ruling as the slime gel gene).

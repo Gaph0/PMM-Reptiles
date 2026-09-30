@@ -48,7 +48,8 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
   (user ruling: no LargeHills). TileFinder can't throw on failure (logs + returns
   PlanetTile(0)), so no soft-lock. DevMode log line proves it works.
 - **Reptilian gene** (`Defs/GeneDefs/Genes_Reptile.xml`): +0.15 sharp, +10°C comfy-min,
-  egg-laying via VEF, shedding via hidden hediff (`Shedding.cs`, slime-jelly pattern).
+  egg-laying via VEF, shedding via hidden hediff (`Shedding.cs`, slime-jelly pattern),
+  and cold torpor instead of hypothermia (2026-09-30, below).
 - **Egg-laying** (pure XML, Alpha Genes pattern): gene modExtension
   `VEF.Genes.GeneExtension.hediffToWholeBody = PMM_Hediff_EggLaying` →
   `VEF.Genes.HediffCompProperties_HumanEggLayer` (one `PMM_ReptileEggFertilized`,
@@ -63,6 +64,24 @@ Genes cosmetic-gene soft-dep was scrapped 2026-09-05 (see §7).
   (hostile=true, impid precedent → raiders use it) → drags victim adjacent +
   `PMM_Hediff_Constricted` (Moving −0.95 roots without downing; tease via core's
   `TeaseApplication.TryApplyTease`; release via `ShouldRemove`).
+- **Cold torpor, and the end of the hypothermia deaths** (2026-09-30,
+  `Source/Reptiles/ColdTorpor.cs` + `Defs/HediffDefs/Hediffs_ColdTorpor.xml` +
+  `Patches/ColdTorpor_HediffGivers.xml`). The +10 comfy-min put her **safe** minimum at
+  16°C (a pawn's safe range is its comfortable range widened 10 either way,
+  `GenTemperature.SafeTemperatureRange`), and vanilla's hypothermia giver builds severity
+  below 16°C while only shedding it above 26°C - so on nearly every map a reptile
+  accumulated a hypothermia she could never lose, and died of it. The gene now carries
+  `makeImmuneTo` + `hediffGiversCannotGive` on Hypothermia, which also closes vanilla's
+  frostbite roll (below 0°C, and only while hypothermia is past 0.37 severity), and a giver
+  on vanilla's own `OrganicStandard` set builds `PMM_Hediff_ColdTorpor` in its place:
+  shivering (hidden), sluggish, drowsy, torpid - the last one caps Consciousness, which lays
+  her down where she stands, and hunger falls to a tenth so a winter asleep does not starve
+  her. Rates are vanilla's own cold constants, kept so the cold bites at the old pace; the
+  one deliberate departure is that it **fades as soon as she is back inside her safe range**,
+  because her comfort range (26°C) is out of reach on most maps and VRE's own version would
+  have left her asleep forever. VRE's `VRE_HypothermicHibernation` is the model, and vanilla
+  itself gives insectoid flesh `HypothermicSlowdown` rather than Hypothermia - a cold
+  hediff with no lethality at all.
 
 ## 4. Phase 2 - xenotypes & wild spawns (bulk DONE)
 

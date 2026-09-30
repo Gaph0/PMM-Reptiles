@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Registers the reptile cold-torpor giver (built 2026-09-30).
+
+		Why a patch and not the gene: a `GeneDef` has no field for a hediff giver, so a gene
+		cannot bring one with it. Vanilla's own `OrganicStandard` set is the road every humanlike
+		and every animal already walks - named in Data/Core/Defs/HediffGiverSetDefs/
+		HediffGiverSets.xml and picked up by Races_Humanlike.xml, which every PMM race inherits
+		from its `ParentName="Human"` - and it is where VRE registers its hypothermic hibernation
+		for the same reason.
+
+		The giver returns immediately for any pawn without the reptilian gene, so this touches
+		nothing but our own mamonos: animals and vanilla humanlikes fall straight back out of it.
+
+		Added to the list, never replacing it: the vanilla givers stay exactly as they are, and
+		the torpor giver is what clears the hypothermia that still reaches a reptile.
+
+		Fields: `hediff` is the HediffGiver base field every giver in the set uses - the hediff
+		this giver builds. The rates live in C# (Source/Reptiles/ColdTorpor.cs), copied from
+		vanilla's own cold numbers.
+	-->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/HediffGiverSetDef[defName = "OrganicStandard"]/hediffGivers</xpath>
+		<value>
+			<li Class="PMM_Reptiles.HediffGiver_ColdTorpor">
+				<hediff>PMM_Hediff_ColdTorpor</hediff>
+			</li>
+		</value>
+	</Operation>
+
+</Patch>

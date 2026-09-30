@@ -17,6 +17,9 @@ Thumbs.db
 *.log
 *.zip
 
+# Python bytecode (editor-created, not part of the mod)
+__pycache__/
+
 # dotnet build output
 bin/
 obj/

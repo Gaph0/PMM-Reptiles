@@ -2,7 +2,8 @@
 
 Reptile mamonos for Project Mamono: two mountain factions (neutral Dragonia and the
 hostile Scalebound Broods), the reptilian gene (egg-laying, scale shedding, sharp
-hide, warmth-loving), and the lamia tail-grapple gene.
+hide, warmth-loving, a cold torpor instead of hypothermia), and the lamia
+tail-grapple gene.
 
 Eleven xenotypes ship today: basilisk, lamia, medusa, wurm, dragon, lizardman,
 wyvern, malef dragon, dragonewt, salamander and bunyip. Five of them - lamia, medusa,

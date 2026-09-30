@@ -5,6 +5,16 @@
 		Reptilian gene. Pure-XML parts: a modest sharp armour offset and a +10 C minimum
 		comfortable temperature (cold-blooded: the whole comfort band shifts up).
 
+		Cold is survivable for her (built 2026-09-30). The +10 puts her comfort band at 26 C
+		and up, and her SAFE band - comfort widened by 10 degrees either way - starts at 16 C,
+		which is under the air on nearly every map. Vanilla's hypothermia giver adds severity
+		below 16 and only sheds it above 26, so a reptile used to accumulate a hypothermia she
+		could never get rid of, and die of it. The two immunity fields below end that: she
+		cannot catch Hypothermia at all, which also closes vanilla's frostbite path (it rolls
+		below 0 C only while hypothermia is past 0.37 severity), and PMM_Hediff_ColdTorpor
+		takes its place - she slows, then sleeps, and wakes once she is warm again.
+		Source/Reptiles/ColdTorpor.cs carries the rates and the reasoning.
+
 		C# parts: PMM_Reptiles.Gene_Reptile adds/removes the hidden PMM_Hediff_Shedding
 		hediff in PostAdd/PostRemove (the slime-gel oozing pattern); the hediff's comp
 		drops a stack of PMM_ReptileScale once a year.
@@ -19,7 +29,7 @@
 		<defName>PMM_Gene_Reptile</defName>
 		<label>reptilian</label>
 		<labelShortAdj>reptilian</labelShortAdj>
-		<description>Carriers of this gene have the cold-blooded body of a reptile mamono: tough scales that blunt cuts and claws, a warmth-loving disposition, and a body that lays a single egg rather than birthing live young. Once a year she sheds her old scales, which can be worked like fine leather.</description>
+		<description>Carriers of this gene have the cold-blooded body of a reptile mamono: tough scales that blunt cuts and claws, a warmth-loving disposition, and a body that lays a single egg rather than birthing live young. Cold does not kill her - it slows her, and then sends her into a torpor she sleeps off once she is warm again. Once a year she sheds her old scales, which can be worked like fine leather.</description>
 		<iconPath>UI/Icons/Genes/PMM_Gene_Reptile</iconPath>
 		<geneClass>PMM_Reptiles.Gene_Reptile</geneClass>
 		<displayCategory>Miscellaneous</displayCategory>
@@ -29,9 +39,20 @@
 		<statOffsets>
 			<!-- Modest sharp resistance (locked ruling). -->
 			<ArmorRating_Sharp>0.15</ArmorRating_Sharp>
-			<!-- Cold-blooded: comfortable band shifted 10 degrees warmer. -->
+			<!-- Cold-blooded: comfortable band shifted 10 degrees warmer. Her safe minimum is
+			     therefore 16 C, and that is the temperature the cold torpor builds below. -->
 			<ComfyTemperatureMin>10</ComfyTemperatureMin>
 		</statOffsets>
+		<!-- Cannot catch the cold at all (2026-09-30): no Hypothermia, and no frostbite
+		     injury either, since vanilla rolls those below 0 C only while hypothermia is
+		     past 0.37 severity. PMM_Hediff_ColdTorpor takes its place - the giver and the
+		     hediff are in Source/Reptiles/ColdTorpor.cs and Hediffs_ColdTorpor.xml. -->
+		<makeImmuneTo>
+			<li>Hypothermia</li>
+		</makeImmuneTo>
+		<hediffGiversCannotGive>
+			<li>Hypothermia</li>
+		</hediffGiversCannotGive>
 		<modExtensions>
 			<li Class="VEF.Genes.GeneExtension">
 				<hediffToWholeBody>PMM_Hediff_EggLaying</hediffToWholeBody>

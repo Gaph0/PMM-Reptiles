@@ -2,6 +2,12 @@
 
 ## Player-facing
 
+- 2026-10-01: Changed the preview image on the mod page.
+
+- 2026-09-30: Changed the reptilian gene's icon to the Mamono heart with an R on it.
+
+- 2026-09-30: Changed the cold so it no longer kills a reptile mamono. It slows her down, then puts her to sleep, and she wakes once she is warm again.
+
 - 2026-09-27: Removed the prose lines from the reptile genes' effect lists.
 - 2026-09-27: Changed every internal name to Mamono, so saves from earlier versions no longer load.
 - 2026-09-27: Changed the mod name to Project Mamono Reptiles.
