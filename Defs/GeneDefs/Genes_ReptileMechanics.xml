@@ -35,7 +35,7 @@
 		<defName>PMM_Gene_MalefCorruption</defName>
 		<label>malef corruption</label>
 		<labelShortAdj>corrupting</labelShortAdj>
-		<description>Her blood carries the corruption. A vial drawn from her turns an ordinary woman into a dragonewt, and a dragonewt who drinks a second vial becomes a malef dragon.</description>
+		<description>Her blood carries the corruption. A vial drawn from her can turn an ordinary woman into a dragonewt, and a dragonewt into a powerful malef dragon.</description>
 		<iconPath>UI/Icons/Genes/PMM_Gene_MalefCorruption</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>

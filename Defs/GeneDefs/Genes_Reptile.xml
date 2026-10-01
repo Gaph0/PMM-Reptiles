@@ -27,6 +27,17 @@
 	-->
 	<GeneDef>
 		<defName>PMM_Gene_Reptile</defName>
+		<!-- One family per woman (user ruling 2026-10-01). The identity genes of the
+		     three families - the reptilian, the insectoid (PMM_Gene_Insect) and the
+		     slime gel (PMM_Gene_SlimeGel) - share the tag below, so the engine treats
+		     any two of them as conflicting: the loser is greyed out when both land on
+		     one pawn, the xenotype and xenogerm editors refuse to build the mix, and
+		     core's `RemoveConflictingGenes` (removal by shared tag) takes the old
+		     family's gene off a woman remade into another family. The tag string is
+		     never shown to the player; the UI names the gene that won. -->
+		<exclusionTags>
+			<li>PMM_MamonoFamily</li>
+		</exclusionTags>
 		<label>reptilian</label>
 		<labelShortAdj>reptilian</labelShortAdj>
 		<description>Carriers of this gene have the cold-blooded body of a reptile mamono: tough scales that blunt cuts and claws, a warmth-loving disposition, and a body that lays a single egg rather than birthing live young. Cold does not kill her - it slows her, and then sends her into a torpor she sleeps off once she is warm again. Once a year she sheds her old scales, which can be worked like fine leather.</description>
