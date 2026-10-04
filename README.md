@@ -122,3 +122,4 @@ Thanks to:
 - Big and Small - Framework - the serpent and winged bodies, and the race pattern.
 - Vanilla Expanded Framework - the framework under the mod.
 - Harmony - the patches under everything.
+- Kenkou Cross - the Monster Girl Encyclopedia, where these creatures come from.
