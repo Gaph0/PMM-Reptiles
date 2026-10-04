@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-04: Changed a butchered reptile to give mamono meat instead of her own species' meat.
 - 2026-10-01: Changed the reptilian gene so a mamono cannot hold it together with the insectoid or slime gel gene. She loses the others when she takes one, and the gene editors refuse the mix.
 - 2026-10-01: Changed the preview image on the mod page.
 

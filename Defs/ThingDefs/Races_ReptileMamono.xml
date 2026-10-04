@@ -13,8 +13,18 @@
 
 		Each species is a ThingDef on ParentName="Human". It carries her body, her hide
 		(leatherDef -> one of the four shared materials (dragon, lamia or lizardman
-		scales, or the bunyip's own wool), the same one she sheds while she lives) and a
-		BigAndSmall.RaceExtension naming her tracker.
+		scales, or the bunyip's own wool), the same one she sheds while she lives), her
+		meat (specificMeatDef -> the family's one PMM_MamonoMeat, which lives in the core
+		mod) and a BigAndSmall.RaceExtension naming her tracker.
+
+		The meat line is not decoration. Neither a reptile nor Human names a meat def in
+		XML, so the game generates one per race and makes it her meat: eleven
+		near-identical items in the butcher menu, the food filter and every stockpile.
+		Naming PMM_MamonoMeat in specificMeatDef is what stops that generation - a plain
+		<meatDef> would redirect the butcher yield but leave the generated def in the
+		database, unused. Her yields are unchanged - MeatAmount stays on the race, and
+		PMM_MamonoMeat is priced at the 0.8 every race inherited from Human. The core
+		mod's ThingDefs_MamonoMeat.xml explains the field choices.
 
 		Which tracker, and why (user ruling 2026-09-20, "one row"):
 		- The three plain species (lizardman, dragonewt, salamander) use a tracker of
@@ -71,6 +81,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Lizardman</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
@@ -91,6 +102,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Lamia</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
@@ -110,6 +122,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Lamia</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
@@ -129,6 +142,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Lamia</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
@@ -148,6 +162,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Bunyip</leatherDef>
 			<body>BS_SnakeHuman</body>
 			<makesFootprints>false</makesFootprints>
@@ -169,6 +184,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Dragon</leatherDef>
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
@@ -188,6 +204,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Dragon</leatherDef>
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
@@ -206,6 +223,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Dragon</leatherDef>
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
@@ -226,6 +244,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Lizardman</leatherDef>
 		</race>
 		<modExtensions>
@@ -254,6 +273,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Dragon</leatherDef>
 		</race>
 		<modExtensions>
@@ -282,6 +302,7 @@
 			<LeatherAmount>30</LeatherAmount>
 		</statBases>
 		<race>
+			<specificMeatDef>PMM_MamonoMeat</specificMeatDef>
 			<leatherDef>PMM_Scale_Lizardman</leatherDef>
 		</race>
 		<modExtensions>
