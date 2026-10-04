@@ -98,7 +98,7 @@ and several carry Project Mamono's venom, fiery body or claws.
 ### Factions
 
 - **Dragonia** - a medieval mountain faction of dragons and humans. Neutral: it
-  starts at peace, sends caravans and visitors that trade with you, and can be
+  starts off in peace, sends caravans and visitors that trade with you, and can be
   befriended or offended.
 - **Scalebound Broods** - lewdist raiders of the same mountains, out to claim men
   and remake women. Permanent enemies: they raid, and they never trade or make
