@@ -17,33 +17,32 @@ two mountain factions, a reptilian gene, and a set of dragonian trade goods.
 
 **Requires:** Harmony, Biotech, Project Mamono, Big and Small - Framework, Vanilla Expanded Framework
 
-**Optional:** Ideology (the Broods' war meme, and its ruined archotech sites), Odyssey (volcanic hunting grounds for the salamander, and Odyssey's own ruins)
+**Optional:** Ideology, Odyssey
 
 ## Content
 
 Eleven reptile mamonos live in the world's mountains, caves, deserts, wetlands,
 rivers and lakes, and in the settlements of two factions. You meet them as
-raiders, as wild women you can tame, as traders, and as women you take in. Each
-one butchers into mamono meat, and her corpse gives her own hide.
+raiders, as wild women you can tame, as traders, and as women you take in.
 
 ### Xenotypes
 
 | Mamono | Lore | Purpose in game | In plain words |
 |---|---|---|---|
-| **Basilisk** | A venomous hunter of caves and deserts. Her strikes carry a venom that slows a victim down. | A cave hunter and a fighter. She stops a man running, then closes in. | As tough as a human, slower because of the tail, and her venom ends a chase. |
+| **Basilisk** | A venomous hunter of caves and deserts. Her strikes carry a venom that slows a victim down. | A cave hunter and a fighter. She stops a man running, then closes in. | As tough as a human, slower because of the tail. |
 | **Lamia** | A serpent-tailed woman of the high caves and mountains, and a persuasive talker. | A negotiator, recruiter and trader, and a grappler in a fight. | As tough as a human, no quicker, and good with words. |
-| **Medusa** | A rarer lamia-kin who lives among cold stones and old ruins. | The one who turns people to stone. She waits in ruins for passing caravans. | As tough as a human and slower, but her gaze freezes you for two days. |
+| **Medusa** | A rarer lamia-kin who lives among cold stones and old ruins. | Turns people to stone. | As tough as a human and slower, but her gaze freezes you for two days. |
 | **Wurm** | A colossal tunneller of deep caves and wet places. Very strong, very slow to learn. | The heaviest melee fighter of the faction. | Bigger than a human and much harder to kill, and slow to learn anything. |
-| **Dragon** | A winged queen of the mountain keeps. Fire does not burn her. She is proud and greedy. | A flyer and a heavy fighter, and the only carrier of the dragon's pride gene. | Harder to kill than a human, flies, and no flame can hurt her, but she takes every slight badly. |
+| **Dragon** | A winged queen of the mountain keeps. Immune to fire and heat. She is proud and greedy. | A flyer and a heavy fighter. | Harder to kill than a human, flies, but she takes every slight badly. |
 | **Lizardman** | A cave swordmaster, quick to anger and quicker with a sword. | A soldier of the faction, and a strong melee fighter. | A little tougher than a human, heals fast, and deadly with a blade. |
-| **Wyvern** | A lean, swift cousin of the dragon, without her strength or her pride. | A flyer that carries caravans over mountains and dives on raiders. | About as tough as a human, quicker, and flies. |
-| **Malef Dragon** | A corrupted dragon. Her blood carries the dark dragon's blood. | The strongest of the Broods: a flyer with claws and tease, and the source of the drug. | As hard to kill as a dragon, flies, and the most persuasive woman here. |
+| **Wyvern** | A lean, swift cousin of the dragon, without her strength or her pride. | A flyer that can carry caravans over mountains and dives on raiders. | About as tough as a human, quicker, and flies. |
+| **Malef Dragon** | A corrupted dragon. | The strongest of the Broods: a flyer with claws and tease. | As hard to kill as a dragon, flies, and the most persuasive woman here. |
 | **Dragonewt** | A woman remade by dark dragon's blood: scaled, teasing, and a strong talker. | A fast talker of the Broods, and the rank below a malef dragon. | About as tough as a human, with claws and a fine way with words. |
 | **Salamander** | A fire-kissed lizardman breed of volcanic caves and cooling lava. | A fireproof fighter of the Broods. | About as tough as a human, and fire cannot touch her. |
 | **Bunyip** | A strong, clawed lamia-kin of rivers and lakes, and a poor talker. | Wild and tameable, and one of the strongest fighters here. She belongs to no faction. | Tougher than a human and strong in a close fight, and hopeless at talking. |
 
 Bunyips are wild only. Malef dragons and dragonewts are never wild: they come
-from the Broods, or from a vial of dark dragon's blood.
+from the Broods (hostile faction), or from a vial of dark dragon's blood.
 
 ### Genes
 
@@ -56,14 +55,14 @@ and several carry Project Mamono's venom, fiery body or claws.
   sleep until she is warm again. Metabolic efficiency -1, complexity 2.
 - `lamia tail` - a serpent's lower body, and the tail grapple. Metabolic
   efficiency -1, complexity 1.
-- `petrifying gaze` - the gaze that freezes a victim in place. Metabolic
+- `petrifying gaze` - freezes a victim in place. Metabolic
   efficiency -1, complexity 2.
-- `malef corruption` - her blood carries the corruption, which the surgery and
-  the drug look for. Metabolic efficiency -1, complexity 2.
-- `dragon's pride` - arrogant and greedy from birth. Metabolic efficiency -2.
+- `malef corruption` - her blood carries a corruption, grants a surgery to extract
+  "dark dragon's blood". Metabolic efficiency -1, complexity 2.
+- `dragon's pride` - arrogant and greedy traits. Metabolic efficiency -2.
 - `wurm's mind` - slow to learn, and half a body larger than her sisters. Body
   size +0.5.
-- `wedding collar` - while a collar is worn she is neither greedy nor arrogant.
+- `wedding collar` - while a collar is worn a mamono is neither greedy nor arrogant.
   No metabolic cost.
 
 ### Events
@@ -74,8 +73,7 @@ and several carry Project Mamono's venom, fiery body or claws.
   the desert brings a basilisk, the wetlands a wurm, and rivers and lakes a
   bunyip. Each kind is rare, and only the right land produces it.
 - **A dragon answers the orb** - a dragon orb that is installed and lit at night
-  can draw a wild dragon to your colony, whatever the land around you is like.
-  When a dragon arrives, the orb becomes a glowing dragon orb.
+  can draw a wild dragon to your colony.  When a dragon arrives, the orb degrades.
 - **A medusa in the ruins** - a caravan that passes close to a ruin can be
   ambushed. One medusa waits among broken walls and stone figures. The ambushers
   carry anyone they down away with them.
@@ -94,14 +92,14 @@ and several carry Project Mamono's venom, fiery body or claws.
 - `petrifying gaze` - "Fix a victim with the stone-cold gaze of the medusa. The
   target is frozen where she stands - downed, hunger and weariness held in
   perfect stasis - for two days." She wakes standing when the stone lets go. The
-  gaze needs a working, uncovered eye: a blind woman, or one wearing a war mask
-  or a veil, cannot be turned. Cooldown 7 days, range 10 cells, no cost.
+  gaze needs a set of working, uncovered eyes: a blind woman, one wearing something
+  like a veil or war mask, cannot be frozen. Cooldown 7 days, range 10 cells, no cost.
 
 ### Factions
 
 - **Dragonia** - a medieval mountain faction of dragons and humans. Neutral: it
   starts at peace, sends caravans and visitors that trade with you, and can be
-  befriended or offended. It fights only if you make it an enemy.
+  befriended or offended.
 - **Scalebound Broods** - lewdist raiders of the same mountains, out to claim men
   and remake women. Permanent enemies: they raid, and they never trade or make
   peace. Their raiders and captured camps carry vials of dark dragon's blood.
@@ -120,11 +118,7 @@ Licensed under the Unlicense. See the
 
 Thanks to:
 
-- Gapho - the mod.
-- Project Mamono (PMM.Core) - the mamonos, the bonds and the tease, and the shared art.
+- Tynan Sylvester and the Ludeon Studios team - RimWorld, and the Biotech, Ideology and Odyssey expansions.
 - Big and Small - Framework - the serpent and winged bodies, and the race pattern.
 - Vanilla Expanded Framework - the framework under the mod.
 - Harmony - the patches under everything.
-- Biotech - genes and xenotypes at all.
-- Ideology - the Broods' war meme, and the ruined archotech sites.
-- Odyssey - the volcanic hunting grounds, and its own kinds of ruin.
