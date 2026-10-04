@@ -162,7 +162,11 @@ FindMod by display name, probe the def for the gene after def-load (don't trust
 `ModsConfig.IsActive` - workshop mods store as `packageid_steam`), and treat
 claws/fangs as mechanical, not cosmetic.
 
-## 8. NOT YET DONE (next work, in priority order)
+## 8. Work log: what shipped, and the one item left
+
+Everything in this list has shipped and been field-tested - items 1-4 on 2026-09-05, item 5's
+pass on 2026-09-24, and items 6-8 with it. The one item still open is the lamia's coil rework,
+tracked in `MASTER-PLAN.md` §6.1 item 21. The list is kept as the record of what each item was.
 
 1. ~~**Petrify**~~ DONE (2026-09-05): `PetrifyPowers.cs` + `Abilities_Petrify.xml`
    + `Hediffs_Petrified.xml`. `PMM_Ability_Petrify` (gene-granted, 10 tiles,
@@ -197,9 +201,10 @@ claws/fangs as mechanical, not cosmetic.
    see item 7.)
 4. ~~**release.sh**~~ DONE (2026-09-05): slime pattern, but the repo slug comes
    from the git origin remote (override via `PMM_REPO` env) because this repo
-   had no remote configured yet. `About/preview.png` is the mktex.py placeholder
-   (mountain bands + sun) - polish optional.
-5. **In-game test pass** (see the testing plan in chat): boot (zero red errors),
+   had no remote configured yet. `About/preview.png` is the image from 2026-10-01, not
+   the mktex.py placeholder.
+5. **In-game test pass - DONE 2026-09-24, extended 2026-10-04** (`MASTER-PLAN.md` §2 and §6.1 hold
+   the results) (see the testing plan in chat): boot (zero red errors),
    worldgen (1 faction each, mountains-only, icons visible, Broods ideo has Monster
    Extremists, leaders generated), egg inheritance (Stage 3, highest risk), grapple,
    shedding, wild-mamono habitat gates. NEW since this list: petrify (cast on a
@@ -208,14 +213,14 @@ claws/fangs as mechanical, not cosmetic.
    Malef on the next; a Dragon → Malef on her first; a Malef → nothing; plus the
    harvest surgery on a living Malef), ruins ambush (caravan near a ruin).
 
-6. **Own race defs for the 11 species - DONE 2026-09-20, not yet field-tested.**
+6. **Own race defs for the 11 species - DONE 2026-09-20, field-tested 2026-09-24.**
    Every species has a race def (`Defs/ThingDefs/Races_ReptileMamono.xml`), each
    xenotype names hers with `setRace` + `forceRace`, and all 11 corpses are on the
    family's shared "mamono corpses" line. Reasoning, decisions and the test list live
    in `RACES-PLAN.md`.
 
-7. **Trade, guests, the ruin fill and the scales moodlet - BUILT 2026-09-20, not yet
-   field-tested.** The four items that were sitting in `PLAN.md` §9:
+7. **Trade, guests, the ruin fill and the scales moodlet - BUILT 2026-09-20,
+   field-tested 2026-09-24.** The four items that were sitting in `PLAN.md` §9:
    - DRAGONIA TRADE: `Defs/TraderKindDefs/TraderKinds_Dragonia.xml` plus
      `caravanTraderKinds` on the faction (neutral realm only - the Broods are enemies).
    - RUIN FILL: `Source/Reptiles/MedusaRuinFill.cs` dresses our ambush map with broken
@@ -244,7 +249,7 @@ claws/fangs as mechanical, not cosmetic.
    instantVisitorsGift` in dev mode makes visitors leave at once); shedding shows the
    moodlet.
 
-8. **Dragon orbs - BUILT 2026-09-22, not yet field-tested.** The wiki's porch lamps, as
+8. **Dragon orbs - BUILT 2026-09-22, field-tested 2026-09-24.** The wiki's porch lamps, as
    furniture that is bought instead of built:
    - DEFS: `Defs/ThingDefs/Building_DragonOrb.xml` - `PMM_DragonOrb` (calling) and
      `PMM_DragonOrbDecor` (glowing), 1x1, `minifiedDef MinifiedThing`, and deliberately

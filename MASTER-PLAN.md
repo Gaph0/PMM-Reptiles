@@ -46,11 +46,20 @@ dragon, lizardman, dragonewt, salamander.
 | Dragon's Lifeblood, Dragonia's wine, in trader stock | built 2026-09-22 | yes, 2026-09-24 |
 | Dragonium, Dragonia's metal, in trader stock | built 2026-09-22 | yes, 2026-09-24 |
 | Dragon orbs, bought lamps that call a dragon at night | built 2026-09-22 | yes, 2026-09-24 |
-| Full in-game test pass (HANDOFF §8 item 5) | **done 2026-09-24** | items 14 and 21 still open |
+| Cold torpor instead of hypothermia (the cold slows her, then sleeps her) | built 2026-09-30 | yes, 2026-10-04 |
+| One family per woman (`PMM_MamonoFamily` on the identity genes) | built 2026-10-01 | yes, 2026-10-04 |
+| Mamono rename (labels, defNames, C# types; older saves do not load) | built 2026-09-27 | yes, 2026-10-04 |
+| Effect boxes carry engine lines only, no custom prose | built 2026-09-27 | yes, 2026-10-04 |
+| The family's one mamono meat from every reptile corpse | built 2026-10-04 | yes, 2026-10-04 |
+| Full in-game test pass (HANDOFF §8 item 5) | **done 2026-09-24**, extended 2026-10-04 | item 21 still open |
 
-Most of the 2026-09-22 to 2026-09-24 work is still uncommitted - the dragon orbs, the
-wedding collar, the coil and gaze changes, and these documents among it. Run `git status`
-for the live list.
+Everything through 2026-10-04 is committed and pushed: `main` sits level with `origin/main` at
+`4054241`, and the dragon orbs, the wedding collar, the coil and gaze changes and these documents
+went in with it.
+
+Confirmed in game **2026-10-04**: cold torpor, the Mamono rename, the effect-box prose sweep, the
+family mamono meat, the new mod-page preview image, and one family per woman. **The lamia's coil
+rework (§6.1 item 21) is the only test item still open.**
 
 ## 3. What is built, and where it lives
 
@@ -422,8 +431,9 @@ Trade and events:
 ## 6. What is left to do
 
 ### 6.1 Test debt (one list; run it in game with dev mode on)
-Confirmed in game **2026-09-24**: items 1-13 and 15-20, and 14 is closed. What is actually left is
-**21**, which has not been tried yet, so the items below carry inline marks rather than being deleted.
+Confirmed in game **2026-09-24**: items 1-13 and 15-20, and 14 is closed. Confirmed **2026-10-04**:
+items 22-26, the features built after that pass. What is actually left is **21**, the lamia's coil
+rework, which has not been tried yet; the items below carry inline marks rather than being deleted.
 1. **Confirmed in game 2026-09-24.** Boot with zero red errors; check the log for def-load warnings.
 2. **Confirmed in game 2026-09-24.** Worldgen: one Dragonia and one Broods faction, mountains only, icons visible,
    Broods ideoligion has Monster Extremists, leaders generated.
@@ -495,6 +505,19 @@ Confirmed in game **2026-09-24**: items 1-13 and 15-20, and 14 is closed. What i
     in about half an hour instead of nearly three; he rolls to break out every eighth of an hour, 10%
     plus his strength advantage over her; the coils hold while she carries him off, and still end if
     she goes down.
+22. **Confirmed in game 2026-10-04.** Cold torpor: a reptile in the cold slows down, then falls asleep,
+    and wakes when she is warm again. She never takes hypothermia and never freezes to death, and the
+    torpor hediff clears once she is back inside her own safe range.
+23. **Confirmed in game 2026-10-04.** The Mamono rename: every label, defName and C# type reads Mamono,
+    and the mod loads clean with it.
+24. **Confirmed in game 2026-10-04.** Effect boxes: no gene prints a prose line in its effect list any
+    more, only the engine's own stat and condition lines; the mechanics whose only line was prose
+    (tease, venom, petrify) read in the description instead.
+25. **Confirmed in game 2026-10-04.** Family mamono meat: butchering any of the eleven species gives
+    `PMM_MamonoMeat` rather than that species' own meat, and the corpse still gives her own hide.
+26. **Confirmed in game 2026-10-04.** One family per woman: the reptile, insect and slime-gel identity
+    genes conflict through `PMM_MamonoFamily`, so a woman loses the other family's gene when she takes
+    one, and the gene editors refuse the mix.
 
 ### 6.2 Repo chores
 Cleared 2026-09-23: the blood harvest surgery has the changelog line it was missing, for the
